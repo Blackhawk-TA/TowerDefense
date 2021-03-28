@@ -5,27 +5,34 @@ cmake_minimum_required(VERSION 3.9)
 project(TowerDefense)
 
 # Add your sources here (adding headers is optional, but helps some CMake generators)
-set(PROJECT_SOURCE game.cpp game.hpp)
+set(PROJECT_SOURCE
+    src/game.cpp
+    src/game.hpp
+    src/utils/utils.cpp
+    src/utils/utils.hpp
+    src/utils/layer_handler.cpp
+    src/utils/layer_handler.hpp
+)
 
 # ... and any other files you want in the release here
-set(PROJECT_DISTRIBS LICENSE README.md)
+set(PROJECT_DISTRIBS LICENSE.md README.md)
 
 # Build configuration; approach this with caution!
-if(MSVC)
-  add_compile_options("/W4" "/wd4244" "/wd4324" "/wd4458" "/wd4100")
-else()
-  add_compile_options("-Wall" "-Wextra" "-Wdouble-promotion" "-Wno-unused-parameter")
-endif()
+if (MSVC)
+    add_compile_options("/W4" "/wd4244" "/wd4324" "/wd4458" "/wd4100")
+else ()
+    add_compile_options("-Wall" "-Wextra" "-Wdouble-promotion" "-Wno-unused-parameter")
+endif ()
 
-find_package (32BLIT CONFIG REQUIRED PATHS ../32blit-sdk)
+find_package(32BLIT CONFIG REQUIRED PATHS ../32blit-sdk)
 
-blit_executable (${PROJECT_NAME} ${PROJECT_SOURCE})
-blit_assets_yaml (${PROJECT_NAME} assets.yml)
-blit_metadata (${PROJECT_NAME} metadata.yml)
-add_custom_target (flash DEPENDS ${PROJECT_NAME}.flash)
+blit_executable(${PROJECT_NAME} ${PROJECT_SOURCE})
+blit_assets_yaml(${PROJECT_NAME} assets.yml)
+blit_metadata(${PROJECT_NAME} metadata.yml)
+add_custom_target(flash DEPENDS ${PROJECT_NAME}.flash)
 
 # setup release packages
-install (FILES ${PROJECT_DISTRIBS} DESTINATION .)
-set (CPACK_INCLUDE_TOPLEVEL_DIRECTORY OFF)
-set (CPACK_GENERATOR "ZIP" "TGZ")
-include (CPack)
+install(FILES ${PROJECT_DISTRIBS} DESTINATION .)
+set(CPACK_INCLUDE_TOPLEVEL_DIRECTORY OFF)
+set(CPACK_GENERATOR "ZIP" "TGZ")
+include(CPack)
