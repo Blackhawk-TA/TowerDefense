@@ -18,7 +18,7 @@ std::function<Mat3(uint8_t)> level_line_interrupt_callback = [](uint8_t y) -> Ma
 // setup your game here
 //
 void init() {
-	set_screen_mode(ScreenMode::lores); // Maybe use different screen mode
+	set_screen_mode(ScreenMode::lores);
 	screen.sprites = Surface::load(asset_spritesheet);
 
 	LayerHandler::generate_map();
@@ -55,7 +55,7 @@ void render(uint32_t time) {
 	LayerHandler::draw_map(&level_line_interrupt_callback);
 
 	ms_end = now();
-//	draw_fps();
+	draw_fps();
 }
 
 void update_camera(uint32_t time) {
