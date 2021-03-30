@@ -1,10 +1,9 @@
 //
 // Created by daniel on 28.02.21.
 //
-#include "32blit.hpp"
 
-#ifndef RPG_TEST_LAYER_HANDLER_HPP
-#define RPG_TEST_LAYER_HANDLER_HPP
+#pragma once
+#include "32blit.hpp"
 
 using namespace blit;
 
@@ -20,5 +19,3 @@ public:
 	static void set_flags(LayerHandler::TileFlags flag, const std::vector<uint8_t> &tiles);
 	static uint8_t get_flag(Point p);
 };
-
-#endif //RPG_TEST_LAYER_HANDLER_HPP
