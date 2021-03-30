@@ -4,7 +4,7 @@
 ![Build](https://github.com/Blackhawk-TA/TowerDefense/workflows/Build/badge.svg)
 [![github](https://img.shields.io/github/release/Blackhawk-TA/TowerDefense.svg?color=brightgreen)](https://github.com/Blackhawk-TA/snake32/releases)
 
-This is a version of the classic snake game for the 32Blit retro console.
+A simple tower defense game for the 32Blit retro console.
 
 ## Build
 Linux:
