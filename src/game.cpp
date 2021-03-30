@@ -7,7 +7,9 @@ using namespace blit;
 
 std::vector<Enemy> enemies;
 float ms_start, ms_end;
-Mat3 camera;
+uint32_t score = 0;
+
+Mat3 camera; //TODO check if camera is required and how it can be improved
 std::function<Mat3(uint8_t)> level_line_interrupt_callback = [](uint8_t y) -> Mat3 {
 	return camera;
 };
@@ -28,14 +30,24 @@ void init() {
 	enemies.push_back(*new Enemy()); //TODO generate enemies automatically
 }
 
+void draw_score() {
+	screen.pen = Pen(255, 255, 255, 200);
+	screen.text(std::to_string(score),
+		minimal_font,
+		Rect(screen.bounds.w - 10, 1, 10, 16),
+		true,
+		TextAlign::top_right
+	);
+}
+
 void draw_fps() {
 	screen.alpha = 255;
 	screen.pen = Pen(255, 255, 255, 100);
-	screen.rectangle(Rect(1, 120 - 10, 20, 9));
+	screen.rectangle(Rect(1, screen.bounds.h - 10, 20, 9));
 	screen.pen = Pen(255, 255, 255, 200);
 	int fps = (int)(1 / ((ms_end - ms_start)/1000));
 	std::string fms = std::to_string(std::max(fps, 999));
-	screen.text(fms, minimal_font, Rect(3, 120 - 9, 10, 16));
+	screen.text(fms, minimal_font, Rect(3, screen.bounds.h - 9, 10, 16));
 
 	int block_size = 4;
 	for (uint32_t i = 0; i < (ms_end - ms_start); i++) {
@@ -53,21 +65,18 @@ void draw_fps() {
 //
 void render(uint32_t time) {
 	ms_start = now();
-
 	screen.clear();
 
 	LayerHandler::draw_map(&level_line_interrupt_callback);
 
-	ms_end = now();
-	draw_fps();
-
 	for (Enemy &enemy : enemies) {
 		enemy.draw();
 	}
-}
 
-void update_camera(uint32_t time) {
-	camera = Mat3::identity();
+	draw_score();
+
+	ms_end = now();
+	draw_fps();
 }
 
 ///////////////////////////////////////////////////////////////////////////
@@ -78,5 +87,5 @@ void update_camera(uint32_t time) {
 // amount if milliseconds elapsed since the start of your game
 //
 void update(uint32_t time) {
-	update_camera(time);
+	camera = Mat3::identity();
 }
