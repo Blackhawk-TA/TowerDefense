@@ -1,9 +1,11 @@
 #include "game.hpp"
 #include "assets.hpp"
 #include "utils/layer_handler.hpp"
+#include "enemy.hpp"
 
 using namespace blit;
 
+std::vector<Enemy> enemies;
 float ms_start, ms_end;
 Mat3 camera;
 std::function<Mat3(uint8_t)> level_line_interrupt_callback = [](uint8_t y) -> Mat3 {
@@ -22,6 +24,8 @@ void init() {
 	screen.sprites = Surface::load(asset_spritesheet);
 
 	LayerHandler::generate_map();
+
+	enemies.push_back(*new Enemy()); //TODO generate enemies automatically
 }
 
 void draw_fps() {
@@ -56,6 +60,10 @@ void render(uint32_t time) {
 
 	ms_end = now();
 	draw_fps();
+
+	for (Enemy &enemy : enemies) {
+		enemy.draw();
+	}
 }
 
 void update_camera(uint32_t time) {

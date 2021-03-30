@@ -8,6 +8,8 @@ project(TowerDefense)
 set(PROJECT_SOURCE
     src/game.cpp
     src/game.hpp
+    src/enemy.cpp
+    src/enemy.hpp
     src/utils/utils.cpp
     src/utils/utils.hpp
     src/utils/layer_handler.cpp
