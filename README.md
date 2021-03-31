@@ -1,4 +1,4 @@
-# TowerDefense
+# Tower Defense
 
 [![license](http://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/Blackhawk-TA/TowerDefense/blob/master/LICENSE.md)
 ![Build](https://github.com/Blackhawk-TA/TowerDefense/workflows/Build/badge.svg)
