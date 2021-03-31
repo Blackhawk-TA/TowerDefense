@@ -15,7 +15,7 @@ cmake ..
 make
 ```
 
-32blit:
+32Blit:
 ```
 mkdir build.stm32
 cd build.stm32
