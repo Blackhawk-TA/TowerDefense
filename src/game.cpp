@@ -2,16 +2,16 @@
 #include "assets.hpp"
 #include "utils/layer_handler.hpp"
 #include "utils/enemy_handler.hpp"
-#include "objects/enemy.hpp"
 #include "objects/chest.hpp"
 
 using namespace blit;
 
 constexpr Point chest_base_position = Point(16, 12);
-std::vector<Enemy> enemies;
 std::vector<Chest> chests;
 float ms_start, ms_end;
 uint32_t score = 0;
+
+EnemyHandler* enemy_handler;
 
 Mat3 camera; //TODO check if camera is required and how it can be improved
 std::function<Mat3(uint8_t)> level_line_interrupt_callback = [](uint8_t y) -> Mat3 {
@@ -33,14 +33,14 @@ void init() {
 	LayerHandler::set_flags(LayerHandler::PATH, {48});
 	LayerHandler::set_flags(LayerHandler::CHEST, {101});
 
+	enemy_handler = new EnemyHandler(Point(0, 1));
+	enemy_handler->spawn_enemies();
+
 	//Create chests
 	for(auto i = 0u; i < 3; i++) {
 		chests.push_back(*new Chest(Point(chest_base_position.x + i, chest_base_position.y)));
 	}
 
-	Point enemy_start_position = Point(0, 1);
-	std::vector<Point> enemy_path = EnemyHandler::calculate_path(enemy_start_position);
-	enemies.push_back(*new Enemy(enemy_start_position, enemy_path)); //TODO generate enemies automatically
 }
 
 void draw_score() {
@@ -81,9 +81,8 @@ void render(uint32_t time) {
 
 	LayerHandler::draw_map(&level_line_interrupt_callback);
 
-	for (Enemy &enemy : enemies) {
-		enemy.draw();
-	}
+	enemy_handler->draw_enemies();
+
 	for (Chest &chest : chests) {
 		chest.draw();
 	}
@@ -103,4 +102,5 @@ void render(uint32_t time) {
 //
 void update(uint32_t time) {
 	camera = Mat3::identity();
+	enemy_handler->move_enemies();
 }

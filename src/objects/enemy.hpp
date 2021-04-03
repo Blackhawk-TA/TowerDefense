@@ -12,6 +12,7 @@ class Enemy {
 public:
 	explicit Enemy(Point start_position, std::vector<Point> &path);
 	void draw();
+	void move();
 	uint8_t take_damage(uint8_t damage);
 
 private:
@@ -21,6 +22,4 @@ private:
 
 	uint8_t health;
 	Point position;
-
-	void move();
 };

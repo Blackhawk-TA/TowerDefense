@@ -6,6 +6,27 @@
 
 using namespace blit;
 
+EnemyHandler::EnemyHandler(Point enemy_start_position) {
+	EnemyHandler::enemy_start_position = enemy_start_position;
+}
+
+void EnemyHandler::spawn_enemies() {
+	std::vector<Point> enemy_path = EnemyHandler::calculate_path(enemy_start_position);
+	enemies.push_back(*new Enemy(enemy_start_position, enemy_path)); //TODO generate enemies automatically
+}
+
+void EnemyHandler::draw_enemies() {
+	for (Enemy &enemy : enemies) {
+		enemy.draw();
+	}
+}
+
+void EnemyHandler::move_enemies() {
+	for (Enemy &enemy : enemies) {
+		enemy.move();
+	}
+}
+
 ///////////////////////////////////////////////////////////////////////////
 //
 // Calculates the entire path which all enemies use.
