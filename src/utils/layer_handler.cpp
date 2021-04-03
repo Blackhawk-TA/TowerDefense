@@ -7,11 +7,11 @@
 #include "layer_handler.hpp"
 
 constexpr uint8_t layer_count = 3;
-constexpr uint8_t flag_count = 2;
+constexpr uint8_t flag_count = 3;
 
 std::array<std::vector<uint8_t>, flag_count> flags;
-uint8_t *layer_data[layer_count];
-TileMap *layers[layer_count];
+uint8_t* layer_data[layer_count];
+TileMap* layers[layer_count];
 
 void LayerHandler::generate_map() {
 	TMX *tmx = (TMX *)asset_map;
@@ -58,7 +58,7 @@ uint8_t LayerHandler::get_flag(Point p) {
 		j = 0;
 		tile_id = layers[i]->tile_at(p);
 
-		while (!flag_found && j < flags.size()) {
+		while (!flag_found && j < flags.size() - 1) {
 			j++;
 			k = 0;
 			while (!flag_found && k < flags[j].size()) {

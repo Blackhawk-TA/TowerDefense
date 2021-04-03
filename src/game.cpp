@@ -38,9 +38,9 @@ void init() {
 		chests.push_back(*new Chest(Point(chest_base_position.x + i, chest_base_position.y)));
 	}
 
-	std::vector<Point> enemy_path = EnemyHandler::calculate_path(Point(0, 0));
-
-	enemies.push_back(*new Enemy(Point(0, 0), enemy_path)); //TODO generate enemies automatically
+	Point enemy_start_position = Point(0, 1);
+	std::vector<Point> enemy_path = EnemyHandler::calculate_path(enemy_start_position);
+	enemies.push_back(*new Enemy(enemy_start_position, enemy_path)); //TODO generate enemies automatically
 }
 
 void draw_score() {
