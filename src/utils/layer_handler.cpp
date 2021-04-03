@@ -6,7 +6,7 @@
 #include "assets.hpp"
 #include "layer_handler.hpp"
 
-constexpr uint8_t layer_count = 3;
+constexpr uint8_t layer_count = 4;
 constexpr uint8_t flag_count = 3;
 
 std::array<std::vector<uint8_t>, flag_count> flags;
@@ -36,9 +36,14 @@ void LayerHandler::generate_map() {
 	}
 }
 
-void LayerHandler::draw_map(std::function<Mat3(uint8_t)> *level_line_interrupt_callback) {
-	for (auto & layer : layers) {
-		layer->draw(&screen, Rect(0, 0, screen.bounds.w, screen.bounds.h), *level_line_interrupt_callback);
+void LayerHandler::draw_map(bool build_mode, std::function<Mat3(uint8_t)> *level_line_interrupt_callback) {
+	uint8_t drawing_layers = layer_count;
+	if (!build_mode) {
+		drawing_layers--;
+	}
+
+	for (auto i = 0u; i < drawing_layers; i++) {
+		layers[i]->draw(&screen, Rect(0, 0, screen.bounds.w, screen.bounds.h), *level_line_interrupt_callback);
 	}
 }
 

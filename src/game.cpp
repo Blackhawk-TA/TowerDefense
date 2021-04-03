@@ -10,8 +10,9 @@ constexpr Point chest_base_position = Point(16, 12);
 std::vector<Chest> chests;
 float ms_start, ms_end;
 uint32_t score = 0;
+bool build_mode = false;
 
-EnemyHandler* enemy_handler;
+EnemyHandler *enemy_handler;
 
 Mat3 camera; //TODO check if camera is required and how it can be improved
 std::function<Mat3(uint8_t)> level_line_interrupt_callback = [](uint8_t y) -> Mat3 {
@@ -37,7 +38,7 @@ void init() {
 	enemy_handler->spawn_enemies();
 
 	//Create chests
-	for(auto i = 0u; i < 3; i++) {
+	for (auto i = 0u; i < 3; i++) {
 		chests.push_back(*new Chest(Point(chest_base_position.x + i, chest_base_position.y)));
 	}
 
@@ -58,12 +59,12 @@ void draw_fps() {
 	screen.pen = Pen(255, 255, 255, 100);
 	screen.rectangle(Rect(1, screen.bounds.h - 10, 20, 9));
 	screen.pen = Pen(255, 255, 255, 200);
-	std::string fms = std::to_string((int)(1/((ms_end - ms_start)/1000)));
+	std::string fms = std::to_string((int) (1 / ((ms_end - ms_start) / 1000)));
 	screen.text(fms, minimal_font, Rect(3, screen.bounds.h - 9, 10, 16));
 
 	int block_size = 4;
 	for (uint32_t i = 0; i < (ms_end - ms_start); i++) {
-		screen.pen = Pen((int)i * 5, 255 - ((int)i * 5), 0);
+		screen.pen = Pen((int) i * 5, 255 - ((int) i * 5), 0);
 		screen.rectangle(Rect(i * (block_size + 1) + 1 + 21, screen.bounds.h - block_size - 1, block_size, block_size));
 	}
 }
@@ -79,7 +80,7 @@ void render(uint32_t time) {
 	ms_start = now();
 	screen.clear();
 
-	LayerHandler::draw_map(&level_line_interrupt_callback);
+	LayerHandler::draw_map(build_mode, &level_line_interrupt_callback);
 
 	enemy_handler->draw_enemies();
 
@@ -103,4 +104,15 @@ void render(uint32_t time) {
 void update(uint32_t time) {
 	camera = Mat3::identity();
 	enemy_handler->move_enemies();
+
+	//Handle button inputs
+	static uint32_t last_buttons = 0;
+	static uint32_t changed = 0;
+	changed = buttons ^ last_buttons;
+
+	if (buttons & changed & Button::B) {
+		build_mode = !build_mode;
+	}
+
+	last_buttons = buttons;
 }
