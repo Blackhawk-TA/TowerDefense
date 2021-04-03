@@ -1,8 +1,8 @@
 #include "game.hpp"
 #include "assets.hpp"
 #include "utils/layer_handler.hpp"
-#include "enemy.hpp"
-#include "chest.hpp"
+#include "objects/enemy.hpp"
+#include "objects/chest.hpp"
 
 using namespace blit;
 
@@ -29,6 +29,8 @@ void init() {
 	screen.sprites = Surface::load(asset_spritesheet);
 
 	LayerHandler::generate_map();
+	LayerHandler::set_flags(LayerHandler::PATH, {48});
+	LayerHandler::set_flags(LayerHandler::CHEST, {101});
 
 	//Draw chests
 	for(auto i = 0u; i < 3; i++) {
@@ -79,7 +81,6 @@ void render(uint32_t time) {
 	for (Enemy &enemy : enemies) {
 		enemy.draw();
 	}
-
 	for (Chest &chest : chests) {
 		chest.draw();
 	}

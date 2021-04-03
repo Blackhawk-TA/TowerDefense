@@ -3,14 +3,13 @@
 //
 
 #pragma once
-
-#include "utils/utils.hpp"
+#include "../utils/utils.hpp"
 
 using namespace blit;
 
 class Chest {
 public:
-	Chest(Point position);
+	explicit Chest(Point position);
 	void draw();
 	void open();
 

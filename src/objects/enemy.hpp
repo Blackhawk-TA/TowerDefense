@@ -3,14 +3,16 @@
 //
 
 #pragma once
-#include "32blit.hpp"
+#include "../utils/utils.hpp"
+#include "../utils/layer_handler.hpp"
 
 using namespace blit;
 
 class Enemy {
 public:
-	Enemy();
+	explicit Enemy();
 	void draw();
+	uint8_t take_damage(uint8_t damage);
 
 private:
 	const Point size = Point(1, 1);
@@ -20,5 +22,5 @@ private:
 	uint8_t health;
 	Point position;
 
-	void move(Point next_tile);
+	void move();
 };

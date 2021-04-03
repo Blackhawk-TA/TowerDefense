@@ -5,9 +5,8 @@
 #include <cstring>
 #include "assets.hpp"
 #include "layer_handler.hpp"
-#include "utils.hpp"
 
-constexpr uint8_t layer_count = 3; //TODO maybe exclude path layer because it is not drawn
+constexpr uint8_t layer_count = 3;
 
 std::array<std::vector<uint8_t>, layer_count> flags;
 uint8_t *layer_data[layer_count];
@@ -48,7 +47,7 @@ void LayerHandler::draw_map(std::function<Mat3(uint8_t)> *level_line_interrupt_c
 //
 //TODO ignore path layer & implement own function for get path flag (e.g. is_path) with its own path_flags array
 //TODO best approach: store path flags in different array => get_flags does not require changes, but is slower due to unnecessary layer check of path layer
-uint8_t LayerHandler::get_flag(Point &p) {
+uint8_t LayerHandler::get_flag(Point p) {
 	uint8_t i = layer_count;
 	uint8_t j, k;
 	uint8_t tile_id;
