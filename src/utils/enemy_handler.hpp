@@ -11,5 +11,5 @@ public:
 	static std::vector<Point> calculate_path(Point start_position);
 
 private:
-	static Point calculate_next_position(Point start_position, LayerHandler::TileFlags flag);
+	static Point calculate_next_position(Point previous_position, Point current_position, LayerHandler::TileFlags flag);
 };

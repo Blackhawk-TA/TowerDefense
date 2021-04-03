@@ -6,9 +6,9 @@
 
 using namespace blit;
 
-Enemy::Enemy() {
+Enemy::Enemy(Point start_position, std::vector<Point> &path) {
 	health = 100;
-	position = Point(0, 0);
+	position = start_position;
 }
 
 void Enemy::draw() {

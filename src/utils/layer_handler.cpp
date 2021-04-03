@@ -7,8 +7,9 @@
 #include "layer_handler.hpp"
 
 constexpr uint8_t layer_count = 3;
+constexpr uint8_t flag_count = 2;
 
-std::array<std::vector<uint8_t>, layer_count> flags;
+std::array<std::vector<uint8_t>, flag_count> flags;
 uint8_t *layer_data[layer_count];
 TileMap *layers[layer_count];
 
@@ -45,8 +46,6 @@ void LayerHandler::draw_map(std::function<Mat3(uint8_t)> *level_line_interrupt_c
 //
 // Gets the flag of the given sprite on its highest layer, ignoring all underlying flags
 //
-//TODO ignore path layer & implement own function for get path flag (e.g. is_path) with its own path_flags array
-//TODO best approach: store path flags in different array => get_flags does not require changes, but is slower due to unnecessary layer check of path layer
 uint8_t LayerHandler::get_flag(Point p) {
 	uint8_t i = layer_count;
 	uint8_t j, k;

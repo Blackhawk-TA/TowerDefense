@@ -10,7 +10,7 @@ using namespace blit;
 
 class Enemy {
 public:
-	explicit Enemy();
+	explicit Enemy(Point start_position, std::vector<Point> &path);
 	void draw();
 	uint8_t take_damage(uint8_t damage);
 

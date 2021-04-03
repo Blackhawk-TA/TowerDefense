@@ -1,6 +1,7 @@
 #include "game.hpp"
 #include "assets.hpp"
 #include "utils/layer_handler.hpp"
+#include "utils/enemy_handler.hpp"
 #include "objects/enemy.hpp"
 #include "objects/chest.hpp"
 
@@ -32,12 +33,14 @@ void init() {
 	LayerHandler::set_flags(LayerHandler::PATH, {48});
 	LayerHandler::set_flags(LayerHandler::CHEST, {101});
 
-	//Draw chests
+	//Create chests
 	for(auto i = 0u; i < 3; i++) {
 		chests.push_back(*new Chest(Point(chest_base_position.x + i, chest_base_position.y)));
 	}
 
-	enemies.push_back(*new Enemy()); //TODO generate enemies automatically
+	std::vector<Point> enemy_path = EnemyHandler::calculate_path(Point(0, 0));
+
+	enemies.push_back(*new Enemy(Point(0, 0), enemy_path)); //TODO generate enemies automatically
 }
 
 void draw_score() {
