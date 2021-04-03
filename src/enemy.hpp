@@ -9,12 +9,12 @@ using namespace blit;
 
 class Enemy {
 public:
-	explicit Enemy();
+	Enemy();
 	void draw();
 
 private:
 	const Point size = Point(1, 1);
-	const Point tile = Point(14, 4);
+	const Point sprite = Point(14, 4);
 	const uint8_t velocity = 5;
 
 	uint8_t health;

@@ -10,6 +10,8 @@ set(PROJECT_SOURCE
     src/game.hpp
     src/enemy.cpp
     src/enemy.hpp
+    src/chest.cpp
+    src/chest.hpp
     src/utils/utils.cpp
     src/utils/utils.hpp
     src/utils/layer_handler.cpp

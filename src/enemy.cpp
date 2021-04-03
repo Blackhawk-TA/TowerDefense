@@ -12,7 +12,7 @@ Enemy::Enemy() {
 };
 
 void Enemy::draw() {
-	screen.sprite(Rect(tile.x, tile.y, size.x, size.y), position);
+	screen.sprite(Rect(sprite.x, sprite.y, size.x, size.y), position);
 }
 
 void Enemy::move(Point next_tile) {

@@ -2,10 +2,13 @@
 #include "assets.hpp"
 #include "utils/layer_handler.hpp"
 #include "enemy.hpp"
+#include "chest.hpp"
 
 using namespace blit;
 
+constexpr Point chest_base_position = Point(16, 12);
 std::vector<Enemy> enemies;
+std::vector<Chest> chests;
 float ms_start, ms_end;
 uint32_t score = 0;
 
@@ -27,6 +30,11 @@ void init() {
 
 	LayerHandler::generate_map();
 
+	//Draw chests
+	for(auto i = 0u; i < 3; i++) {
+		chests.push_back(*new Chest(Point(chest_base_position.x + i, chest_base_position.y)));
+	}
+
 	enemies.push_back(*new Enemy()); //TODO generate enemies automatically
 }
 
@@ -45,8 +53,7 @@ void draw_fps() {
 	screen.pen = Pen(255, 255, 255, 100);
 	screen.rectangle(Rect(1, screen.bounds.h - 10, 20, 9));
 	screen.pen = Pen(255, 255, 255, 200);
-	int fps = (int)(1 / ((ms_end - ms_start)/1000));
-	std::string fms = std::to_string(std::max(fps, 999));
+	std::string fms = std::to_string((int)(1/((ms_end - ms_start)/1000)));
 	screen.text(fms, minimal_font, Rect(3, screen.bounds.h - 9, 10, 16));
 
 	int block_size = 4;
@@ -71,6 +78,10 @@ void render(uint32_t time) {
 
 	for (Enemy &enemy : enemies) {
 		enemy.draw();
+	}
+
+	for (Chest &chest : chests) {
+		chest.draw();
 	}
 
 	draw_score();
