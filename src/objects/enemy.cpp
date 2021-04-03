@@ -9,8 +9,7 @@ using namespace blit;
 Enemy::Enemy() {
 	health = 100;
 	position = Point(0, 0);
-	has_next_position = false;
-};
+}
 
 void Enemy::draw() {
 	screen.sprite(Rect(sprite.x, sprite.y, size.x, size.y), world_to_screen(position));
