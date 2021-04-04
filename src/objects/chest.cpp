@@ -8,13 +8,13 @@ using namespace blit;
 
 Chest::Chest(Point position) {
 	Chest::position = position;
-	sprite = closed_sprite;
+	sprite_id = closed_sprite_id;
 }
 
 void Chest::draw() {
-	screen.sprite(Rect(sprite.x, sprite.y, size.x, size.y), world_to_screen(position));
+	screen.sprite(sprite_id, world_to_screen(position));
 }
 
 void Chest::open() {
-	sprite = opened_sprite;
+	sprite_id = opened_sprite_id;
 }

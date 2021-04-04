@@ -14,10 +14,9 @@ public:
 	void open();
 
 private:
-	const Point size = Point(1, 1);
-	const Point closed_sprite = Point(4, 2);
-	const Point opened_sprite = Point(5, 2);
+	const uint8_t closed_sprite_id = 36;
+	const uint8_t opened_sprite_id = 37;
 
-	Point sprite;
+	uint8_t sprite_id;
 	Point position;
 };

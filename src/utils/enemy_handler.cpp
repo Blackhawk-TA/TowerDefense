@@ -6,18 +6,27 @@
 
 using namespace blit;
 
-EnemyHandler::EnemyHandler(Point enemy_start_position) {
-	EnemyHandler::enemy_start_position = enemy_start_position;
-}
+std::vector<Enemy> enemies;
+Timer timer_animate_enemies;
 
 void EnemyHandler::spawn_enemies() {
+	Point enemy_start_position = Point(0, 1);
 	std::vector<Point> enemy_path = EnemyHandler::calculate_path(enemy_start_position);
 	enemies.push_back(*new Enemy(enemy_start_position, enemy_path)); //TODO generate enemies automatically
+
+	timer_animate_enemies.init(animate_enemies, 100, -1);
+	timer_animate_enemies.start();
 }
 
 void EnemyHandler::draw_enemies() {
 	for (Enemy &enemy : enemies) {
 		enemy.draw();
+	}
+}
+
+void EnemyHandler::animate_enemies(Timer &timer) {
+	for (Enemy &enemy : enemies) {
+		enemy.animate(timer);
 	}
 }
 

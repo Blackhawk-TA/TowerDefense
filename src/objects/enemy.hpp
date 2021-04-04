@@ -12,14 +12,16 @@ class Enemy {
 public:
 	explicit Enemy(Point start_position, std::vector<Point> &path);
 	void draw();
+	void animate(Timer &timer);
 	void move();
 	uint8_t take_damage(uint8_t &damage);
 
 private:
-	const Point size = Point(1, 1);
-	const Point sprite = Point(14, 4);
-	const uint8_t velocity = 5;
+	const uint8_t sprite_ids[6] = {60, 61, 62};
+	const float velocity = 0.5;
 
+	SpriteTransform transform;
+	uint8_t sprite_index;
 	uint8_t health;
-	Point position;
+	Vec2 position;
 };

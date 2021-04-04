@@ -8,14 +8,20 @@ using namespace blit;
 
 Enemy::Enemy(Point start_position, std::vector<Point> &path) {
 	health = 100;
-	position = start_position;
+	position = world_to_screen(start_position.x, start_position.y);
+	sprite_index = 0;
+	transform = SpriteTransform::NONE;
 }
 
 void Enemy::draw() {
-	screen.sprite(Rect(sprite.x, sprite.y, size.x, size.y), world_to_screen(position));
+	screen.sprite(sprite_ids[sprite_index], position, transform);
 }
 
-uint8_t Enemy::take_damage(uint8_t damage) {
+void Enemy::animate(Timer &timer) {
+	sprite_index = (sprite_index + 1) % 3;
+}
+
+uint8_t Enemy::take_damage(uint8_t &damage) {
 	if (health - damage >= 0) {
 		health -= damage;
 	} else {
