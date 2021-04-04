@@ -10,8 +10,10 @@ set(PROJECT_SOURCE
     src/objects/enemy.cpp src/objects/enemy.hpp
     src/objects/chest.cpp src/objects/chest.hpp
     src/utils/utils.cpp src/utils/utils.hpp
-    src/utils/layer_handler.cpp src/utils/layer_handler.hpp
-    src/utils/enemy_handler.cpp src/utils/enemy_handler.hpp
+        src/utils/map.cpp src/utils/map.hpp
+        src/handlers/enemies.cpp src/handlers/enemies.hpp
+        src/handlers/enemies.cpp src/handlers/enemies.hpp
+    src/handlers/chests.cpp src/handlers/chests.hpp
 )
 
 # ... and any other files you want in the release here

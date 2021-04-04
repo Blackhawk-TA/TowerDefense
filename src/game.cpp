@@ -1,13 +1,12 @@
 #include "game.hpp"
 #include "assets.hpp"
-#include "utils/layer_handler.hpp"
-#include "utils/enemy_handler.hpp"
+#include "utils/map.hpp"
+#include "handlers/enemies.hpp"
+#include "handlers/chests.hpp"
 #include "objects/chest.hpp"
 
 using namespace blit;
 
-constexpr Point chest_base_position = Point(16, 12);
-std::vector<Chest> chests;
 float ms_start, ms_end;
 uint32_t score = 0;
 bool build_mode = false;
@@ -28,16 +27,12 @@ void init() {
 	set_screen_mode(ScreenMode::lores);
 	screen.sprites = Surface::load(asset_spritesheet);
 
-	LayerHandler::generate_map();
-	LayerHandler::set_flags(LayerHandler::PATH, {11, 29, 48});
-	LayerHandler::set_flags(LayerHandler::CHEST, {101});
+	map::create();
+	map::set_flags(map::TileFlags::PATH, {11, 29, 48});
+	map::set_flags(map::TileFlags::CHEST, {101});
 
-	EnemyHandler::spawn_enemies();
-
-	//Create chests
-	for (auto i = 0u; i < 3; i++) {
-		chests.push_back(*new Chest(Point(chest_base_position.x + i, chest_base_position.y)));
-	}
+	enemies::create();
+	chests::create();
 }
 
 void draw_score() {
@@ -76,13 +71,9 @@ void render(uint32_t time) {
 	ms_start = now();
 	screen.clear();
 
-	LayerHandler::draw_map(build_mode, &level_line_interrupt_callback);
-
-	EnemyHandler::draw_enemies();
-
-	for (Chest &chest : chests) {
-		chest.draw();
-	}
+	map::draw(build_mode, &level_line_interrupt_callback);
+	enemies::draw();
+	chests::draw();
 
 	draw_score();
 
@@ -99,7 +90,7 @@ void render(uint32_t time) {
 //
 void update(uint32_t time) {
 	camera = Mat3::identity();
-	EnemyHandler::move_enemies();
+	enemies::move();
 
 	//Handle button inputs
 	static uint32_t last_buttons = 0;

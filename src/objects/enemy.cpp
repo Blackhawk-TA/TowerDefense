@@ -32,4 +32,5 @@ uint8_t Enemy::take_damage(uint8_t &damage) {
 }
 
 void Enemy::move() {
+	position.x += velocity;
 }
