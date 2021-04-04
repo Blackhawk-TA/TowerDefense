@@ -31,7 +31,7 @@ void init() {
 	screen.sprites = Surface::load(asset_spritesheet);
 
 	LayerHandler::generate_map();
-	LayerHandler::set_flags(LayerHandler::PATH, {48});
+	LayerHandler::set_flags(LayerHandler::PATH, {11, 29, 48});
 	LayerHandler::set_flags(LayerHandler::CHEST, {101});
 
 	enemy_handler = new EnemyHandler(Point(0, 1));

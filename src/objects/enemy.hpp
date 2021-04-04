@@ -13,7 +13,7 @@ public:
 	explicit Enemy(Point start_position, std::vector<Point> &path);
 	void draw();
 	void move();
-	uint8_t take_damage(uint8_t damage);
+	uint8_t take_damage(uint8_t &damage);
 
 private:
 	const Point size = Point(1, 1);
