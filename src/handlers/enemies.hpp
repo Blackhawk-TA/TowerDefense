@@ -3,9 +3,6 @@
 //
 
 #pragma once
-#include "32blit.hpp"
-
-using namespace blit;
 
 namespace enemies {
 	void create();
