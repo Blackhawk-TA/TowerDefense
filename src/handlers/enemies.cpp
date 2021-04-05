@@ -18,19 +18,19 @@ namespace enemies {
 	// TileFlags are used to determine if the enemy can move to a tile.
 	//
 	Point calculate_next_position(Point previous_position, Point current_position, map::TileFlags flag) {
-		Point next_position;
+		Point next_position = current_position; //If next position stays current position, there are no further flags
 
-		if (map::get_flag(current_position + Point(1, 0)) == flag) {
+		if (previous_position != current_position + Point(1, 0) && map::get_flag(current_position + Point(1, 0)) == flag) {
 			next_position = current_position + Point(1, 0);
-		} else if (map::get_flag(current_position + Point(0, 1)) == flag) {
+		} else if (previous_position != current_position + Point(0, 1) && map::get_flag(current_position + Point(0, 1)) == flag) {
 			next_position = current_position + Point(0, 1);
-		} else if (map::get_flag(current_position - Point(1, 0)) == flag) {
+		} else if (previous_position != current_position - Point(1, 0) && map::get_flag(current_position - Point(1, 0)) == flag) {
 			next_position = current_position - Point(1, 0);
-		} else if (map::get_flag(current_position - Point(0, 1)) == flag) {
+		} else if (previous_position != current_position - Point(0, 1) && map::get_flag(current_position - Point(0, 1)) == flag) {
 			next_position = current_position - Point(0, 1);
 		}
 
-		return next_position == current_position || next_position == previous_position ? current_position : next_position;
+		return next_position == current_position ? current_position : next_position;
 	}
 
 	///////////////////////////////////////////////////////////////////////////
@@ -68,7 +68,7 @@ namespace enemies {
 	void create() {
 		Point enemy_start_position = Point(0, 1);
 		std::vector<Point> enemy_path = calculate_path(enemy_start_position);
-		enemies.push_back(*new Enemy(enemy_start_position, enemy_path)); //TODO generate enemies automatically
+		enemies.push_back(*new Enemy(enemy_start_position, enemy_path)); //TODO generate enemies automatically with timer
 
 		timer_animate_enemies.init(animate, 100, -1);
 		timer_animate_enemies.start();

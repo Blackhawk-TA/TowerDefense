@@ -16,11 +16,13 @@ public:
 	uint8_t take_damage(uint8_t &damage);
 
 private:
-	const uint8_t sprite_ids[6] = {60, 61, 62};
+	const uint8_t sprite_ids[3] = {60, 61, 62};
 	const float velocity = 0.5;
 
 	SpriteTransform transform;
 	uint8_t sprite_index;
 	uint8_t health;
+	uint8_t path_index;
 	Vec2 position;
+	std::vector<Point> path;
 };
