@@ -18,3 +18,11 @@ void Chest::draw() {
 void Chest::open() {
 	sprite_id = opened_sprite_id;
 }
+
+bool Chest::is_open() {
+	return sprite_id == opened_sprite_id;
+}
+
+Point Chest::get_position() {
+	return position;
+}

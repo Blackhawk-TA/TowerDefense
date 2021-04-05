@@ -22,4 +22,18 @@ namespace chests {
 			chest.draw();
 		}
 	}
+
+	Chest* get_by_position(Point position) {
+		uint8_t i = 0;
+		Chest *chest = nullptr;
+
+		while (!chest && i < chests.size()) {
+			if (chests.at(i).get_position() == position) {
+				chest = &chests.at(i);
+			}
+			i++;
+		}
+
+		return chest;
+	}
 }

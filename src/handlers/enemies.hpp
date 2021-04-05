@@ -3,9 +3,13 @@
 //
 
 #pragma once
+#include "32blit.hpp"
+
+using namespace blit;
 
 namespace enemies {
 	void create();
 	void draw();
 	void move();
+	void delete_first_enemy();
 }

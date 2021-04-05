@@ -10,9 +10,9 @@ set(PROJECT_SOURCE
     src/objects/enemy.cpp src/objects/enemy.hpp
     src/objects/chest.cpp src/objects/chest.hpp
     src/utils/utils.cpp src/utils/utils.hpp
-        src/utils/map.cpp src/utils/map.hpp
-        src/handlers/enemies.cpp src/handlers/enemies.hpp
-        src/handlers/enemies.cpp src/handlers/enemies.hpp
+    src/utils/map.cpp src/utils/map.hpp
+    src/handlers/enemies.cpp src/handlers/enemies.hpp
+    src/handlers/enemies.cpp src/handlers/enemies.hpp
     src/handlers/chests.cpp src/handlers/chests.hpp
 )
 

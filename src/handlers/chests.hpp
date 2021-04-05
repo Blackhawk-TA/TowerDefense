@@ -4,7 +4,10 @@
 
 #pragma once
 
+#include "../objects/chest.hpp"
+
 namespace chests {
 	void create();
 	void draw();
+	Chest* get_by_position(Point position);
 }

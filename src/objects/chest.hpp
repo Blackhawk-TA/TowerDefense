@@ -12,6 +12,8 @@ public:
 	explicit Chest(Point position);
 	void draw();
 	void open();
+	bool is_open();
+	Point get_position();
 
 private:
 	const uint8_t closed_sprite_id = 36;

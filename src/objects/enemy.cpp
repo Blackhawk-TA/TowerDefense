@@ -3,6 +3,8 @@
 //
 
 #include "enemy.hpp"
+#include "../handlers/chests.hpp"
+#include "../handlers/enemies.hpp"
 
 using namespace blit;
 
@@ -41,6 +43,13 @@ void Enemy::move() {
 
 	Point next_position = path.at(path_index);
 	Vec2 current_position = screen_to_world(position);
+
+	Chest *chest = chests::get_by_position(current_position);
+	if (chest && !chest->is_open()) {
+		chest->open();
+		enemies::delete_first_enemy();
+		return;
+	}
 
 	if (current_position.x < next_position.x) {
 		position.x += velocity;

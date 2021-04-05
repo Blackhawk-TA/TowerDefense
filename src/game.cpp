@@ -28,8 +28,7 @@ void init() {
 	screen.sprites = Surface::load(asset_spritesheet);
 
 	map::create();
-	map::set_flags(map::TileFlags::PATH, {11, 29, 48});
-	map::set_flags(map::TileFlags::CHEST, {101});
+	map::set_flags(map::TileFlags::PATH, {11, 29, 48, 101});
 
 	enemies::create();
 	chests::create();
@@ -72,8 +71,8 @@ void render(uint32_t time) {
 	screen.clear();
 
 	map::draw(build_mode, &level_line_interrupt_callback);
-	enemies::draw();
 	chests::draw();
+	enemies::draw();
 
 	draw_score();
 

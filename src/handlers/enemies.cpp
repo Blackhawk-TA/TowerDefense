@@ -2,6 +2,7 @@
 // Created by daniel on 03.04.21.
 //
 
+#include <deque>
 #include "enemies.hpp"
 #include "../objects/enemy.hpp"
 #include "../utils/map.hpp"
@@ -9,7 +10,7 @@
 using namespace blit;
 
 namespace enemies {
-	std::vector<Enemy> enemies;
+	std::deque<Enemy> enemies;
 	Timer timer_animate_enemies;
 
 	///////////////////////////////////////////////////////////////////////////
@@ -84,5 +85,9 @@ namespace enemies {
 		for (Enemy &enemy : enemies) {
 			enemy.move();
 		}
+	}
+
+	void delete_first_enemy() {
+		enemies.pop_front();
 	}
 }
