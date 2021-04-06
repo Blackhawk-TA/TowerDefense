@@ -10,7 +10,8 @@ float ms_start, ms_end;
 uint32_t score = 0;
 bool build_mode = false;
 
-Mat3 camera; //TODO check if camera is required and how it can be improved
+//TODO check if camera is required and how it can be improved
+Mat3 camera;
 std::function<Mat3(uint8_t)> level_line_interrupt_callback = [](uint8_t y) -> Mat3 {
 	return camera;
 };
