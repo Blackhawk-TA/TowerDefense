@@ -84,7 +84,7 @@ namespace enemies {
 	void move() {
 		for (auto itr = enemies.begin(); itr != enemies.end(); itr++) {
 			if (!itr->move()) {
-				enemies.erase(itr);
+				enemies.erase(itr++);
 			}
 		}
 	}
