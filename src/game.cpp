@@ -3,7 +3,6 @@
 #include "utils/map.hpp"
 #include "handlers/enemies.hpp"
 #include "handlers/chests.hpp"
-#include "objects/chest.hpp"
 
 using namespace blit;
 

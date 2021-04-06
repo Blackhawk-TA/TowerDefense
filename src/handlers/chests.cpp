@@ -3,7 +3,6 @@
 //
 
 #include "chests.hpp"
-#include "../objects/chest.hpp"
 
 using namespace blit;
 

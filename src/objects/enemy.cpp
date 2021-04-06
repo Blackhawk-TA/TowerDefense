@@ -4,7 +4,6 @@
 
 #include "enemy.hpp"
 #include "../handlers/chests.hpp"
-#include "../handlers/enemies.hpp"
 
 using namespace blit;
 
@@ -36,9 +35,9 @@ uint8_t Enemy::take_damage(uint8_t &damage) {
 }
 
 //TODO current position has rounding issues due to screen_to_world. Works but probably not pixel perfect
-void Enemy::move() {
+bool Enemy::move() {
 	if (path_index >= path.size()) {
-		return;
+		return false;
 	}
 
 	Point next_position = path.at(path_index);
@@ -47,8 +46,7 @@ void Enemy::move() {
 	Chest *chest = chests::get_by_position(current_position);
 	if (chest && !chest->is_open()) {
 		chest->open();
-		enemies::delete_first_enemy();
-		return;
+		return false;
 	}
 
 	if (current_position.x < next_position.x) {
@@ -64,4 +62,6 @@ void Enemy::move() {
 	} else {
 		path_index++;
 	}
+
+	return true;
 }

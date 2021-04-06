@@ -8,5 +8,4 @@ namespace enemies {
 	void create();
 	void draw();
 	void move();
-	void delete_first_enemy();
 }

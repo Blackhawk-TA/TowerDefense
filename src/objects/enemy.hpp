@@ -12,7 +12,7 @@ public:
 	explicit Enemy(Point start_position, std::vector<Point> &path);
 	void draw();
 	void animate(Timer &timer);
-	void move();
+	bool move();
 	uint8_t take_damage(uint8_t &damage);
 
 private:
