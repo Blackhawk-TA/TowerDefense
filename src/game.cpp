@@ -7,9 +7,10 @@
 
 using namespace blit;
 
-uint32_t ms_start, ms_end;
+float ms_start, ms_end;
 uint32_t score = 0;
 bool build_mode = false;
+Builder *builder;
 
 //TODO check if camera is required and how it can be improved
 Mat3 camera;
@@ -34,6 +35,8 @@ void init() {
 
 	enemies::create();
 	chests::create();
+
+	builder = Builder::getInstance();
 }
 
 void draw_score() {
@@ -51,7 +54,7 @@ void draw_fps() {
 	screen.pen = Pen(255, 255, 255, 100);
 	screen.rectangle(Rect(1, screen.bounds.h - 10, 20, 9));
 	screen.pen = Pen(255, 255, 255, 200);
-	std::string fms = std::to_string((int) (1 / (ms_end - ms_end / 1000 + 1)));
+	std::string fms = std::to_string((int) (1 / ((ms_end - ms_start) / 1000)));
 	screen.text(fms, minimal_font, Rect(3, screen.bounds.h - 9, 10, 16));
 
 	int block_size = 4;
@@ -75,6 +78,10 @@ void render(uint32_t time) {
 	map::draw(build_mode, &level_line_interrupt_callback);
 	chests::draw();
 	enemies::draw();
+
+	if (build_mode) {
+		builder->draw();
+	}
 
 	draw_score();
 
@@ -104,9 +111,13 @@ void update(uint32_t time) {
 
 	if (build_mode) {
 		if (buttons & changed & Button::DPAD_UP) {
+			builder->move_up();
 		} else if (buttons & changed & Button::DPAD_DOWN) {
+			builder->move_down();
 		} else if (buttons & changed & Button::DPAD_LEFT) {
+			builder->move_left();
 		} else if (buttons & changed & Button::DPAD_RIGHT) {
+			builder->move_right();
 		} else if (buttons & changed & Button::A) { //Turn
 		}
 	}

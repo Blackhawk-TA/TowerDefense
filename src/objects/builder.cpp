@@ -7,6 +7,8 @@
 
 using namespace blit;
 
+Builder *Builder::instance = nullptr;
+
 Builder *Builder::getInstance() {
 	if (!instance) {
 		instance = new Builder();
@@ -18,7 +20,8 @@ Builder::Builder() {
 	position = Point(0, 0);
 	sprite_deny_id = 103;
 	sprite_allow_id = 104;
-	sprite_id = get_sprite();
+	sprite_id = sprite_deny_id;
+	buildable = false;
 }
 
 void Builder::draw() {
@@ -43,13 +46,15 @@ void Builder::move_right() {
 
 void Builder::move(Point direction) {
 	position += direction;
-	sprite_id = get_sprite();
+
+	buildable = check_build_permission();
+	if (buildable) {
+		sprite_id = sprite_allow_id;
+	} else {
+		sprite_id = sprite_deny_id;
+	}
 }
 
-uint8_t Builder::get_sprite() {
-	if (map::get_flag(screen_to_world(position)) == map::TileFlags::BUILD) {
-		return sprite_allow_id;
-	} else {
-		return sprite_deny_id;
-	}
+bool Builder::check_build_permission() {
+	return map::get_flag(position) == map::TileFlags::BUILD;
 }

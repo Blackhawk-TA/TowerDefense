@@ -23,7 +23,8 @@ private:
 	uint8_t sprite_deny_id;
 	uint8_t sprite_allow_id;
 	uint8_t sprite_id;
+	bool buildable;
 
 	void move(Point direction);
-	uint8_t get_sprite();
+	bool check_build_permission();
 };
