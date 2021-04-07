@@ -82,9 +82,13 @@ namespace enemies {
 	}
 
 	void move() {
-		for (auto itr = enemies.begin(); itr != enemies.end(); itr++) {
+		auto itr = enemies.begin();
+
+		while (itr != enemies.end()) {
 			if (!itr->move()) {
 				enemies.erase(itr++);
+			} else {
+				itr++;
 			}
 		}
 	}
