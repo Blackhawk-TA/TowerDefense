@@ -31,7 +31,7 @@ void init() {
 
 	map::create();
 	map::set_flags(map::TileFlags::PATH, {11, 29, 48, 101});
-	map::set_flags(map::TileFlags::BUILD, {102});
+	map::set_flags(map::TileFlags::BUILDABLE, {102});
 
 	enemies::create();
 	chests::create();
@@ -47,21 +47,6 @@ void draw_score() {
 		true,
 		TextAlign::top_right
 	);
-}
-
-void draw_fps() {
-	screen.alpha = 255;
-	screen.pen = Pen(255, 255, 255, 100);
-	screen.rectangle(Rect(1, screen.bounds.h - 10, 20, 9));
-	screen.pen = Pen(255, 255, 255, 200);
-	std::string fms = std::to_string((int) (1 / ((ms_end - ms_start) / 1000)));
-	screen.text(fms, minimal_font, Rect(3, screen.bounds.h - 9, 10, 16));
-
-	int block_size = 4;
-	for (uint32_t i = 0; i < (ms_end - ms_start); i++) {
-		screen.pen = Pen((int) i * 5, 255 - ((int) i * 5), 0);
-		screen.rectangle(Rect(i * (block_size + 1) + 1 + 21, screen.bounds.h - block_size - 1, block_size, block_size));
-	}
 }
 
 ///////////////////////////////////////////////////////////////////////////
@@ -86,7 +71,7 @@ void render(uint32_t time) {
 	draw_score();
 
 	ms_end = now();
-	draw_fps();
+	draw_fps(ms_start, ms_end);
 }
 
 ///////////////////////////////////////////////////////////////////////////
@@ -118,7 +103,8 @@ void update(uint32_t time) {
 			builder->move_left();
 		} else if (buttons & changed & Button::DPAD_RIGHT) {
 			builder->move_right();
-		} else if (buttons & changed & Button::A) { //Turn
+		} else if (buttons & changed & Button::X) { //Turn
+		} else if (buttons & changed & Button::A) { //Build
 		}
 	}
 

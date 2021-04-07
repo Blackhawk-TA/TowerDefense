@@ -18,3 +18,5 @@ Vec2 screen_to_world(const Vec2 &p);
 Point world_to_screen(const Point &p);
 Vec2 world_to_screen(const Vec2 &p);
 Vec2 world_to_screen(const float &x, const float &y);
+
+void draw_fps(float &ms_start, float &ms_end);

@@ -56,5 +56,5 @@ void Builder::move(Point direction) {
 }
 
 bool Builder::check_build_permission() {
-	return map::get_flag(position) == map::TileFlags::BUILD;
+	return map::get_flag(position) == map::TileFlags::BUILDABLE;
 }
