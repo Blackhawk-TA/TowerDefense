@@ -3,6 +3,7 @@
 #include "utils/map.hpp"
 #include "handlers/enemies.hpp"
 #include "handlers/chests.hpp"
+#include "objects/builder.hpp"
 
 using namespace blit;
 
@@ -29,6 +30,7 @@ void init() {
 
 	map::create();
 	map::set_flags(map::TileFlags::PATH, {11, 29, 48, 101});
+	map::set_flags(map::TileFlags::BUILD, {102});
 
 	enemies::create();
 	chests::create();
@@ -98,6 +100,15 @@ void update(uint32_t time) {
 
 	if (buttons & changed & Button::B) {
 		build_mode = !build_mode;
+	}
+
+	if (build_mode) {
+		if (buttons & changed & Button::DPAD_UP) {
+		} else if (buttons & changed & Button::DPAD_DOWN) {
+		} else if (buttons & changed & Button::DPAD_LEFT) {
+		} else if (buttons & changed & Button::DPAD_RIGHT) {
+		} else if (buttons & changed & Button::A) { //Turn
+		}
 	}
 
 	last_buttons = buttons;

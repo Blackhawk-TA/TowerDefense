@@ -10,7 +10,7 @@ using namespace blit;
 namespace map {
 	enum TileFlags {
 		PATH = 1,
-		CHEST = 2
+		BUILD = 2
 	};
 
 	void create();

@@ -7,13 +7,13 @@ project(TowerDefense)
 # Add your sources here (adding headers is optional, but helps some CMake generators)
 set(PROJECT_SOURCE
     src/game.cpp src/game.hpp
-    src/objects/enemy.cpp src/objects/enemy.hpp
+    src/objects/builder.cpp src/objects/builder.hpp
     src/objects/chest.cpp src/objects/chest.hpp
-    src/utils/utils.cpp src/utils/utils.hpp
+    src/objects/enemy.cpp src/objects/enemy.hpp
     src/utils/map.cpp src/utils/map.hpp
-    src/handlers/enemies.cpp src/handlers/enemies.hpp
-    src/handlers/enemies.cpp src/handlers/enemies.hpp
+    src/utils/utils.cpp src/utils/utils.hpp
     src/handlers/chests.cpp src/handlers/chests.hpp
+    src/handlers/enemies.cpp src/handlers/enemies.hpp
 )
 
 # ... and any other files you want in the release here
