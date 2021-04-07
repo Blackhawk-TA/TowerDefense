@@ -6,7 +6,7 @@
 
 using namespace blit;
 
-float ms_start, ms_end;
+uint32_t ms_start, ms_end;
 uint32_t score = 0;
 bool build_mode = false;
 
@@ -49,7 +49,7 @@ void draw_fps() {
 	screen.pen = Pen(255, 255, 255, 100);
 	screen.rectangle(Rect(1, screen.bounds.h - 10, 20, 9));
 	screen.pen = Pen(255, 255, 255, 200);
-	std::string fms = std::to_string((int) (1 / ((ms_end - ms_start) / 1000)));
+	std::string fms = std::to_string((int) (1 / (ms_end - ms_end / 1000 + 1)));
 	screen.text(fms, minimal_font, Rect(3, screen.bounds.h - 9, 10, 16));
 
 	int block_size = 4;

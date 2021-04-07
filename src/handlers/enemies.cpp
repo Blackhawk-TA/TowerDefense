@@ -18,17 +18,17 @@ namespace enemies {
 	// Calculates the next position based on current_position.
 	// TileFlags are used to determine if the enemy can move to a tile.
 	//
-	Point calculate_next_position(Point previous_position, Point current_position, map::TileFlags flag) {
-		Point next_position = current_position; //If next position stays current position, there are no further flags
+	Vec2 calculate_next_position(Vec2 previous_position, Vec2 current_position, map::TileFlags flag) {
+		Vec2 next_position = current_position; //If next position stays current position, there are no further flags
 
-		if (previous_position != current_position + Point(1, 0) && map::get_flag(current_position + Point(1, 0)) == flag) {
-			next_position = current_position + Point(1, 0);
-		} else if (previous_position != current_position + Point(0, 1) && map::get_flag(current_position + Point(0, 1)) == flag) {
-			next_position = current_position + Point(0, 1);
-		} else if (previous_position != current_position - Point(1, 0) && map::get_flag(current_position - Point(1, 0)) == flag) {
-			next_position = current_position - Point(1, 0);
-		} else if (previous_position != current_position - Point(0, 1) && map::get_flag(current_position - Point(0, 1)) == flag) {
-			next_position = current_position - Point(0, 1);
+		if (previous_position != current_position + Point(1, 0) && map::get_flag(current_position + Vec2(1, 0)) == flag) {
+			next_position = current_position + Vec2(1, 0);
+		} else if (previous_position != current_position + Point(0, 1) && map::get_flag(current_position + Vec2(0, 1)) == flag) {
+			next_position = current_position + Vec2(0, 1);
+		} else if (previous_position != current_position - Point(1, 0) && map::get_flag(current_position - Vec2(1, 0)) == flag) {
+			next_position = current_position - Vec2(1, 0);
+		} else if (previous_position != current_position - Point(0, 1) && map::get_flag(current_position - Vec2(0, 1)) == flag) {
+			next_position = current_position - Vec2(0, 1);
 		}
 
 		return next_position == current_position ? current_position : next_position;
@@ -39,11 +39,11 @@ namespace enemies {
 	// Calculates the entire path which all enemies use.
 	// The path only includes tiles with the 'path' flag, not the 'chest' flag.
 	//
-	std::vector<Point> calculate_path(Point start_position) {
-		std::vector<Point> path;
-		Point previous_position = start_position;
-		Point current_position = start_position;
-		Point next_position;
+	std::vector<Vec2> calculate_path(Vec2 start_position) {
+		std::vector<Vec2> path;
+		Vec2 previous_position = start_position;
+		Vec2 current_position = start_position;
+		Vec2 next_position;
 		bool has_next_position = true;
 
 		while (has_next_position) {
@@ -67,8 +67,8 @@ namespace enemies {
 	}
 
 	void create() {
-		Point enemy_start_position = Point(0, 1);
-		std::vector<Point> enemy_path = calculate_path(enemy_start_position);
+		Vec2 enemy_start_position = Vec2(0, 1);
+		std::vector<Vec2> enemy_path = calculate_path(enemy_start_position);
 		enemies.push_back(*new Enemy(enemy_start_position, enemy_path)); //TODO generate enemies automatically with timer
 
 		timer_animate_enemies.init(animate, 100, -1);

@@ -7,7 +7,7 @@
 
 using namespace blit;
 
-Enemy::Enemy(Point start_position, std::vector<Point> &path) {
+Enemy::Enemy(Vec2 start_position, std::vector<Vec2> &path) {
 	Enemy::path = path;
 	position = world_to_screen(start_position.x, start_position.y);
 	health = 100;
@@ -40,7 +40,7 @@ bool Enemy::move() {
 		return false;
 	}
 
-	Point next_position = path.at(path_index);
+	Vec2 next_position = path.at(path_index);
 	Vec2 current_position = screen_to_world(position);
 
 	Chest *chest = chests::get_by_position(current_position);

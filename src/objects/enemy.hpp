@@ -9,7 +9,7 @@ using namespace blit;
 
 class Enemy {
 public:
-	explicit Enemy(Point start_position, std::vector<Point> &path);
+	explicit Enemy(Vec2 start_position, std::vector<Vec2> &path);
 	void draw();
 	void animate(Timer &timer);
 	bool move();
@@ -24,5 +24,5 @@ private:
 	uint8_t health;
 	uint8_t path_index;
 	Vec2 position;
-	std::vector<Point> path;
+	std::vector<Vec2> path;
 };
