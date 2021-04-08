@@ -46,21 +46,33 @@ void Builder::move_right() {
 	move(Point(1, 0));
 }
 
-void Builder::move(Point direction) {
-	position += direction;
+void Builder::move(Point movement) {
+	Point next_position = position + movement;
+	Point tile_two_next_position = position + turn_direction + movement;
 
-	update_sprite();
+	if (next_position.x >= 0 && next_position.y >= 0
+		&& tile_two_next_position.x <= screen_tiles.x
+		&& tile_two_next_position.y <= screen_tiles.y)
+	{
+		position = next_position;
+		update_sprite();
+	}
 }
 
 void Builder::turn() {
+	Point next_turn_direction;
+
 	if (build_vertical) {
-		turn_direction = Point(1, 0);
+		next_turn_direction = Point(1, 0);
 	} else {
-		turn_direction = Point(0, 1);
+		next_turn_direction = Point(0, 1);
 	}
 
-	build_vertical = !build_vertical;
-	update_sprite();
+	if (position.x + next_turn_direction.x <= screen_tiles.x && position.y + next_turn_direction.y <= screen_tiles.y) {
+		turn_direction = next_turn_direction;
+		build_vertical = !build_vertical;
+		update_sprite();
+	}
 }
 
 void Builder::update_sprite() {

@@ -27,6 +27,6 @@ private:
 	uint8_t sprite_id;
 	bool build_vertical;
 
-	void move(Point direction);
+	void move(Point movement);
 	void update_sprite();
 };
