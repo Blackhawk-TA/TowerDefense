@@ -18,14 +18,16 @@ Builder *Builder::getInstance() {
 
 Builder::Builder() {
 	position = Point(0, 0);
+	turn_direction = Point(0, 1);
+	build_vertical = true;
 	sprite_deny_id = 103;
 	sprite_allow_id = 104;
 	sprite_id = sprite_deny_id;
-	buildable = false;
 }
 
 void Builder::draw() {
 	screen.sprite(sprite_id, world_to_screen(position));
+	screen.sprite(sprite_id, world_to_screen(position + turn_direction));
 }
 
 void Builder::move_up() {
@@ -47,14 +49,24 @@ void Builder::move_right() {
 void Builder::move(Point direction) {
 	position += direction;
 
-	buildable = check_build_permission();
-	if (buildable) {
+	update_sprite();
+}
+
+void Builder::turn() {
+	if (build_vertical) {
+		turn_direction = Point(1, 0);
+	} else {
+		turn_direction = Point(0, 1);
+	}
+
+	build_vertical = !build_vertical;
+	update_sprite();
+}
+
+void Builder::update_sprite() {
+	if (map::get_flag(position) == map::TileFlags::BUILDABLE && map::get_flag(position + turn_direction) == map::TileFlags::BUILDABLE) {
 		sprite_id = sprite_allow_id;
 	} else {
 		sprite_id = sprite_deny_id;
 	}
-}
-
-bool Builder::check_build_permission() {
-	return map::get_flag(position) == map::TileFlags::BUILDABLE;
 }

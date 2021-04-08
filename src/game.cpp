@@ -104,6 +104,7 @@ void update(uint32_t time) {
 		} else if (buttons & changed & Button::DPAD_RIGHT) {
 			builder->move_right();
 		} else if (buttons & changed & Button::X) { //Turn
+			builder->turn();
 		} else if (buttons & changed & Button::A) { //Build
 		}
 	}

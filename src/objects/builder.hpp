@@ -15,16 +15,18 @@ public:
 	void move_down();
 	void move_left();
 	void move_right();
+	void turn();
 
 private:
 	static Builder *instance;
 	explicit Builder();
 	Point position;
+	Point turn_direction;
 	uint8_t sprite_deny_id;
 	uint8_t sprite_allow_id;
 	uint8_t sprite_id;
-	bool buildable;
+	bool build_vertical;
 
 	void move(Point direction);
-	bool check_build_permission();
+	void update_sprite();
 };
