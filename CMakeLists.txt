@@ -10,6 +10,7 @@ set(PROJECT_SOURCE
     src/objects/builder.cpp src/objects/builder.hpp
     src/objects/chest.cpp src/objects/chest.hpp
     src/objects/enemy.cpp src/objects/enemy.hpp
+    src/objects/turret.cpp src/objects/turret.hpp
     src/utils/map.cpp src/utils/map.hpp
     src/utils/utils.cpp src/utils/utils.hpp
     src/handlers/chests.cpp src/handlers/chests.hpp
