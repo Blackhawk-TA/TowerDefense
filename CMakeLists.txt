@@ -15,6 +15,7 @@ set(PROJECT_SOURCE
     src/utils/utils.cpp src/utils/utils.hpp
     src/handlers/chests.cpp src/handlers/chests.hpp
     src/handlers/enemies.cpp src/handlers/enemies.hpp
+    src/handlers/turret_handler.cpp src/handlers/turret_handler.hpp
 )
 
 # ... and any other files you want in the release here

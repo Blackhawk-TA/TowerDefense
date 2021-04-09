@@ -10,7 +10,7 @@ using namespace blit;
 Builder *Builder::instance = nullptr;
 
 Builder *Builder::getInstance() {
-	if (!instance) {
+	if (instance == nullptr) {
 		instance = new Builder();
 	}
 	return instance;
