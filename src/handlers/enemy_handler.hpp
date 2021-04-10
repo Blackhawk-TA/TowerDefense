@@ -18,7 +18,7 @@ private:
 	explicit EnemyHandler();
 	Vec2 calculate_next_position(Vec2 previous_position, Vec2 current_position, map::TileFlags flag);
 	std::vector<Vec2> calculate_path(Vec2 start_position);
-	void animate(Timer &timer);
+	static void animate(Timer &timer);
 
 	std::list<Enemy> enemies;
 	Timer timer_animate_enemies;

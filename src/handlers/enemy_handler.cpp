@@ -20,16 +20,15 @@ EnemyHandler::EnemyHandler() {
 	std::vector<Vec2> enemy_path = calculate_path(enemy_start_position);
 	enemies.push_back(*new Enemy(enemy_start_position, enemy_path)); //TODO generate enemies automatically with timer
 
-	//timer_animate_enemies.init(animate, 100, -1);
+	timer_animate_enemies.init(animate, 100, -1);
 	timer_animate_enemies.start();
 }
 
 void EnemyHandler::animate(Timer &timer) {
-	for (Enemy &enemy : enemies) {
+	for (Enemy &enemy : EnemyHandler::getInstance()->enemies) {
 		enemy.animate(timer);
 	}
 }
-
 
 void EnemyHandler::draw() {
 	for (Enemy &enemy : enemies) {
