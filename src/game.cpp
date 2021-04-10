@@ -1,8 +1,9 @@
 #include "game.hpp"
 #include "assets.hpp"
 #include "utils/map.hpp"
-#include "handlers/enemies.hpp"
-#include "handlers/chests.hpp"
+#include "handlers/chest_handler.hpp"
+#include "handlers/enemy_handler.hpp"
+#include "handlers/turret_handler.hpp"
 #include "objects/builder.hpp"
 
 using namespace blit;
@@ -11,6 +12,9 @@ float ms_start, ms_end;
 uint32_t score = 0;
 bool build_mode = false;
 Builder *builder;
+ChestHandler *chest_handler;
+EnemyHandler *enemy_handler;
+TurretHandler *turret_handler;
 
 //TODO check if camera is required and how it can be improved
 Mat3 camera;
@@ -33,10 +37,10 @@ void init() {
 	map::set_flags(map::TileFlags::PATH, {11, 29, 48, 101});
 	map::set_flags(map::TileFlags::BUILDABLE, {102});
 
-	enemies::create();
-	chests::create();
-
 	builder = Builder::getInstance();
+	chest_handler = ChestHandler::getInstance();
+	enemy_handler = EnemyHandler::getInstance();
+	turret_handler = TurretHandler::getInstance();
 }
 
 void draw_score() {
@@ -61,12 +65,14 @@ void render(uint32_t time) {
 	screen.clear();
 
 	map::draw(build_mode, &level_line_interrupt_callback);
-	chests::draw();
-	enemies::draw();
+	chest_handler->draw();
+	enemy_handler->draw();
 
-	if (build_mode) {
+	if (build_mode) { //TODO deny builder on already occupied places
 		builder->draw();
 	}
+
+	turret_handler->draw();
 
 	draw_score();
 
@@ -83,7 +89,7 @@ void render(uint32_t time) {
 //
 void update(uint32_t time) {
 	camera = Mat3::identity();
-	enemies::move();
+	enemy_handler->move();
 
 	//Handle button inputs
 	static uint32_t last_buttons = 0;
@@ -106,6 +112,8 @@ void update(uint32_t time) {
 		} else if (buttons & changed & Button::X) { //Turn
 			builder->turn();
 		} else if (buttons & changed & Button::A) { //Build
+			//TODO get builder position, buildable var and array with already occupied build space
+			//TODO add turret
 		}
 	}
 

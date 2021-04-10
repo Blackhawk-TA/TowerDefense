@@ -6,7 +6,6 @@
 
 #include "../utils/utils.hpp"
 #include "../objects/turret.hpp"
-#include <vector>
 
 using namespace blit;
 

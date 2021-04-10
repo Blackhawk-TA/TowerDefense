@@ -13,8 +13,8 @@ set(PROJECT_SOURCE
     src/objects/turret.cpp src/objects/turret.hpp
     src/utils/map.cpp src/utils/map.hpp
     src/utils/utils.cpp src/utils/utils.hpp
-    src/handlers/chests.cpp src/handlers/chests.hpp
-    src/handlers/enemies.cpp src/handlers/enemies.hpp
+    src/handlers/chest_handler.cpp src/handlers/chest_handler.hpp
+    src/handlers/enemy_handler.cpp src/handlers/enemy_handler.hpp
     src/handlers/turret_handler.cpp src/handlers/turret_handler.hpp
 )
 

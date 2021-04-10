@@ -3,7 +3,7 @@
 //
 
 #include "enemy.hpp"
-#include "../handlers/chests.hpp"
+#include "../handlers/chest_handler.hpp"
 
 using namespace blit;
 
@@ -43,7 +43,7 @@ bool Enemy::move() {
 	Vec2 next_position = path.at(path_index);
 	Vec2 current_position = screen_to_world(position);
 
-	Chest *chest = chests::get_by_position(current_position);
+	Chest *chest = ChestHandler::getInstance()->get_by_position(current_position);
 	if (chest && !chest->is_open()) {
 		chest->open();
 		return false;
