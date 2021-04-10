@@ -6,7 +6,7 @@
 
 using namespace blit;
 
-ChestHandler *ChestHandler::instance;
+ChestHandler *ChestHandler::instance = nullptr;
 
 ChestHandler *ChestHandler::getInstance() {
 	if (instance == nullptr) {

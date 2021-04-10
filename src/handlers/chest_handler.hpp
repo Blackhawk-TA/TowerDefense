@@ -16,8 +16,8 @@ public:
 
 private:
 	static ChestHandler *instance;
-	explicit ChestHandler();
-
 	const Point chest_base_position = Point(16, 12);
 	std::vector<Chest> chests;
+
+	explicit ChestHandler();
 };

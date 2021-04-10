@@ -17,7 +17,7 @@ public:
 
 private:
 	static TurretHandler *instance;
-	explicit TurretHandler();
-
 	std::vector<Turret> turrets;
+
+	explicit TurretHandler();
 };

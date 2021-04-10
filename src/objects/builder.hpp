@@ -19,7 +19,6 @@ public:
 
 private:
 	static Builder *instance;
-	explicit Builder();
 	Point position;
 	Point turn_direction;
 	uint8_t sprite_deny_id;
@@ -27,6 +26,7 @@ private:
 	uint8_t sprite_id;
 	bool build_vertical;
 
+	explicit Builder();
 	void move(Point movement);
 	void update_sprite();
 };
