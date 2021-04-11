@@ -13,7 +13,7 @@ class TurretHandler {
 public:
 	static TurretHandler *getInstance();
 	void draw();
-	void add_turret(Point position, Turret::FacingDirection facing_direction);
+	void add_turret(Point position, TurretFacingDirection facing_direction);
 
 private:
 	static TurretHandler *instance;

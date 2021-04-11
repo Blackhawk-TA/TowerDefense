@@ -24,6 +24,6 @@ void TurretHandler::draw() {
 	}
 }
 
-void TurretHandler::add_turret(Point position, Turret::FacingDirection facing_direction) {
+void TurretHandler::add_turret(Point position, TurretFacingDirection facing_direction) {
 	turrets.push_back(*new Turret(position, facing_direction));
 }

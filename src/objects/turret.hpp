@@ -9,13 +9,7 @@ using namespace blit;
 
 class Turret {
 public:
-	enum FacingDirection {
-		UP = 1,
-		DOWN = 2,
-		LEFT = 3,
-		RIGHT = 4
-	};
-	explicit Turret(Point position, FacingDirection facing_direction);
+	explicit Turret(Point position, TurretFacingDirection facing_direction);
 	void draw();
 
 private:

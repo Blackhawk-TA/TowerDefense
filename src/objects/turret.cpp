@@ -6,26 +6,26 @@
 
 using namespace blit;
 
-Turret::Turret(Point position, FacingDirection facing_direction) {
+Turret::Turret(Point position, TurretFacingDirection facing_direction) {
 	Turret::position = position;
 	sprite_facing_up = Rect(10, 1, 1, 2);
 	sprite_facing_down = Rect(7, 2, 1, 2);
 	sprite_facing_left = Rect(8, 2, 2, 1);
 
 	switch (facing_direction) {
-		case FacingDirection::UP:
+		case TurretFacingDirection::UP:
 			sprite = sprite_facing_up;
 			transform = SpriteTransform::NONE;
 			break;
-		case FacingDirection::DOWN:
+		case TurretFacingDirection::DOWN:
 			sprite = sprite_facing_down;
 			transform = SpriteTransform::NONE;
 			break;
-		case FacingDirection::LEFT:
+		case TurretFacingDirection::LEFT:
 			sprite = sprite_facing_left;
 			transform = SpriteTransform::NONE;
 			break;
-		case FacingDirection::RIGHT:
+		case TurretFacingDirection::RIGHT:
 			sprite = sprite_facing_left;
 			transform = SpriteTransform::HORIZONTAL;
 			break;

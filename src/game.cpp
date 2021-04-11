@@ -109,11 +109,14 @@ void update(uint32_t time) {
 			builder->move_left();
 		} else if (buttons & changed & Button::DPAD_RIGHT) {
 			builder->move_right();
-		} else if (buttons & changed & Button::X) { //Turn
+		} else if (buttons & changed & Button::X) {
 			builder->turn();
 		} else if (buttons & changed & Button::A) { //Build
 			//TODO get builder position, buildable var and array with already occupied build space
 			//TODO add turret
+			if (builder->build()) {
+				//TODO pay turret with money
+			}
 		}
 	}
 
