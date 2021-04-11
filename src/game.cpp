@@ -96,7 +96,7 @@ void update(uint32_t time) {
 	static uint32_t changed = 0;
 	changed = buttons ^ last_buttons;
 
-	if (buttons & changed & Button::B) {
+	if (buttons & changed & Button::X) {
 		build_mode = !build_mode;
 	}
 
@@ -109,11 +109,15 @@ void update(uint32_t time) {
 			builder->move_left();
 		} else if (buttons & changed & Button::DPAD_RIGHT) {
 			builder->move_right();
-		} else if (buttons & changed & Button::X) {
+		} else if (buttons & changed & Button::Y) {
 			builder->turn();
 		} else if (buttons & changed & Button::A) {
 			if (builder->build()) {
 				//TODO pay turret with points
+			}
+		} else if (buttons & changed & Button::B) {
+			if (builder->destroy()) {
+				//TODO refund points
 			}
 		}
 	}

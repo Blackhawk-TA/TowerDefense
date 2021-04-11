@@ -3,7 +3,7 @@
 //
 
 #pragma once
-
+#include <list>
 #include "../utils/utils.hpp"
 #include "../objects/turret.hpp"
 
@@ -14,10 +14,11 @@ public:
 	static TurretHandler *getInstance();
 	void draw();
 	void add_turret(Point position, TurretFacingDirection facing_direction);
+	bool remove_turret(Point position, TurretFacingDirection facing_direction);
 
 private:
 	static TurretHandler *instance;
-	std::vector<Turret> turrets;
+	std::list<Turret> turrets;
 
 	explicit TurretHandler();
 };

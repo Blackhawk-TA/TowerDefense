@@ -17,6 +17,7 @@ public:
 	void move_right();
 	void turn();
 	bool build();
+	bool destroy();
 
 private:
 	static Builder *instance;
@@ -32,7 +33,9 @@ private:
 	explicit Builder();
 	void move(Point movement);
 	void update_tile_sprite();
+	bool is_building_ground();
 	bool can_build();
 	bool is_occupied(Point tile);
 	void set_occupied(Point tile, bool value);
+	Point calculate_turret_position();
 };

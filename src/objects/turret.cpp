@@ -15,18 +15,22 @@ Turret::Turret(Point position, TurretFacingDirection facing_direction) {
 	switch (facing_direction) {
 		case TurretFacingDirection::UP:
 			sprite = sprite_facing_up;
+			size = Point(1, 2);
 			transform = SpriteTransform::NONE;
 			break;
 		case TurretFacingDirection::DOWN:
 			sprite = sprite_facing_down;
+			size = Point(1, 2);
 			transform = SpriteTransform::NONE;
 			break;
 		case TurretFacingDirection::LEFT:
 			sprite = sprite_facing_left;
+			size = Point(2, 1);
 			transform = SpriteTransform::NONE;
 			break;
 		case TurretFacingDirection::RIGHT:
 			sprite = sprite_facing_left;
+			size = Point(2, 1);
 			transform = SpriteTransform::HORIZONTAL;
 			break;
 	}
@@ -34,4 +38,8 @@ Turret::Turret(Point position, TurretFacingDirection facing_direction) {
 
 void Turret::draw() {
 	screen.sprite(sprite, world_to_screen(position), transform);
+}
+
+Rect Turret::get_rect() {
+	return Rect(position.x, position.y, size.x, size.y);
 }

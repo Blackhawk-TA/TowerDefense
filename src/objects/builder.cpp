@@ -103,9 +103,15 @@ void Builder::turn() {
 	}
 }
 
-bool Builder::can_build() {
+bool Builder::is_building_ground() {
 	return map::get_flag(position) == map::TileFlags::BUILDABLE
 		&& map::get_flag(position + turn_direction) == map::TileFlags::BUILDABLE;
+}
+
+bool Builder::can_build() {
+	return is_building_ground()
+		&& !is_occupied(position)
+		&& !is_occupied(position + turn_direction);
 }
 
 void Builder::update_tile_sprite() {
@@ -122,29 +128,53 @@ bool Builder::is_occupied(Point tile) {
 
 void Builder::set_occupied(Point tile, bool value) {
 	occupied_tiles[tile.x][tile.y] = value;
+	update_tile_sprite();
 }
 
-bool Builder::build() {
-	Point outer_tile_position = Point(position.x + turn_direction.x, position.y + turn_direction.y);
+//Calculates the position of the turret which is always on the upper left position
+Point Builder::calculate_turret_position() {
 	Point turret_spawn_position;
 
-	//Turret must always spawn on the tile which is closest to he upper left
 	switch (turn_index) {
-		case TurretFacingDirection::DOWN:
+		case TurretFacingDirection::DOWN: //base tile i in the upper left
 		case TurretFacingDirection::RIGHT:
 			turret_spawn_position = position;
 			break;
-		case TurretFacingDirection::UP:
+		case TurretFacingDirection::UP: //outer tile is in the upper left
 		case TurretFacingDirection::LEFT:
 			turret_spawn_position = position + turn_direction;
 			break;
 	}
 
-	if (can_build() && !is_occupied(position) && !is_occupied(outer_tile_position)) {
+	return turret_spawn_position;
+}
+
+bool Builder::build() {
+	Point outer_tile_position = Point(position.x + turn_direction.x, position.y + turn_direction.y);
+	Point turret_spawn_position = calculate_turret_position();
+
+	if (can_build()) {
 		TurretHandler::getInstance()->add_turret(turret_spawn_position, (TurretFacingDirection)turn_index);
 		set_occupied(position, true);
 		set_occupied(outer_tile_position, true);
 		return true;
+	} else {
+		return false;
+	}
+}
+
+bool Builder::destroy() {
+	Point outer_tile_position = Point(position.x + turn_direction.x, position.y + turn_direction.y);
+	Point turret_spawn_position = calculate_turret_position();
+
+	if (is_building_ground() && is_occupied(position) && is_occupied(outer_tile_position)) {
+		if (TurretHandler::getInstance()->remove_turret(turret_spawn_position, (TurretFacingDirection)turn_index)) { //Removal successful
+			set_occupied(position, false);
+			set_occupied(outer_tile_position, false);
+			return true;
+		} else {
+			return false;
+		}
 	} else {
 		return false;
 	}
