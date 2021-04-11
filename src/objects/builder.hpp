@@ -23,13 +23,16 @@ private:
 	Point position;
 	Point turn_direction;
 	uint8_t turn_index;
-	uint8_t sprite_deny_id;
-	uint8_t sprite_allow_id;
-	uint8_t sprite_id;
-	std::array<uint8_t, 4> sprite_array_ids{};
-	std::array<bool, screen_tiles.x * screen_tiles.y> occupied_tiles{};
+	uint8_t sprite_tile_deny_id;
+	uint8_t sprite_tile_allow_id;
+	uint8_t sprite_tile_id;
+	std::array<uint8_t, 4> sprite_arrow_ids{};
+	std::array<std::array<bool, screen_tiles.y>, screen_tiles.x> occupied_tiles{};
 
 	explicit Builder();
 	void move(Point movement);
-	void update_sprite();
+	void update_tile_sprite();
+	bool can_build();
+	bool is_occupied(Point tile);
+	void set_occupied(Point tile, bool value);
 };

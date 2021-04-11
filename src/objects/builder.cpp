@@ -4,6 +4,7 @@
 
 #include "builder.hpp"
 #include "../utils/map.hpp"
+#include "../handlers/turret_handler.hpp"
 
 using namespace blit;
 
@@ -20,21 +21,21 @@ Builder::Builder() {
 	position = Point(0, 0);
 	turn_direction = Point(0, 1);
 	turn_index = 0;
-	sprite_deny_id = 103;
-	sprite_allow_id = 104;
-	sprite_id = sprite_deny_id;
+	sprite_tile_deny_id = 103;
+	sprite_tile_allow_id = 104;
+	sprite_tile_id = sprite_tile_deny_id;
 
 	uint8_t sprite_arrow_up_id = 31;
 	uint8_t sprite_arrow_down_id = 15;
 	uint8_t sprite_arrow_left_id = 14;
 	uint8_t sprite_arrow_right_id = 30;
-	sprite_array_ids = {sprite_arrow_down_id, sprite_arrow_left_id, sprite_arrow_up_id, sprite_arrow_right_id};
+	sprite_arrow_ids = {sprite_arrow_down_id, sprite_arrow_left_id, sprite_arrow_up_id, sprite_arrow_right_id};
 }
 
 void Builder::draw() {
-	screen.sprite(sprite_id, world_to_screen(position));
-	screen.sprite(sprite_id, world_to_screen(position + turn_direction));
-	screen.sprite(sprite_array_ids[turn_index], world_to_screen(position + turn_direction));
+	screen.sprite(sprite_tile_id, world_to_screen(position));
+	screen.sprite(sprite_tile_id, world_to_screen(position + turn_direction));
+	screen.sprite(sprite_arrow_ids[turn_index], world_to_screen(position + turn_direction));
 }
 
 void Builder::move_up() {
@@ -67,7 +68,7 @@ void Builder::move(Point movement) {
 		&& outer_tile_next_position.y <= screen_tiles.y)
 	{
 		position = next_position;
-		update_sprite();
+		update_tile_sprite();
 	}
 }
 
@@ -96,22 +97,55 @@ void Builder::turn() {
 		&& position.y + next_turn_direction.y <= screen_tiles.y)
 	{
 		turn_direction = next_turn_direction;
-		update_sprite();
+		update_tile_sprite();
 	} else {
 		turn();
 	}
 }
 
-void Builder::update_sprite() {
-	if (map::get_flag(position) == map::TileFlags::BUILDABLE && map::get_flag(position + turn_direction) == map::TileFlags::BUILDABLE) {
-		sprite_id = sprite_allow_id;
+bool Builder::can_build() {
+	return map::get_flag(position) == map::TileFlags::BUILDABLE
+		&& map::get_flag(position + turn_direction) == map::TileFlags::BUILDABLE;
+}
+
+void Builder::update_tile_sprite() {
+	if (can_build()) {
+		sprite_tile_id = sprite_tile_allow_id;
 	} else {
-		sprite_id = sprite_deny_id;
+		sprite_tile_id = sprite_tile_deny_id;
 	}
 }
 
-//TODO figure out which facing_direction is the best
+bool Builder::is_occupied(Point tile) {
+	return occupied_tiles[tile.x][tile.y];
+}
+
+void Builder::set_occupied(Point tile, bool value) {
+	occupied_tiles[tile.x][tile.y] = value;
+}
+
 bool Builder::build() {
-	//TODO add to occupied + call add_turret of turret_handler
-	return false;
+	Point outer_tile_position = Point(position.x + turn_direction.x, position.y + turn_direction.y);
+	Point turret_spawn_position;
+
+	//Turret must always spawn on the tile which is closest to he upper left
+	switch (turn_index) {
+		case TurretFacingDirection::DOWN:
+		case TurretFacingDirection::RIGHT:
+			turret_spawn_position = position;
+			break;
+		case TurretFacingDirection::UP:
+		case TurretFacingDirection::LEFT:
+			turret_spawn_position = position + turn_direction;
+			break;
+	}
+
+	if (can_build() && !is_occupied(position) && !is_occupied(outer_tile_position)) {
+		TurretHandler::getInstance()->add_turret(turret_spawn_position, (TurretFacingDirection)turn_index);
+		set_occupied(position, true);
+		set_occupied(outer_tile_position, true);
+		return true;
+	} else {
+		return false;
+	}
 }
