@@ -45,7 +45,7 @@ bool TurretHandler::remove_turret(Point position, TurretFacingDirection facing_d
 	}
 
 	while (!removed && itr != turrets.end()) {
-		if (itr->get_rect() == Rect(position.x, position.y, size.x, size.y)) {
+		if (itr->get_rectangle() == Rect(position.x, position.y, size.x, size.y)) {
 			turrets.erase(itr++);
 			removed = true;
 		} else {

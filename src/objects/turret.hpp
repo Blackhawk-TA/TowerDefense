@@ -11,11 +11,10 @@ class Turret {
 public:
 	explicit Turret(Point position, TurretFacingDirection facing_direction);
 	void draw();
-	Rect get_rect(); //TODO rename
+	Rect get_rectangle() const;
 
 private:
 	Point position;
-	Point size;
 	Rect sprite_facing_up;
 	Rect sprite_facing_down;
 	Rect sprite_facing_left;
