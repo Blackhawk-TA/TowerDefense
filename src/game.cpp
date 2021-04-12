@@ -1,7 +1,7 @@
-#include <iomanip>
 #include "game.hpp"
 #include "assets.hpp"
 #include "utils/map.hpp"
+#include "utils/ui_overlay.hpp"
 #include "handlers/chest_handler.hpp"
 #include "handlers/enemy_handler.hpp"
 #include "handlers/turret_handler.hpp"
@@ -44,32 +44,6 @@ void init() {
 	turret_handler = TurretHandler::getInstance();
 }
 
-//TODO move to UI overlay namespace
-void draw_points() {
-	screen.pen = Pen(255, 255, 255, 200);
-	screen.text(std::to_string(points),
-		minimal_font,
-		Rect(screen.bounds.w - 10, 1, 10, 16),
-		true,
-		TextAlign::top_right
-	);
-}
-
-void draw_time(uint32_t time) {
-	screen.pen = Pen(255, 255, 255, 200);
-	char *time_string;
-	long time_sec = time / 1000;
-	std::tm *localtime = std::localtime(&time_sec);
-
-	std::strftime(time_string, 5, "%M:%S", localtime);
-	screen.text(time_string,
-		minimal_font,
-		Rect(1, 1, 10, 16),
-		true,
-		TextAlign::top_left
-	);
-}
-
 ///////////////////////////////////////////////////////////////////////////
 //
 // render(time)
@@ -91,11 +65,11 @@ void render(uint32_t time) {
 	enemy_handler->draw();
 	turret_handler->draw();
 
-	draw_time(time);
-	draw_points();
+	ui_overlay::draw_time(time);
+	ui_overlay::draw_points(points);
 
 	ms_end = now();
-	draw_fps(ms_start, ms_end);
+	ui_overlay::draw_fps(ms_start, ms_end);
 }
 
 ///////////////////////////////////////////////////////////////////////////

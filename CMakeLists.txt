@@ -12,6 +12,7 @@ set(PROJECT_SOURCE
     src/objects/enemy.cpp src/objects/enemy.hpp
     src/objects/turret.cpp src/objects/turret.hpp
     src/utils/map.cpp src/utils/map.hpp
+    src/utils/ui_overlay.cpp src/utils/ui_overlay.hpp
     src/utils/utils.cpp src/utils/utils.hpp
     src/handlers/chest_handler.cpp src/handlers/chest_handler.hpp
     src/handlers/enemy_handler.cpp src/handlers/enemy_handler.hpp
