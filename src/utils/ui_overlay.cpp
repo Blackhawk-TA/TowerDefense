@@ -25,7 +25,7 @@ namespace ui_overlay {
 
 	void draw_time(uint32_t time) {
 		screen.pen = Pen(255, 255, 255, 200);
-		long time_sec = time / 1000;
+		const time_t time_sec = time / 1000;
 		std::tm *localtime = std::localtime(&time_sec);
 		std::string time_string(5, ' ');
 		std::strftime(&time_string[0], 5, "%M:%S", localtime);
