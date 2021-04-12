@@ -15,11 +15,18 @@ public:
 
 private:
 	static EnemyHandler *instance;
-	std::list<Enemy> enemies;
+	static Vec2 enemy_start_position;
+	static std::vector<Vec2> enemy_path;
+	static uint16_t spawn_delay;
+	static uint8_t spawn_counter;
+	static Timer *timer_spawn_enemies;
 	Timer timer_animate_enemies;
+	std::list<Enemy> enemies;
 
 	explicit EnemyHandler();
+	static Timer *get_timer_spawn_enemies();
 	static Vec2 calculate_next_position(Vec2 previous_position, Vec2 current_position, map::TileFlags flag);
 	static std::vector<Vec2> calculate_path(Vec2 start_position);
+	static void spawn(Timer &timer);
 	static void animate(Timer &timer);
 };

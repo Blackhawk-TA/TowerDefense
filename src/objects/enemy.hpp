@@ -17,7 +17,7 @@ public:
 
 private:
 	const uint8_t sprite_ids[3] = {60, 61, 62};
-	const float velocity = 0.5;
+	const float velocity = 0.25;
 
 	SpriteTransform transform;
 	uint8_t sprite_index;

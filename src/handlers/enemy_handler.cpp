@@ -7,6 +7,11 @@
 using namespace blit;
 
 EnemyHandler *EnemyHandler::instance = nullptr;
+Timer *EnemyHandler::timer_spawn_enemies = nullptr;
+Vec2 EnemyHandler::enemy_start_position = Vec2(-1, 1);
+uint16_t EnemyHandler::spawn_delay = 10000;
+uint8_t EnemyHandler::spawn_counter = 0;
+std::vector<Vec2> EnemyHandler::enemy_path = {};
 
 EnemyHandler *EnemyHandler::getInstance() {
 	if (instance == nullptr) {
@@ -15,13 +20,34 @@ EnemyHandler *EnemyHandler::getInstance() {
 	return instance;
 }
 
+Timer *EnemyHandler::get_timer_spawn_enemies() {
+	if (timer_spawn_enemies == nullptr) {
+		timer_spawn_enemies = new Timer();
+	}
+	return timer_spawn_enemies;
+}
+
 EnemyHandler::EnemyHandler() {
-	Vec2 enemy_start_position = Vec2(0, 1);
-	std::vector<Vec2> enemy_path = calculate_path(enemy_start_position);
-	enemies.push_back(*new Enemy(enemy_start_position, enemy_path)); //TODO generate enemies automatically with timer
+	enemy_path = calculate_path(enemy_start_position);
+
+	EnemyHandler::get_timer_spawn_enemies()->init(spawn, 1000, 1);
+	EnemyHandler::get_timer_spawn_enemies()->start();
 
 	timer_animate_enemies.init(animate, 100, -1);
 	timer_animate_enemies.start();
+}
+
+void EnemyHandler::spawn(Timer &timer) {
+	EnemyHandler::getInstance()->enemies.push_back(*new Enemy(enemy_start_position, enemy_path));
+
+	if (spawn_counter == 5 && spawn_delay >= 1000) {
+		spawn_counter = 0;
+		spawn_delay -= 500;
+	}
+
+	EnemyHandler::get_timer_spawn_enemies()->duration = spawn_delay;
+	EnemyHandler::get_timer_spawn_enemies()->start();
+	spawn_counter++;
 }
 
 void EnemyHandler::animate(Timer &timer) {

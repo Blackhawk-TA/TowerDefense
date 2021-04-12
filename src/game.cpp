@@ -68,7 +68,7 @@ void render(uint32_t time) {
 	chest_handler->draw();
 	enemy_handler->draw();
 
-	if (build_mode) { //TODO deny builder on already occupied places
+	if (build_mode) {
 		builder->draw();
 	}
 
