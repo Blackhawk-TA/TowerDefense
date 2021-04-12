@@ -23,12 +23,14 @@ namespace ui_overlay {
 		}
 	}
 
+	const size_t required_space = 6;
+	time_t time_sec;
+
 	void draw_time(uint32_t time) {
 		screen.pen = Pen(255, 255, 255, 200);
-		const time_t time_sec = time / 1000;
-		std::tm *localtime = std::localtime(&time_sec);
-		std::string time_string(5, ' ');
-		std::strftime(&time_string[0], 5, "%M:%S", localtime);
+		time_sec = time / 1000;
+		std::string time_string(required_space, ' ');
+		std::strftime(&time_string[0], required_space, "%M:%S", std::localtime(&time_sec));
 
 		screen.text(time_string,
 			minimal_font,
