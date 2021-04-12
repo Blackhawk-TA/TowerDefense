@@ -1,3 +1,4 @@
+#include <iomanip>
 #include "game.hpp"
 #include "assets.hpp"
 #include "utils/map.hpp"
@@ -9,7 +10,7 @@
 using namespace blit;
 
 float ms_start, ms_end;
-uint32_t score = 0;
+uint32_t points = 0;
 bool build_mode = false;
 Builder *builder;
 ChestHandler *chest_handler;
@@ -43,13 +44,29 @@ void init() {
 	turret_handler = TurretHandler::getInstance();
 }
 
-void draw_score() {
+//TODO move to UI overlay namespace
+void draw_points() {
 	screen.pen = Pen(255, 255, 255, 200);
-	screen.text(std::to_string(score),
+	screen.text(std::to_string(points),
 		minimal_font,
 		Rect(screen.bounds.w - 10, 1, 10, 16),
 		true,
 		TextAlign::top_right
+	);
+}
+
+void draw_time(uint32_t time) {
+	screen.pen = Pen(255, 255, 255, 200);
+	char *time_string;
+	long time_sec = time / 1000;
+	std::tm *localtime = std::localtime(&time_sec);
+
+	std::strftime(time_string, 5, "%M:%S", localtime);
+	screen.text(time_string,
+		minimal_font,
+		Rect(1, 1, 10, 16),
+		true,
+		TextAlign::top_left
 	);
 }
 
@@ -65,16 +82,17 @@ void render(uint32_t time) {
 	screen.clear();
 
 	map::draw(build_mode, &level_line_interrupt_callback);
-	chest_handler->draw();
-	enemy_handler->draw();
 
 	if (build_mode) {
 		builder->draw();
 	}
 
+	chest_handler->draw();
+	enemy_handler->draw();
 	turret_handler->draw();
 
-	draw_score();
+	draw_time(time);
+	draw_points();
 
 	ms_end = now();
 	draw_fps(ms_start, ms_end);
