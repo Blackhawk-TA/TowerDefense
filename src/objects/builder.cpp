@@ -150,32 +150,32 @@ Point Builder::calculate_turret_position() {
 }
 
 bool Builder::build() {
-	Point outer_tile_position = Point(position.x + turn_direction.x, position.y + turn_direction.y);
+	Point outer_tile_position = position + turn_direction;
 	Point turret_spawn_position = calculate_turret_position();
+	bool build_success = false;
 
 	if (can_build()) {
 		TurretHandler::getInstance()->add_turret(turret_spawn_position, (TurretFacingDirection)turn_index);
 		set_occupied(position, true);
 		set_occupied(outer_tile_position, true);
-		return true;
-	} else {
-		return false;
+		build_success = true;
 	}
+
+	return build_success;
 }
 
 bool Builder::destroy() {
-	Point outer_tile_position = Point(position.x + turn_direction.x, position.y + turn_direction.y);
+	Point outer_tile_position = position + turn_direction;
 	Point turret_spawn_position = calculate_turret_position();
+	bool destruction_success = false;
 
 	if (is_building_ground() && is_occupied(position) && is_occupied(outer_tile_position)) {
-		if (TurretHandler::getInstance()->remove_turret(turret_spawn_position, (TurretFacingDirection)turn_index)) { //Removal successful
+		if (TurretHandler::getInstance()->remove_turret(turret_spawn_position, (TurretFacingDirection)turn_index)) {
 			set_occupied(position, false);
 			set_occupied(outer_tile_position, false);
-			return true;
-		} else {
-			return false;
+			destruction_success = true;
 		}
-	} else {
-		return false;
 	}
+
+	return destruction_success;
 }
