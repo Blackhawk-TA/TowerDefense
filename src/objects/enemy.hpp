@@ -14,6 +14,7 @@ public:
 	void animate(Timer &timer);
 	bool move();
 	uint8_t take_damage(uint8_t &damage);
+	Point get_position();
 
 private:
 	const uint8_t sprite_ids[3] = {60, 61, 62};

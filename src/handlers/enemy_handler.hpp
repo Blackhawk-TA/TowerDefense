@@ -12,6 +12,7 @@ public:
 	static EnemyHandler *getInstance();
 	void draw();
 	void move();
+	std::list<Enemy> *get_enemies();
 
 private:
 	static EnemyHandler *instance;

@@ -37,6 +37,10 @@ EnemyHandler::EnemyHandler() {
 	timer_animate_enemies.start();
 }
 
+std::list<Enemy> *EnemyHandler::get_enemies() {
+	return &enemies;
+}
+
 void EnemyHandler::spawn(Timer &timer) {
 	EnemyHandler::getInstance()->enemies.push_back(*new Enemy(enemy_start_position, enemy_path));
 

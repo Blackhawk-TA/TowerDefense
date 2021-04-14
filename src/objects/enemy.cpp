@@ -65,3 +65,7 @@ bool Enemy::move() {
 
 	return true;
 }
+
+Point Enemy::get_position() {
+	return position;
+}

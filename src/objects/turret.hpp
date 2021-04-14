@@ -20,4 +20,9 @@ private:
 	Rect sprite_facing_left;
 	Rect sprite;
 	SpriteTransform transform;
+	static uint8_t damage;
+	Timer timer_attack;
+
+	static void attack(Timer &timer);
+	static bool in_range(Point target);
 };
