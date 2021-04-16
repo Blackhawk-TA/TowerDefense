@@ -14,6 +14,8 @@ public:
 	Rect get_rectangle() const;
 	TurretFacingDirection get_facing_direction();
 	uint8_t get_damage() const;
+	Point get_range() const;
+	Point get_position() const;
 
 private:
 	Point position;
@@ -24,4 +26,5 @@ private:
 	SpriteTransform transform;
 	TurretFacingDirection facing_direction;
 	uint8_t damage;
+	Point range;
 };

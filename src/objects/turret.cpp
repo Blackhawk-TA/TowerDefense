@@ -10,6 +10,7 @@ using namespace blit;
 Turret::Turret(Point position, TurretFacingDirection facing_direction) {
 	Turret::position = position;
 	Turret::facing_direction = facing_direction;
+	range = Point(2, 5);
 	damage = 10;
 	sprite_facing_up = Rect(10, 1, 1, 2);
 	sprite_facing_down = Rect(7, 2, 1, 2);
@@ -49,4 +50,12 @@ TurretFacingDirection Turret::get_facing_direction() {
 
 uint8_t Turret::get_damage() const {
 	return damage;
+}
+
+Point Turret::get_range() const {
+	return range;
+}
+
+Point Turret::get_position() const {
+	return position;
 }

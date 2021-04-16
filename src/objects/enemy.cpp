@@ -67,5 +67,5 @@ bool Enemy::move() {
 }
 
 Point Enemy::get_position() {
-	return position;
+	return screen_to_world(position);
 }

@@ -23,5 +23,5 @@ private:
 
 	explicit TurretHandler();
 	static void attack(Timer &timer);
-	static bool in_range(Point target, TurretFacingDirection facing_direction);
+	static bool in_range(Point target, Point position, Point range, TurretFacingDirection facing_direction);
 };

@@ -62,16 +62,24 @@ bool TurretHandler::remove_turret(Point position, TurretFacingDirection facing_d
 }
 
 void TurretHandler::attack(Timer &timer) {
-	std::list<Turret> turrets = TurretHandler::getInstance()->turrets;
+	std::list<Turret> *turrets = &TurretHandler::getInstance()->turrets;
 	std::list<Enemy> *enemies = EnemyHandler::getInstance()->get_enemies();
+	uint8_t health;
+	Point enemy_position;
+	Point turret_position;
+	Point turret_range;
+	TurretFacingDirection facing_direction;
 
-	for (Turret turret : turrets) {
-
-		uint8_t health;
+	for (Turret &turret : *turrets) {
 		auto itr = enemies->begin();
+		turret_range = turret.get_range();
+		turret_position = turret.get_position();
+		facing_direction = turret.get_facing_direction();
 
 		while (itr != enemies->end()) {
-			if (in_range(itr->get_position(), turret.get_facing_direction())) {
+			enemy_position = itr->get_position();
+
+			if (in_range(enemy_position, turret_position, turret_range, facing_direction)) {
 				health = itr->take_damage(turret.get_damage());
 			}
 
@@ -84,8 +92,8 @@ void TurretHandler::attack(Timer &timer) {
 	}
 }
 
-bool TurretHandler::in_range(Point target, TurretFacingDirection facing_direction) {
-	bool is_in_range = true;
+bool TurretHandler::in_range(Point target, Point position, Point range, TurretFacingDirection facing_direction) {
+	bool is_in_range = false;
 
 	switch (facing_direction) {
 		case TurretFacingDirection::UP:
