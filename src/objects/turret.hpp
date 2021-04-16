@@ -12,6 +12,8 @@ public:
 	explicit Turret(Point position, TurretFacingDirection facing_direction);
 	void draw();
 	Rect get_rectangle() const;
+	TurretFacingDirection get_facing_direction();
+	uint8_t get_damage() const;
 
 private:
 	Point position;
@@ -20,9 +22,6 @@ private:
 	Rect sprite_facing_left;
 	Rect sprite;
 	SpriteTransform transform;
-	static uint8_t damage;
-	Timer timer_attack;
-
-	static void attack(Timer &timer);
-	static bool in_range(Point target);
+	TurretFacingDirection facing_direction;
+	uint8_t damage;
 };

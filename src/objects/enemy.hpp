@@ -13,7 +13,7 @@ public:
 	void draw();
 	void animate(Timer &timer);
 	bool move();
-	uint8_t take_damage(uint8_t &damage);
+	uint8_t take_damage(uint8_t damage);
 	Point get_position();
 
 private:

@@ -3,6 +3,8 @@
 //
 
 #include "turret_handler.hpp"
+#include "../objects/enemy.hpp"
+#include "enemy_handler.hpp"
 #include <vector>
 
 using namespace blit;
@@ -16,7 +18,10 @@ TurretHandler *TurretHandler::getInstance() {
 	return instance;
 }
 
-TurretHandler::TurretHandler() = default;
+TurretHandler::TurretHandler() {
+	timer_attack.init(attack, 1000, -1);
+	timer_attack.start();
+}
 
 void TurretHandler::draw() {
 	for (Turret &turret : turrets) {
@@ -54,4 +59,44 @@ bool TurretHandler::remove_turret(Point position, TurretFacingDirection facing_d
 	}
 
 	return removed;
+}
+
+void TurretHandler::attack(Timer &timer) {
+	std::list<Turret> turrets = TurretHandler::getInstance()->turrets;
+	std::list<Enemy> *enemies = EnemyHandler::getInstance()->get_enemies();
+
+	for (Turret turret : turrets) {
+
+		uint8_t health;
+		auto itr = enemies->begin();
+
+		while (itr != enemies->end()) {
+			if (in_range(itr->get_position(), turret.get_facing_direction())) {
+				health = itr->take_damage(turret.get_damage());
+			}
+
+			if (health == 0) {
+				enemies->erase(itr++);
+			} else {
+				itr++;
+			}
+		}
+	}
+}
+
+bool TurretHandler::in_range(Point target, TurretFacingDirection facing_direction) {
+	bool is_in_range = true;
+
+	switch (facing_direction) {
+		case TurretFacingDirection::UP:
+			break;
+		case TurretFacingDirection::DOWN:
+			break;
+		case TurretFacingDirection::LEFT:
+			break;
+		case TurretFacingDirection::RIGHT:
+			break;
+	}
+
+	return is_in_range;
 }

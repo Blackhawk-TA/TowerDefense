@@ -24,7 +24,7 @@ void Enemy::animate(Timer &timer) {
 	sprite_index = (sprite_index + 1) % 3;
 }
 
-uint8_t Enemy::take_damage(uint8_t &damage) {
+uint8_t Enemy::take_damage(uint8_t damage) {
 	if (health - damage >= 0) {
 		health -= damage;
 	} else {

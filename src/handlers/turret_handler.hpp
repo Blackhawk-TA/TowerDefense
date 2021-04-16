@@ -19,6 +19,9 @@ public:
 private:
 	static TurretHandler *instance;
 	std::list<Turret> turrets;
+	Timer timer_attack;
 
 	explicit TurretHandler();
+	static void attack(Timer &timer);
+	static bool in_range(Point target, TurretFacingDirection facing_direction);
 };
