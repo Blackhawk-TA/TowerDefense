@@ -15,10 +15,12 @@ public:
 	TurretFacingDirection get_facing_direction();
 	uint8_t get_damage() const;
 	Point get_range() const;
-	Point get_position() const;
+	Point get_barrel_position() const;
+	void animate(Timer &timer); //TODO handle different directions
 
 private:
-	Point position;
+	Point spawn_position;
+	Point barrel_position; //The position where the turret fires from
 	Rect sprite_facing_up;
 	Rect sprite_facing_down;
 	Rect sprite_facing_left;
@@ -26,5 +28,5 @@ private:
 	SpriteTransform transform;
 	TurretFacingDirection facing_direction;
 	uint8_t damage;
-	Point range;
+	Point range; // How far it can shoot to the left/right and forward
 };

@@ -64,6 +64,7 @@ bool TurretHandler::remove_turret(Point position, TurretFacingDirection facing_d
 void TurretHandler::attack(Timer &timer) {
 	std::list<Turret> *turrets = &TurretHandler::getInstance()->turrets;
 	std::list<Enemy> *enemies = EnemyHandler::getInstance()->get_enemies();
+	bool take_damage = false;
 	uint8_t health;
 	Point enemy_position;
 	Point turret_position;
@@ -73,7 +74,7 @@ void TurretHandler::attack(Timer &timer) {
 	for (Turret &turret : *turrets) {
 		auto itr = enemies->begin();
 		turret_range = turret.get_range();
-		turret_position = turret.get_position();
+		turret_position = turret.get_barrel_position();
 		facing_direction = turret.get_facing_direction();
 
 		while (itr != enemies->end()) {
@@ -81,10 +82,16 @@ void TurretHandler::attack(Timer &timer) {
 
 			if (in_range(enemy_position, turret_position, turret_range, facing_direction)) {
 				health = itr->take_damage(turret.get_damage());
+				take_damage = true;
+				//TODO animate turret
+//				Timer timer_turret_animation;
+//				timer_turret_animation.init(turret.animate, 100, 3);
+//				timer_turret_animation.start();
 			}
 
-			if (health == 0) {
+			if (take_damage && health == 0) {
 				enemies->erase(itr++);
+				take_damage = false;
 			} else {
 				itr++;
 			}
@@ -97,12 +104,28 @@ bool TurretHandler::in_range(Point target, Point position, Point range, TurretFa
 
 	switch (facing_direction) {
 		case TurretFacingDirection::UP:
+			if (position.y - target.y <= range.y && position.y - target.y >= 0
+				&& position.x - target.x <= range.x && position.x - target.x >= -range.x) {
+				is_in_range = true;
+			}
 			break;
 		case TurretFacingDirection::DOWN:
+			if (position.y - target.y >= -range.y && position.y - target.y <= 0
+				&& position.x - target.x <= range.x && position.x - target.x >= -range.x) {
+				is_in_range = true;
+			}
 			break;
 		case TurretFacingDirection::LEFT:
+			if (position.x - target.x <= range.y && position.x - target.x >= 0
+				&& position.y - target.y <= range.x && position.y - target.y >= -range.x) {
+				is_in_range = true;
+			}
 			break;
 		case TurretFacingDirection::RIGHT:
+			if (position.x - target.x >= -range.y && position.x - target.x <= 0
+				&& position.y - target.y <= range.x && position.y - target.y >= -range.x) {
+				is_in_range = true;
+			}
 			break;
 	}
 
