@@ -6,13 +6,14 @@
 #include "handlers/enemy_handler.hpp"
 #include "handlers/turret_handler.hpp"
 #include "objects/builder.hpp"
+#include "objects/credits.hpp"
 
 using namespace blit;
 
 float ms_start, ms_end;
-uint32_t points = 0;
 bool build_mode = false;
 Builder *builder;
+Credits *credits;
 ChestHandler *chest_handler;
 EnemyHandler *enemy_handler;
 TurretHandler *turret_handler;
@@ -39,6 +40,7 @@ void init() {
 	map::set_flags(map::TileFlags::BUILDABLE, {102});
 
 	builder = Builder::getInstance();
+	credits = Credits::getInstance();
 	chest_handler = ChestHandler::getInstance();
 	enemy_handler = EnemyHandler::getInstance();
 	turret_handler = TurretHandler::getInstance();
@@ -66,7 +68,7 @@ void render(uint32_t time) {
 	turret_handler->draw();
 
 	ui_overlay::draw_time(time);
-	ui_overlay::draw_points(points);
+	ui_overlay::draw_points(credits->get_credits());
 
 	ms_end = now();
 	ui_overlay::draw_fps(ms_start, ms_end);
@@ -104,12 +106,13 @@ void update(uint32_t time) {
 		} else if (buttons & changed & Button::Y) {
 			builder->turn();
 		} else if (buttons & changed & Button::A) {
-			if (builder->build()) {
-				//TODO pay turret with points
+			//TODO make can_buy_turret method obsolete and show visually when there is not enough money
+			if (credits->can_buy_turret() && builder->build()) {
+				credits->buy_turret();
 			}
 		} else if (buttons & changed & Button::B) {
 			if (builder->destroy()) {
-				//TODO refund points
+				credits->refund_turret();
 			}
 		}
 	}

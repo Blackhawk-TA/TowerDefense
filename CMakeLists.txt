@@ -9,6 +9,7 @@ set(PROJECT_SOURCE
     src/game.cpp src/game.hpp
     src/objects/builder.cpp src/objects/builder.hpp
     src/objects/chest.cpp src/objects/chest.hpp
+    src/objects/credits.cpp src/objects/credits.hpp
     src/objects/enemy.cpp src/objects/enemy.hpp
     src/objects/turret.cpp src/objects/turret.hpp
     src/utils/map.cpp src/utils/map.hpp

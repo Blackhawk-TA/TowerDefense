@@ -3,6 +3,7 @@
 //
 
 #include "turret_handler.hpp"
+#include "../objects/credits.hpp"
 #include "../objects/enemy.hpp"
 #include "enemy_handler.hpp"
 #include <vector>
@@ -89,8 +90,10 @@ void TurretHandler::attack(Timer &timer) {
 //				timer_turret_animation.start();
 			}
 
+			//Kill enemy
 			if (take_damage && health == 0) {
 				enemies->erase(itr++);
+				Credits::getInstance()->add_kill_reward();
 				take_damage = false;
 			} else {
 				itr++;

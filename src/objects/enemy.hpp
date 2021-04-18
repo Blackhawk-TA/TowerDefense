@@ -21,8 +21,8 @@ private:
 	const float velocity = 0.25;
 
 	SpriteTransform transform;
+	int health;
 	uint8_t sprite_index;
-	uint8_t health;
 	uint8_t path_index;
 	Vec2 position;
 	std::vector<Vec2> path;
