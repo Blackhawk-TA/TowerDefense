@@ -16,17 +16,24 @@ public:
 	uint8_t get_damage() const;
 	Point get_range() const;
 	Point get_barrel_position() const;
-	void animate(Timer &timer); //TODO handle different directions
+	void animate();
+	bool is_animation_pending() const;
+	void activate_animation_pending();
 
 private:
 	Point spawn_position;
+	Point animation_position;
 	Point barrel_position; //The position where the turret fires from
+	Point range; // How far it can shoot to the left/right and forward
 	Rect sprite_facing_up;
 	Rect sprite_facing_down;
 	Rect sprite_facing_left;
 	Rect sprite;
 	SpriteTransform transform;
+	SpriteTransform animation_transform;
+	std::array<uint8_t, 5> animation_sprite_ids{};
 	TurretFacingDirection facing_direction;
+	uint8_t animation_sprite_index;
 	uint8_t damage;
-	Point range; // How far it can shoot to the left/right and forward
+	bool animation_pending;
 };

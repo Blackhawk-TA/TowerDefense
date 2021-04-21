@@ -20,8 +20,11 @@ private:
 	static TurretHandler *instance;
 	std::list<Turret> turrets;
 	Timer timer_attack;
+	static Timer *timer_animation;
 
 	explicit TurretHandler();
+	static void animate(Timer &timer);
 	static void attack(Timer &timer);
 	static bool in_range(Point target, Point position, Point range, TurretFacingDirection facing_direction);
+	static Timer *get_timer_animation();
 };

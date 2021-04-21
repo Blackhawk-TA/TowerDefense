@@ -11,6 +11,7 @@
 using namespace blit;
 
 TurretHandler *TurretHandler::instance = nullptr;
+Timer *TurretHandler::timer_animation = nullptr;
 
 TurretHandler *TurretHandler::getInstance() {
 	if (instance == nullptr) {
@@ -22,6 +23,15 @@ TurretHandler *TurretHandler::getInstance() {
 TurretHandler::TurretHandler() {
 	timer_attack.init(attack, 1000, -1);
 	timer_attack.start();
+
+	TurretHandler::get_timer_animation()->init(animate, 100, 3);
+}
+
+Timer *TurretHandler::get_timer_animation() {
+	if (timer_animation == nullptr) {
+		timer_animation = new Timer();
+	}
+	return timer_animation;
 }
 
 void TurretHandler::draw() {
@@ -78,16 +88,14 @@ void TurretHandler::attack(Timer &timer) {
 		turret_position = turret.get_barrel_position();
 		facing_direction = turret.get_facing_direction();
 
-		while (itr != enemies->end()) {
+		//TODO check if firing at only one target at once is working
+		while (!turret.is_animation_pending() && itr != enemies->end()) {
 			enemy_position = itr->get_position();
 
 			if (in_range(enemy_position, turret_position, turret_range, facing_direction)) {
 				health = itr->take_damage(turret.get_damage());
 				take_damage = true;
-				//TODO animate turret
-//				Timer timer_turret_animation;
-//				timer_turret_animation.init(turret.animate, 100, 3);
-//				timer_turret_animation.start();
+				turret.activate_animation_pending();
 			}
 
 			//Kill enemy
@@ -98,6 +106,17 @@ void TurretHandler::attack(Timer &timer) {
 			} else {
 				itr++;
 			}
+		}
+	}
+
+	//Animate turret shots
+	TurretHandler::get_timer_animation()->start();
+}
+
+void TurretHandler::animate(Timer &timer) {
+	for (Turret &turret : TurretHandler::getInstance()->turrets) {
+		if (turret.is_animation_pending()) {
+			turret.animate();
 		}
 	}
 }
