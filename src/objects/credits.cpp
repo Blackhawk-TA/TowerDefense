@@ -14,7 +14,7 @@ Credits *Credits::getInstance() {
 }
 
 Credits::Credits() {
-	credits = 15;
+	credits = 30;
 	kill_reward = 10;
 	turret_price = 15;
 	turret_refund_multiplier = 0.75;

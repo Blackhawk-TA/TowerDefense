@@ -44,9 +44,9 @@ std::list<Enemy> *EnemyHandler::get_enemies() {
 void EnemyHandler::spawn(Timer &timer) {
 	EnemyHandler::getInstance()->enemies.push_back(*new Enemy(enemy_start_position, enemy_path));
 
-	if (spawn_counter == 5 && spawn_delay >= 1000) {
+	if (spawn_counter == 3 && spawn_delay >= 500) {
 		spawn_counter = 0;
-		spawn_delay -= 500;
+		spawn_delay = std::floor(spawn_delay * 0.85);
 	}
 
 	EnemyHandler::get_timer_spawn_enemies()->duration = spawn_delay;
