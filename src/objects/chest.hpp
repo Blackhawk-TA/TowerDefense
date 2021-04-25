@@ -12,7 +12,7 @@ public:
 	explicit Chest(Point position);
 	void draw();
 	void open();
-	bool is_open();
+	bool is_open() const;
 	Point get_position();
 
 private:

@@ -11,13 +11,17 @@ using namespace blit;
 class ChestHandler{
 public:
 	static ChestHandler *getInstance();
+	bool get_has_closed_chest() const;
 	void draw();
-	Chest* get_by_position(Point position);
+	bool open_by_position(Point position);
 
 private:
 	static ChestHandler *instance;
 	const Point chest_base_position = Point(16, 12);
+	bool has_closed_chest;
 	std::vector<Chest> chests;
 
 	explicit ChestHandler();
+	Chest* get_by_position(Point position);
+	void check_closed_chests();
 };

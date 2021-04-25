@@ -43,9 +43,8 @@ bool Enemy::move() {
 	Vec2 next_position = path.at(path_index);
 	Vec2 current_position = screen_to_world(position);
 
-	Chest *chest = ChestHandler::getInstance()->get_by_position(current_position);
-	if (chest && !chest->is_open()) {
-		chest->open();
+	bool chest_opened = ChestHandler::getInstance()->open_by_position(current_position);
+	if (chest_opened) {
 		return false;
 	}
 

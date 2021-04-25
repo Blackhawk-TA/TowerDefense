@@ -25,7 +25,6 @@ namespace ui_overlay {
 
 	const size_t required_space = 6;
 	time_t time_sec;
-
 	void draw_time(uint32_t time) {
 		screen.pen = Pen(255, 255, 255, 200);
 		time_sec = time / 1000;
@@ -47,6 +46,27 @@ namespace ui_overlay {
 			Rect(screen.bounds.w - 10, 1, 10, 16),
 			true,
 			TextAlign::top_right
+		);
+	}
+
+	int box_width = 80;
+	int box_height = 30;
+	std::string game_over_text;
+	void draw_game_over(bool win_game) {
+		screen.pen = Pen(255, 255, 255, 200);
+		screen.rectangle(Rect(screen.bounds.w / 2 - box_width / 2, screen.bounds.h / 2 - box_height / 2, box_width, box_height));
+
+		if (win_game) {
+			game_over_text = "You Win!\nPress X";
+		} else {
+			game_over_text = "Game Over\nPress X";
+		}
+		screen.pen = Pen(0, 0, 0, 200);
+		screen.text(game_over_text,
+			outline_font,
+			Point(screen.bounds.w / 2, screen.bounds.h / 2),
+			false,
+			TextAlign::center_center
 		);
 	}
 }

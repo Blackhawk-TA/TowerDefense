@@ -19,7 +19,7 @@ void Chest::open() {
 	sprite_id = opened_sprite_id;
 }
 
-bool Chest::is_open() {
+bool Chest::is_open() const {
 	return sprite_id == opened_sprite_id;
 }
 
