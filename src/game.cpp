@@ -12,12 +12,14 @@ using namespace blit;
 
 float ms_start, ms_end;
 bool build_mode = false;
-bool game_over = false;
+bool game_running = true;
+bool win_game = false;
 Builder *builder;
 Credits *credits;
 ChestHandler *chest_handler;
 EnemyHandler *enemy_handler;
 TurretHandler *turret_handler;
+Timer *timer_win_condition;
 
 //TODO check if camera is required and how it can be improved
 Mat3 camera;
@@ -25,6 +27,10 @@ std::function<Mat3(uint8_t)> level_line_interrupt_callback = [](uint8_t y) -> Ma
 	return camera;
 };
 
+void trigger_win_condition(Timer &timer) {
+	win_game = true;
+	game_running = false;
+}
 
 ///////////////////////////////////////////////////////////////////////////
 //
@@ -45,6 +51,9 @@ void init() {
 	chest_handler = ChestHandler::getInstance();
 	enemy_handler = EnemyHandler::getInstance();
 	turret_handler = TurretHandler::getInstance();
+
+	timer_win_condition = new Timer();
+	timer_win_condition->init(trigger_win_condition, 15000, 1);
 }
 
 ///////////////////////////////////////////////////////////////////////////
@@ -71,8 +80,8 @@ void render(uint32_t time) {
 	ui_overlay::draw_time(time);
 	ui_overlay::draw_points(credits->get_credits());
 
-	if (game_over) {
-		ui_overlay::draw_game_over(false);
+	if (!game_running) {
+		ui_overlay::draw_game_over(win_game);
 	}
 
 	ms_end = now();
@@ -94,14 +103,24 @@ void update(uint32_t time) {
 	static uint32_t changed = 0;
 	changed = buttons ^ last_buttons;
 
-	//Check game over
+	//Check win condition
 	bool has_closed_chest = ChestHandler::getInstance()->get_has_closed_chest();
+	bool is_max_spawn_interval = EnemyHandler::getInstance()->get_is_max_spawn_interval();
+	if (has_closed_chest && is_max_spawn_interval && !timer_win_condition->is_running()) {
+		timer_win_condition->start();
+	}
+
+	//Check game over condition
 	if (!has_closed_chest) {
-		game_over = true;
+		//TODO stop turret timers and enemy animation and delete all handlers and recreate them
+		game_running = false;
+		if (timer_win_condition->is_running()) {
+			timer_win_condition->stop();
+		}
 	}
 
 	//Update game logic while game is not over
-	if (!game_over) {
+	if (game_running) {
 		enemy_handler->move();
 
 		//Handle button presses

@@ -10,6 +10,7 @@
 class EnemyHandler {
 public:
 	static EnemyHandler *getInstance();
+	static bool get_is_max_spawn_interval();
 	void draw();
 	void move();
 	std::list<Enemy> *get_enemies();
@@ -21,6 +22,7 @@ private:
 	static uint16_t spawn_delay;
 	static uint8_t spawn_counter;
 	static Timer *timer_spawn_enemies;
+	static bool is_max_spawn_interval;
 	Timer timer_animate_enemies;
 	std::list<Enemy> enemies;
 

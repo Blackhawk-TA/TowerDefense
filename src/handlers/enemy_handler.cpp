@@ -12,6 +12,7 @@ Vec2 EnemyHandler::enemy_start_position = Vec2(-1, 1);
 uint16_t EnemyHandler::spawn_delay = 10000;
 uint8_t EnemyHandler::spawn_counter = 0;
 std::vector<Vec2> EnemyHandler::enemy_path = {};
+bool EnemyHandler::is_max_spawn_interval = false;
 
 EnemyHandler *EnemyHandler::getInstance() {
 	if (instance == nullptr) {
@@ -37,6 +38,10 @@ EnemyHandler::EnemyHandler() {
 	timer_animate_enemies.start();
 }
 
+bool EnemyHandler::get_is_max_spawn_interval() {
+	return is_max_spawn_interval;
+}
+
 std::list<Enemy> *EnemyHandler::get_enemies() {
 	return &enemies;
 }
@@ -47,6 +52,10 @@ void EnemyHandler::spawn(Timer &timer) {
 	if (spawn_counter == 3 && spawn_delay >= 500) {
 		spawn_counter = 0;
 		spawn_delay = std::floor(spawn_delay * 0.85);
+	}
+
+	if (!is_max_spawn_interval && spawn_delay < 500) {
+		is_max_spawn_interval = true;
 	}
 
 	EnemyHandler::get_timer_spawn_enemies()->duration = spawn_delay;
