@@ -7,11 +7,11 @@ project(TowerDefense)
 # Add your sources here (adding headers is optional, but helps some CMake generators)
 set(PROJECT_SOURCE
     src/game.cpp src/game.hpp
-    src/objects/builder.cpp src/objects/builder.hpp
-    src/objects/chest.cpp src/objects/chest.hpp
-    src/objects/credits.cpp src/objects/credits.hpp
-    src/objects/enemy.cpp src/objects/enemy.hpp
-    src/objects/turret.cpp src/objects/turret.hpp
+    src/logic-objects/builder.cpp src/logic-objects/builder.hpp
+    src/logic-objects/credits.cpp src/logic-objects/credits.hpp
+    src/game-objects/chest.cpp src/game-objects/chest.hpp
+    src/game-objects/enemy.cpp src/game-objects/enemy.hpp
+    src/game-objects/turret.cpp src/game-objects/turret.hpp
     src/utils/map.cpp src/utils/map.hpp
     src/utils/ui_overlay.cpp src/utils/ui_overlay.hpp
     src/utils/utils.cpp src/utils/utils.hpp

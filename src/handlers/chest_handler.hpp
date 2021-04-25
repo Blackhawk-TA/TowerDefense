@@ -4,7 +4,7 @@
 
 #pragma once
 #include "32blit.hpp"
-#include "../objects/chest.hpp"
+#include "../game-objects/chest.hpp"
 
 using namespace blit;
 

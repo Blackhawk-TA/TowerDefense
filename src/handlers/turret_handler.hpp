@@ -5,7 +5,7 @@
 #pragma once
 #include <list>
 #include "../utils/utils.hpp"
-#include "../objects/turret.hpp"
+#include "../game-objects/turret.hpp"
 
 using namespace blit;
 

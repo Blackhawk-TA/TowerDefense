@@ -3,8 +3,8 @@
 //
 
 #include "turret_handler.hpp"
-#include "../objects/credits.hpp"
-#include "../objects/enemy.hpp"
+#include "../logic-objects/credits.hpp"
+#include "../game-objects/enemy.hpp"
 #include "enemy_handler.hpp"
 #include <vector>
 

@@ -5,8 +5,8 @@
 #include "handlers/chest_handler.hpp"
 #include "handlers/enemy_handler.hpp"
 #include "handlers/turret_handler.hpp"
-#include "objects/builder.hpp"
-#include "objects/credits.hpp"
+#include "logic-objects/builder.hpp"
+#include "logic-objects/credits.hpp"
 
 using namespace blit;
 
@@ -116,6 +116,13 @@ void update(uint32_t time) {
 		game_running = false;
 		if (timer_win_condition->is_running()) {
 			timer_win_condition->stop();
+		}
+	}
+
+	//Reset game
+	if (!game_running) {
+		if (buttons & changed & Button::X) {
+			//TODO implement
 		}
 	}
 

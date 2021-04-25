@@ -4,7 +4,7 @@
 
 #pragma once
 #include <list>
-#include "../objects/enemy.hpp"
+#include "../game-objects/enemy.hpp"
 #include "../utils/map.hpp"
 
 class EnemyHandler {
