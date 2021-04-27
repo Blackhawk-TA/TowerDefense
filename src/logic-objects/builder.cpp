@@ -179,3 +179,14 @@ bool Builder::destroy() {
 
 	return destruction_success;
 }
+
+void Builder::reset() {
+	for (auto i = 0u; i < occupied_tiles.size(); i++) {
+		for (auto j = 0u; j < occupied_tiles.size(); j++) {
+			occupied_tiles[i][j] = false;
+		}
+	}
+
+	//Update build access indicator after resetting occupied tiles
+	update_tile_sprite();
+}

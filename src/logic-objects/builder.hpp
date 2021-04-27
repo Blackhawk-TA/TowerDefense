@@ -18,6 +18,7 @@ public:
 	void turn();
 	bool build();
 	bool destroy();
+	void reset();
 
 private:
 	static Builder *instance;

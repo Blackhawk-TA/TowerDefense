@@ -72,11 +72,15 @@ bool TurretHandler::remove_turret(Point position, TurretFacingDirection facing_d
 	return removed;
 }
 
+void TurretHandler::reset() {
+	turrets.clear();
+}
+
 void TurretHandler::attack(Timer &timer) {
 	std::list<Turret> *turrets = &TurretHandler::getInstance()->turrets;
 	std::list<Enemy> *enemies = EnemyHandler::getInstance()->get_enemies();
 	bool take_damage = false;
-	uint8_t health;
+	uint8_t health = 0;
 	Point enemy_position;
 	Point turret_position;
 	Point turret_range;

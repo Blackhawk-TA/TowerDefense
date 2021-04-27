@@ -14,7 +14,7 @@ Credits *Credits::getInstance() {
 }
 
 Credits::Credits() {
-	credits = 30;
+	credits = START_CREDITS;
 	kill_reward = 10;
 	turret_price = 15;
 	turret_refund_multiplier = 0.75;
@@ -38,4 +38,8 @@ void Credits::refund_turret() {
 
 uint32_t Credits::get_credits() const {
 	return credits;
+}
+
+void Credits::reset() {
+	credits = START_CREDITS;
 }

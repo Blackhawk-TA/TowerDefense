@@ -46,6 +46,14 @@ bool ChestHandler::open_by_position(Point position) {
 	return opened;
 }
 
+void ChestHandler::reset() {
+	for (Chest &chest : chests) {
+		chest.close();
+	}
+
+	has_closed_chest = true;
+}
+
 Chest* ChestHandler::get_by_position(Point position) {
 	uint8_t i = 0;
 	Chest *chest = nullptr;

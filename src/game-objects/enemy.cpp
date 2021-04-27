@@ -34,7 +34,6 @@ uint8_t Enemy::take_damage(uint8_t damage) {
 	return health;
 }
 
-//TODO current position has rounding issues due to screen_to_world. Works but probably not pixel perfect
 bool Enemy::move() {
 	if (path_index >= path.size()) {
 		return false;

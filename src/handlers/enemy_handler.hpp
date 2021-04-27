@@ -13,9 +13,13 @@ public:
 	static bool get_is_max_spawn_interval();
 	void draw();
 	void move();
+	void reset();
 	std::list<Enemy> *get_enemies();
 
 private:
+	static const uint16_t DEFAULT_SPAWN_DELAY = 10000; //Default delay between two enemies
+	static const uint16_t INITIAL_SPAWN_DELAY = 1000; //Delay for the first enemy
+
 	static EnemyHandler *instance;
 	static Vec2 enemy_start_position;
 	static std::vector<Vec2> enemy_path;

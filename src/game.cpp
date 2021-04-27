@@ -14,6 +14,8 @@ float ms_start, ms_end;
 bool build_mode = false;
 bool game_running = true;
 bool win_game = false;
+uint32_t game_time = 0;
+uint32_t last_game_time = 0;
 Builder *builder;
 Credits *credits;
 ChestHandler *chest_handler;
@@ -77,12 +79,14 @@ void render(uint32_t time) {
 	enemy_handler->draw();
 	turret_handler->draw();
 
-	ui_overlay::draw_time(time);
-	ui_overlay::draw_points(credits->get_credits());
-
-	if (!game_running) {
+	if (game_running) {
+		game_time = time - last_game_time;
+	} else {
 		ui_overlay::draw_game_over(win_game);
 	}
+
+	ui_overlay::draw_time(game_time);
+	ui_overlay::draw_points(credits->get_credits());
 
 	ms_end = now();
 	ui_overlay::draw_fps(ms_start, ms_end);
@@ -119,13 +123,6 @@ void update(uint32_t time) {
 		}
 	}
 
-	//Reset game
-	if (!game_running) {
-		if (buttons & changed & Button::X) {
-			//TODO implement
-		}
-	}
-
 	//Update game logic while game is not over
 	if (game_running) {
 		enemy_handler->move();
@@ -156,6 +153,21 @@ void update(uint32_t time) {
 					credits->refund_turret();
 				}
 			}
+		}
+	} else {
+		//Reset game
+		if (buttons & changed & Button::X) {
+			builder->reset();
+			chest_handler->reset();
+			credits->reset();
+			enemy_handler->reset();
+			turret_handler->reset();
+
+			build_mode = false;
+			win_game = false;
+			game_running = true;
+
+			last_game_time = time;
 		}
 	}
 

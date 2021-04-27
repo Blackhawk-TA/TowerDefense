@@ -9,7 +9,7 @@ using namespace blit;
 EnemyHandler *EnemyHandler::instance = nullptr;
 Timer *EnemyHandler::timer_spawn_enemies = nullptr;
 Vec2 EnemyHandler::enemy_start_position = Vec2(-1, 1);
-uint16_t EnemyHandler::spawn_delay = 10000;
+uint16_t EnemyHandler::spawn_delay = DEFAULT_SPAWN_DELAY;
 uint8_t EnemyHandler::spawn_counter = 0;
 std::vector<Vec2> EnemyHandler::enemy_path = {};
 bool EnemyHandler::is_max_spawn_interval = false;
@@ -85,6 +85,18 @@ void EnemyHandler::move() {
 			itr++;
 		}
 	}
+}
+
+void EnemyHandler::reset() {
+	enemies.clear();
+	spawn_delay = DEFAULT_SPAWN_DELAY;
+	spawn_counter = 0;
+	is_max_spawn_interval = false;
+
+	//Restart timer with initial spawn delay
+	get_timer_spawn_enemies()->stop();
+	get_timer_spawn_enemies()->duration = INITIAL_SPAWN_DELAY;
+	get_timer_spawn_enemies()->start();
 }
 
 ///////////////////////////////////////////////////////////////////////////

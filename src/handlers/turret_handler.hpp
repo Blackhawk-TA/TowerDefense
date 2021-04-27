@@ -15,6 +15,7 @@ public:
 	void draw();
 	void add_turret(Point position, TurretFacingDirection facing_direction);
 	bool remove_turret(Point position, TurretFacingDirection facing_direction);
+	void reset();
 
 private:
 	static TurretHandler *instance;

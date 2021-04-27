@@ -14,6 +14,7 @@ public:
 	bool get_has_closed_chest() const;
 	void draw();
 	bool open_by_position(Point position);
+	void reset();
 
 private:
 	static ChestHandler *instance;

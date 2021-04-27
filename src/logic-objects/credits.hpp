@@ -15,8 +15,11 @@ public:
 	void buy_turret();
 	void refund_turret();
 	uint32_t get_credits() const;
+	void reset();
 
 private:
+	const uint8_t START_CREDITS = 30;
+
 	static Credits *instance;
 	int credits;
 	uint8_t kill_reward;
