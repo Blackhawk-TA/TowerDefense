@@ -2,7 +2,7 @@
 
 [![license](http://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/Blackhawk-TA/TowerDefense/blob/master/LICENSE.md)
 ![Build](https://github.com/Blackhawk-TA/TowerDefense/workflows/Build/badge.svg)
-[![github](https://img.shields.io/github/release/Blackhawk-TA/TowerDefense.svg?color=brightgreen)](https://github.com/Blackhawk-TA/snake32/releases)
+[![github](https://img.shields.io/github/release/Blackhawk-TA/TowerDefense.svg?color=brightgreen)](https://github.com/Blackhawk-TA/TowerDefense/releases)
 
 A simple tower defense game for the 32Blit retro console.
 
