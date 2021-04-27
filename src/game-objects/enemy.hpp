@@ -17,8 +17,8 @@ public:
 	Point get_position();
 
 private:
-	const uint8_t sprite_ids[3] = {60, 61, 62};
-	const float velocity = 0.25;
+	const uint8_t SPRITE_IDS[3] = {60, 61, 62};
+	const float VELOCITY = 0.25;
 
 	SpriteTransform transform;
 	int health;

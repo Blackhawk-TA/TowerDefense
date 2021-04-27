@@ -8,7 +8,7 @@ using namespace blit;
 
 Chest::Chest(Point position) {
 	Chest::position = position;
-	sprite_id = closed_sprite_id;
+	sprite_id = CLOSED_SPRITE_ID;
 }
 
 void Chest::draw() {
@@ -16,15 +16,15 @@ void Chest::draw() {
 }
 
 void Chest::open() {
-	sprite_id = opened_sprite_id;
+	sprite_id = OPENED_SPRITE_ID;
 }
 
 void Chest::close() {
-	sprite_id = closed_sprite_id;
+	sprite_id = CLOSED_SPRITE_ID;
 }
 
 bool Chest::is_open() const {
-	return sprite_id == opened_sprite_id;
+	return sprite_id == OPENED_SPRITE_ID;
 }
 
 Point Chest::get_position() {

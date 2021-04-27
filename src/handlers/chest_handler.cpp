@@ -19,7 +19,7 @@ ChestHandler::ChestHandler() {
 	has_closed_chest = true;
 
 	for (int i = 0; i < 3; i++) {
-		chests.push_back(*new Chest(Point(chest_base_position.x + i, chest_base_position.y)));
+		chests.push_back(*new Chest(Point(CHEST_BASE_POSITION.x + i, CHEST_BASE_POSITION.y)));
 	}
 }
 

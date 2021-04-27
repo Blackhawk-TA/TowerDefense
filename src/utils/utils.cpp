@@ -6,20 +6,12 @@
 
 using namespace blit;
 
-Point screen_to_world(const Point &p) {
-	return Point(p.x / tile_size, p.y / tile_size);
-}
-
 Vec2 screen_to_world(const Vec2 &p) {
 	return Vec2(p.x / tile_size, p.y / tile_size);
 }
 
 Point world_to_screen(const Point &p) {
 	return Point(p.x * tile_size, p.y * tile_size);
-}
-
-Vec2 world_to_screen(const Vec2 &p) {
-	return Vec2(std::ceil(p.x * tile_size), std::ceil(p.y * tile_size));
 }
 
 Vec2 world_to_screen(const float &x, const float &y) {

@@ -18,7 +18,7 @@ public:
 
 private:
 	static ChestHandler *instance;
-	const Point chest_base_position = Point(16, 12);
+	const Point CHEST_BASE_POSITION = Point(16, 12);
 	bool has_closed_chest;
 	std::vector<Chest> chests;
 

@@ -20,9 +20,7 @@ enum TurretFacingDirection {
 	RIGHT = 3
 };
 
-Point screen_to_world(const Point &p);
 Vec2 screen_to_world(const Vec2 &p);
 
 Point world_to_screen(const Point &p);
-Vec2 world_to_screen(const Vec2 &p);
 Vec2 world_to_screen(const float &x, const float &y);

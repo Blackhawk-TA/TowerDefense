@@ -17,7 +17,7 @@ Enemy::Enemy(Vec2 start_position, std::vector<Vec2> &path) {
 }
 
 void Enemy::draw() {
-	screen.sprite(sprite_ids[sprite_index], position, transform);
+	screen.sprite(SPRITE_IDS[sprite_index], position, transform);
 }
 
 void Enemy::animate(Timer &timer) {
@@ -48,15 +48,15 @@ bool Enemy::move() {
 	}
 
 	if (current_position.x < next_position.x) {
-		position.x += velocity;
+		position.x += VELOCITY;
 		transform = SpriteTransform::NONE;
 	} else if (current_position.y < next_position.y) {
-		position.y += velocity;
+		position.y += VELOCITY;
 	} else if (current_position.x > next_position.x) {
-		position.x -= velocity;
+		position.x -= VELOCITY;
 		transform = SpriteTransform::HORIZONTAL;
 	} else if (current_position.y > next_position.y) {
-		position.y -= velocity;
+		position.y -= VELOCITY;
 	} else {
 		path_index++;
 	}

@@ -17,8 +17,8 @@ public:
 	Point get_position();
 
 private:
-	const uint8_t closed_sprite_id = 36;
-	const uint8_t opened_sprite_id = 37;
+	const uint8_t CLOSED_SPRITE_ID = 36;
+	const uint8_t OPENED_SPRITE_ID = 37;
 
 	uint8_t sprite_id;
 	Point position;
