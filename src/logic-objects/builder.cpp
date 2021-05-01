@@ -21,9 +21,7 @@ Builder::Builder() {
 	position = Point(0, 0);
 	turn_direction = Point(0, 1);
 	turn_index = 0;
-	sprite_tile_deny_id = 103;
-	sprite_tile_allow_id = 104;
-	sprite_tile_id = sprite_tile_deny_id;
+	sprite_tile_id = SPRITE_TILE_DENY_ID;
 
 	uint8_t sprite_arrow_up_id = 31;
 	uint8_t sprite_arrow_down_id = 15;
@@ -116,9 +114,9 @@ bool Builder::can_build() {
 
 void Builder::update_tile_sprite() {
 	if (can_build()) {
-		sprite_tile_id = sprite_tile_allow_id;
+		sprite_tile_id = SPRITE_TILE_ALLOW_ID;
 	} else {
-		sprite_tile_id = sprite_tile_deny_id;
+		sprite_tile_id = SPRITE_TILE_DENY_ID;
 	}
 }
 

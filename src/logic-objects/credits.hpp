@@ -19,12 +19,12 @@ public:
 
 private:
 	const uint8_t START_CREDITS = 125;
+	const uint8_t KILL_REWARD = 10;
+	const uint8_t TURRET_PRICE = 25;
+	const float TURRET_REFUND_MULTIPLIER = 0.75;
 
 	static Credits *instance;
 	int credits;
-	uint8_t kill_reward;
-	uint8_t turret_price;
-	float turret_refund_multiplier;
 
 	explicit Credits();
 };

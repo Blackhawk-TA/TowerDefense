@@ -21,12 +21,13 @@ public:
 	void reset();
 
 private:
+	const uint8_t SPRITE_TILE_DENY_ID = 103;
+	const uint8_t SPRITE_TILE_ALLOW_ID = 104;
+
 	static Builder *instance;
 	Point position;
 	Point turn_direction;
 	uint8_t turn_index;
-	uint8_t sprite_tile_deny_id;
-	uint8_t sprite_tile_allow_id;
 	uint8_t sprite_tile_id;
 	std::array<uint8_t, 4> sprite_arrow_ids{};
 	std::array<std::array<bool, screen_tiles.y>, screen_tiles.x> occupied_tiles{};

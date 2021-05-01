@@ -15,25 +15,22 @@ Credits *Credits::getInstance() {
 
 Credits::Credits() {
 	credits = START_CREDITS;
-	kill_reward = 10;
-	turret_price = 25;
-	turret_refund_multiplier = 0.75;
 }
 
 void Credits::add_kill_reward() {
-	credits += kill_reward;
+	credits += KILL_REWARD;
 }
 
 bool Credits::can_buy_turret() const {
-	return credits - turret_price >= 0;
+	return credits - TURRET_PRICE >= 0;
 }
 
 void Credits::buy_turret() {
-	credits -= turret_price;
+	credits -= TURRET_PRICE;
 }
 
 void Credits::refund_turret() {
-	credits += turret_price * turret_refund_multiplier;
+	credits += static_cast<int>(static_cast<float>(TURRET_PRICE) * TURRET_REFUND_MULTIPLIER);
 }
 
 uint32_t Credits::get_credits() const {
