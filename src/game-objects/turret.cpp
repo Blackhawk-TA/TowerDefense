@@ -11,7 +11,7 @@ Turret::Turret(Point position, TurretFacingDirection facing_direction) {
 	Turret::facing_direction = facing_direction;
 
 	range = Point(1, 4);
-	damage = 25;
+	damage = 12;
 
 	animation_pending = false;
 	animation_sprite_ids = {0, 56 ,57, 58};

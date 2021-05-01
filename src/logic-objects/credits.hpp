@@ -18,7 +18,7 @@ public:
 	void reset();
 
 private:
-	const uint8_t START_CREDITS = 30;
+	const uint8_t START_CREDITS = 125;
 
 	static Credits *instance;
 	int credits;

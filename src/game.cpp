@@ -55,7 +55,7 @@ void init() {
 	turret_handler = TurretHandler::getInstance();
 
 	timer_win_condition = new Timer();
-	timer_win_condition->init(trigger_win_condition, 15000, 1);
+	timer_win_condition->init(trigger_win_condition, 45000, 1);
 }
 
 ///////////////////////////////////////////////////////////////////////////

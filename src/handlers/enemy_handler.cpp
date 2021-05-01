@@ -31,7 +31,7 @@ Timer *EnemyHandler::get_timer_spawn_enemies() {
 EnemyHandler::EnemyHandler() {
 	enemy_path = calculate_path(enemy_start_position);
 
-	EnemyHandler::get_timer_spawn_enemies()->init(spawn, 1000, 1);
+	EnemyHandler::get_timer_spawn_enemies()->init(spawn, INITIAL_SPAWN_DELAY, 1);
 	EnemyHandler::get_timer_spawn_enemies()->start();
 
 	timer_animate_enemies.init(animate, 100, -1);
@@ -49,7 +49,7 @@ std::list<Enemy> *EnemyHandler::get_enemies() {
 void EnemyHandler::spawn(Timer &timer) {
 	EnemyHandler::getInstance()->enemies.push_back(*new Enemy(enemy_start_position, enemy_path));
 
-	if (spawn_counter == 3 && spawn_delay >= 500) {
+	if (spawn_counter == 2 && spawn_delay >= 500) {
 		spawn_counter = 0;
 		spawn_delay = std::floor(spawn_delay * 0.85);
 	}
