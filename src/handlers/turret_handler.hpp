@@ -15,6 +15,7 @@ public:
 	void draw();
 	void add_turret(Point position, TurretFacingDirection facing_direction);
 	bool remove_turret(Point position, TurretFacingDirection facing_direction);
+	void stop_timer_attack();
 	void reset();
 
 private:

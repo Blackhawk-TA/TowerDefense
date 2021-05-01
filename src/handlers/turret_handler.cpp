@@ -72,8 +72,13 @@ bool TurretHandler::remove_turret(Point position, TurretFacingDirection facing_d
 	return removed;
 }
 
+void TurretHandler::stop_timer_attack() {
+	timer_attack.stop();
+}
+
 void TurretHandler::reset() {
 	turrets.clear();
+	timer_attack.start();
 }
 
 void TurretHandler::attack(Timer &timer) {

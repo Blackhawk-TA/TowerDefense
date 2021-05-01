@@ -155,6 +155,9 @@ void update(uint32_t time) {
 			}
 		}
 	} else {
+		//Stop turret attack
+		turret_handler->stop_timer_attack();
+
 		//Reset game
 		if (buttons & changed & Button::X) {
 			builder->reset();
