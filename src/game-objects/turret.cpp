@@ -10,17 +10,9 @@ Turret::Turret(Point position, TurretFacingDirection facing_direction) {
 	Turret::spawn_position = position;
 	Turret::facing_direction = facing_direction;
 
-	range = Point(1, 4);
-	damage = 12;
-
 	animation_pending = false;
-	animation_sprite_ids = {0, 56 ,57, 58};
 	animation_sprite_index = 0;
 	animation_transform = SpriteTransform::NONE;
-
-	sprite_facing_up = Rect(10, 1, 1, 2);
-	sprite_facing_down = Rect(7, 2, 1, 2);
-	sprite_facing_left = Rect(8, 2, 2, 1);
 
 	switch (facing_direction) {
 		case TurretFacingDirection::UP:

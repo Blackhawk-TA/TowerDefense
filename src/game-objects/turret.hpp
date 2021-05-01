@@ -21,19 +21,20 @@ public:
 	void activate_animation_pending();
 
 private:
+	const uint8_t damage = 12;
+	const std::array<uint8_t, 5> animation_sprite_ids = {0, 56, 57, 58};
+	const Point range = Point(1, 4); // How far it can shoot to the left/right and forward
+	const Rect sprite_facing_up = Rect(10, 1, 1, 2);
+	const Rect sprite_facing_down = Rect(7, 2, 1, 2);
+	const Rect sprite_facing_left = Rect(8, 2, 2, 1);
+
 	Point spawn_position;
 	Point animation_position;
 	Point barrel_position; //The position where the turret fires from
-	Point range; // How far it can shoot to the left/right and forward
-	Rect sprite_facing_up;
-	Rect sprite_facing_down;
-	Rect sprite_facing_left;
 	Rect sprite;
 	SpriteTransform transform;
 	SpriteTransform animation_transform;
-	std::array<uint8_t, 5> animation_sprite_ids{};
 	TurretFacingDirection facing_direction;
 	uint8_t animation_sprite_index;
-	uint8_t damage;
 	bool animation_pending;
 };
