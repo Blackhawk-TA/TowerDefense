@@ -8,7 +8,6 @@ using namespace blit;
 
 EnemyHandler *EnemyHandler::instance = nullptr;
 Timer *EnemyHandler::timer_spawn_enemies = nullptr;
-Vec2 EnemyHandler::enemy_start_position = Vec2(-1, 1);
 uint16_t EnemyHandler::spawn_delay = DEFAULT_SPAWN_DELAY;
 uint8_t EnemyHandler::spawn_counter = 0;
 std::vector<Vec2> EnemyHandler::enemy_path = {};
@@ -29,10 +28,10 @@ Timer *EnemyHandler::get_timer_spawn_enemies() {
 }
 
 EnemyHandler::EnemyHandler() {
-	enemy_path = calculate_path(enemy_start_position);
+	enemy_path = calculate_path(ENEMY_START_POSITION);
 
-	EnemyHandler::get_timer_spawn_enemies()->init(spawn, INITIAL_SPAWN_DELAY, 1);
-	EnemyHandler::get_timer_spawn_enemies()->start();
+	get_timer_spawn_enemies()->init(spawn, INITIAL_SPAWN_DELAY, 1);
+	get_timer_spawn_enemies()->start();
 
 	timer_animate_enemies.init(animate, 100, -1);
 	timer_animate_enemies.start();
@@ -47,7 +46,7 @@ std::list<Enemy> *EnemyHandler::get_enemies() {
 }
 
 void EnemyHandler::spawn(Timer &timer) {
-	EnemyHandler::getInstance()->enemies.push_back(*new Enemy(enemy_start_position, enemy_path));
+	EnemyHandler::getInstance()->enemies.push_back(*new Enemy(ENEMY_START_POSITION, enemy_path));
 
 	if (spawn_counter == 2 && spawn_delay >= 500) {
 		spawn_counter = 0;

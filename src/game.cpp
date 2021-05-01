@@ -23,7 +23,7 @@ EnemyHandler *enemy_handler;
 TurretHandler *turret_handler;
 Timer *timer_win_condition;
 
-//TODO check if camera is required and how it can be improved
+//TODO improve
 Mat3 camera;
 std::function<Mat3(uint8_t)> level_line_interrupt_callback = [](uint8_t y) -> Mat3 {
 	return camera;
@@ -32,6 +32,8 @@ std::function<Mat3(uint8_t)> level_line_interrupt_callback = [](uint8_t y) -> Ma
 void trigger_win_condition(Timer &timer) {
 	win_game = true;
 	game_running = false;
+
+	turret_handler->stop_timer_attack();
 }
 
 ///////////////////////////////////////////////////////////////////////////
@@ -116,8 +118,9 @@ void update(uint32_t time) {
 
 	//Check game over condition
 	if (!has_closed_chest) {
-		//TODO stop turret timers and enemy animation and delete all handlers and recreate them
 		game_running = false;
+		turret_handler->stop_timer_attack();
+
 		if (timer_win_condition->is_running()) {
 			timer_win_condition->stop();
 		}
@@ -155,9 +158,6 @@ void update(uint32_t time) {
 			}
 		}
 	} else {
-		//Stop turret attack
-		turret_handler->stop_timer_attack();
-
 		//Reset game
 		if (buttons & changed & Button::X) {
 			builder->reset();

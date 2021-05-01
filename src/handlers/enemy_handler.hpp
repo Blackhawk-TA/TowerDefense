@@ -17,11 +17,11 @@ public:
 	std::list<Enemy> *get_enemies();
 
 private:
-	static const uint16_t DEFAULT_SPAWN_DELAY = 10000; //Default delay between two enemies
+	static constexpr uint16_t DEFAULT_SPAWN_DELAY = 10000; //Default delay between two enemies
 	static const uint16_t INITIAL_SPAWN_DELAY = 5000; //Delay for the first enemy
+	static constexpr Vec2 ENEMY_START_POSITION = Vec2(-1, 1);
 
 	static EnemyHandler *instance;
-	static Vec2 enemy_start_position;
 	static std::vector<Vec2> enemy_path;
 	static uint16_t spawn_delay;
 	static uint8_t spawn_counter;

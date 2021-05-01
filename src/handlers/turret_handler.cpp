@@ -97,7 +97,6 @@ void TurretHandler::attack(Timer &timer) {
 		turret_position = turret.get_barrel_position();
 		facing_direction = turret.get_facing_direction();
 
-		//TODO check if firing at only one target at once is working
 		while (!turret.is_animation_pending() && itr != enemies->end()) {
 			enemy_position = itr->get_position();
 
