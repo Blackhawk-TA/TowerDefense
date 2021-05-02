@@ -22,6 +22,7 @@ ChestHandler *chest_handler;
 EnemyHandler *enemy_handler;
 TurretHandler *turret_handler;
 Timer *timer_win_condition;
+const uint16_t TIME_TO_WIN = 45000;
 
 //TODO improve
 Mat3 camera;
@@ -34,6 +35,7 @@ void trigger_win_condition(Timer &timer) {
 	game_running = false;
 
 	turret_handler->stop_timer_attack();
+	timer_win_condition->stop();
 }
 
 ///////////////////////////////////////////////////////////////////////////
@@ -57,7 +59,7 @@ void init() {
 	turret_handler = TurretHandler::getInstance();
 
 	timer_win_condition = new Timer();
-	timer_win_condition->init(trigger_win_condition, 45000, 1);
+	timer_win_condition->init(trigger_win_condition, TIME_TO_WIN, -1);
 }
 
 ///////////////////////////////////////////////////////////////////////////
@@ -109,26 +111,26 @@ void update(uint32_t time) {
 	static uint32_t changed = 0;
 	changed = buttons ^ last_buttons;
 
-	//Check win condition
-	bool has_closed_chest = ChestHandler::getInstance()->get_has_closed_chest();
-	bool is_max_spawn_interval = EnemyHandler::getInstance()->get_is_max_spawn_interval();
-	if (has_closed_chest && is_max_spawn_interval && !timer_win_condition->is_running()) {
-		timer_win_condition->start();
-	}
-
-	//Check game over condition
-	if (!has_closed_chest) {
-		game_running = false;
-		turret_handler->stop_timer_attack();
-
-		if (timer_win_condition->is_running()) {
-			timer_win_condition->stop();
-		}
-	}
-
 	//Update game logic while game is not over
 	if (game_running) {
 		enemy_handler->move();
+
+		//Check win condition
+		bool has_closed_chest = ChestHandler::getInstance()->get_has_closed_chest();
+		bool is_max_spawn_interval = EnemyHandler::get_is_max_spawn_interval();
+		if (has_closed_chest && is_max_spawn_interval && !timer_win_condition->is_running()) {
+			timer_win_condition->start();
+		}
+
+		//Check game over condition
+		if (!has_closed_chest) {
+			game_running = false;
+			turret_handler->stop_timer_attack();
+
+			if (timer_win_condition->is_running()) {
+				timer_win_condition->stop();
+			}
+		}
 
 		//Handle button presses
 		if (buttons & changed & Button::X) {
