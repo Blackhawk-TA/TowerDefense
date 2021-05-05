@@ -179,9 +179,9 @@ bool Builder::destroy() {
 }
 
 void Builder::reset() {
-	for (auto i = 0u; i < occupied_tiles.size(); i++) {
-		for (auto j = 0u; j < occupied_tiles.size(); j++) {
-			occupied_tiles[i][j] = false;
+	for (auto x = 0u; x < screen_tiles.x; x++) {
+		for (auto y = 0u; y < screen_tiles.y; y++) {
+			occupied_tiles[x][y] = false;
 		}
 	}
 
