@@ -41,7 +41,7 @@ void TurretHandler::draw() {
 }
 
 void TurretHandler::add_turret(Point position, TurretFacingDirection facing_direction) {
-	turrets.push_back(*new Turret(position, facing_direction));
+	turrets.emplace_back(position, facing_direction);
 }
 
 bool TurretHandler::remove_turret(Point position, TurretFacingDirection facing_direction) {
@@ -82,8 +82,8 @@ void TurretHandler::reset() {
 }
 
 void TurretHandler::attack(Timer &timer) {
-	std::list<Turret> *turrets = &TurretHandler::getInstance()->turrets;
-	std::list<Enemy> *enemies = EnemyHandler::getInstance()->get_enemies();
+	std::list<Turret> &turrets = TurretHandler::getInstance()->turrets;
+	std::list<Enemy> &enemies = EnemyHandler::getInstance()->get_enemies();
 	bool take_damage = false;
 	uint8_t health = 0;
 	Point enemy_position;
@@ -91,13 +91,13 @@ void TurretHandler::attack(Timer &timer) {
 	Point turret_range;
 	TurretFacingDirection facing_direction;
 
-	for (Turret &turret : *turrets) {
-		auto itr = enemies->begin();
+	for (Turret &turret : turrets) {
+		auto itr = enemies.begin();
 		turret_range = turret.get_range();
 		turret_position = turret.get_barrel_position();
 		facing_direction = turret.get_facing_direction();
 
-		while (!turret.is_animation_pending() && itr != enemies->end()) {
+		while (!turret.is_animation_pending() && itr != enemies.end()) {
 			enemy_position = itr->get_position();
 
 			if (in_range(enemy_position, turret_position, turret_range, facing_direction)) {
@@ -108,7 +108,7 @@ void TurretHandler::attack(Timer &timer) {
 
 			//Kill enemy
 			if (take_damage && health == 0) {
-				enemies->erase(itr++);
+				enemies.erase(itr++);
 				Credits::getInstance()->add_kill_reward();
 				take_damage = false;
 			} else {

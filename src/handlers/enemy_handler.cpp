@@ -41,12 +41,12 @@ bool EnemyHandler::get_is_max_spawn_interval() {
 	return is_max_spawn_interval;
 }
 
-std::list<Enemy> *EnemyHandler::get_enemies() {
-	return &enemies;
+std::list<Enemy> &EnemyHandler::get_enemies() {
+	return enemies;
 }
 
 void EnemyHandler::spawn(Timer &timer) {
-	EnemyHandler::getInstance()->enemies.push_back(*new Enemy(ENEMY_START_POSITION, enemy_path));
+	EnemyHandler::getInstance()->enemies.emplace_back(ENEMY_START_POSITION, enemy_path);
 
 	if (spawn_counter == 2 && spawn_delay >= 500) {
 		spawn_counter = 0;
