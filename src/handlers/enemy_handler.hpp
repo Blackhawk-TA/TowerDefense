@@ -17,8 +17,9 @@ public:
 	std::list<Enemy> &get_enemies();
 
 private:
-	static constexpr uint16_t DEFAULT_SPAWN_DELAY = 10000; //Default delay between two enemies
+	static const uint16_t DEFAULT_SPAWN_DELAY = 10000; //Default delay between two enemies
 	static const uint16_t INITIAL_SPAWN_DELAY = 5000; //Delay for the first enemy
+	static const uint16_t MIN_SPAWN_DELAY = 500; //Delay for the first enemy
 	static constexpr Vec2 ENEMY_START_POSITION = Vec2(-1, 1);
 
 	static EnemyHandler *instance;

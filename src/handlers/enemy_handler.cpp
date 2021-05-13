@@ -48,16 +48,22 @@ std::list<Enemy> &EnemyHandler::get_enemies() {
 void EnemyHandler::spawn(Timer &timer) {
 	EnemyHandler::getInstance()->enemies.emplace_back(ENEMY_START_POSITION, enemy_path);
 
-	if (spawn_counter == 2 && spawn_delay >= 500) {
+	if (spawn_counter == 2 && spawn_delay >= MIN_SPAWN_DELAY) {
 		spawn_counter = 0;
 		spawn_delay = std::floor(spawn_delay * 0.85);
 	}
 
-	if (!is_max_spawn_interval && spawn_delay < 500) {
+	if (!is_max_spawn_interval && spawn_delay < MIN_SPAWN_DELAY) {
 		is_max_spawn_interval = true;
 	}
 
-	EnemyHandler::get_timer_spawn_enemies()->duration = spawn_delay;
+	//Randomly spawn additional enemy
+	if (std::rand() % 5 == 0) {
+		EnemyHandler::get_timer_spawn_enemies()->duration = MIN_SPAWN_DELAY;
+	} else {
+		EnemyHandler::get_timer_spawn_enemies()->duration = spawn_delay;
+	}
+
 	EnemyHandler::get_timer_spawn_enemies()->start();
 	spawn_counter++;
 }

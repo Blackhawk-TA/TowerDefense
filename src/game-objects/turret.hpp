@@ -21,7 +21,7 @@ public:
 	void activate_animation_pending();
 
 private:
-	const uint8_t damage = 12;
+	const uint8_t damage = 20;
 	const std::array<uint8_t, 5> animation_sprite_ids = {0, 56, 57, 58};
 	const Point range = Point(1, 4); // How far it can shoot to the left/right and forward
 	const Rect sprite_facing_up = Rect(10, 1, 1, 2);
