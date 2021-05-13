@@ -7,11 +7,11 @@
 
 using namespace blit;
 
-constexpr uint8_t tile_size = 8;
-constexpr uint8_t level_width = 32;
-constexpr uint8_t level_height = 32;
-constexpr uint32_t level_size = level_width * level_height;
-constexpr Point screen_tiles = Point(19, 14);
+constexpr uint8_t TILE_SIZE = 8;
+constexpr uint8_t LEVEL_WIDTH = 32;
+constexpr uint8_t LEVEL_HEIGHT = 32;
+constexpr uint32_t LEVEL_SIZE = LEVEL_WIDTH * LEVEL_HEIGHT;
+constexpr Point SCREEN_TILES = Point(19, 14);
 
 enum TurretFacingDirection {
 	DOWN = 0,

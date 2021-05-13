@@ -58,12 +58,12 @@ void Builder::move(Point movement) {
 
 	if (next_position.x >= 0
 		&& next_position.y >= 0
-		&& next_position.x <= screen_tiles.x
-		&& next_position.y <= screen_tiles.y
+		&& next_position.x <= SCREEN_TILES.x
+		&& next_position.y <= SCREEN_TILES.y
 		&& outer_tile_next_position.x >= 0
 		&& outer_tile_next_position.y >= 0
-		&& outer_tile_next_position.x <= screen_tiles.x
-		&& outer_tile_next_position.y <= screen_tiles.y)
+		&& outer_tile_next_position.x <= SCREEN_TILES.x
+		&& outer_tile_next_position.y <= SCREEN_TILES.y)
 	{
 		position = next_position;
 		update_tile_sprite();
@@ -91,8 +91,8 @@ void Builder::turn() {
 
 	if (position.x + next_turn_direction.x >= 0
 		&& position.y + next_turn_direction.y >= 0
-		&& position.x + next_turn_direction.x <= screen_tiles.x
-		&& position.y + next_turn_direction.y <= screen_tiles.y)
+		&& position.x + next_turn_direction.x <= SCREEN_TILES.x
+		&& position.y + next_turn_direction.y <= SCREEN_TILES.y)
 	{
 		turn_direction = next_turn_direction;
 		update_tile_sprite();
@@ -179,8 +179,8 @@ bool Builder::destroy() {
 }
 
 void Builder::reset() {
-	for (auto x = 0u; x < screen_tiles.x; x++) {
-		for (auto y = 0u; y < screen_tiles.y; y++) {
+	for (auto x = 0u; x < SCREEN_TILES.x; x++) {
+		for (auto y = 0u; y < SCREEN_TILES.y; y++) {
 			occupied_tiles[x][y] = false;
 		}
 	}

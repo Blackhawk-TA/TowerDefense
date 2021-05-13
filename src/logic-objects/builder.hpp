@@ -30,7 +30,7 @@ private:
 	uint8_t turn_index;
 	uint8_t sprite_tile_id;
 	std::array<uint8_t, 4> sprite_arrow_ids{};
-	std::array<std::array<bool, screen_tiles.y>, screen_tiles.x> occupied_tiles{};
+	std::array<std::array<bool, SCREEN_TILES.y>, SCREEN_TILES.x> occupied_tiles{};
 
 	explicit Builder();
 	void move(Point movement);

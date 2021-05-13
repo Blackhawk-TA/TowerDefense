@@ -11,6 +11,7 @@ Enemy::Enemy(Vec2 start_position, std::vector<Vec2> &path) {
 	Enemy::path = path;
 	position = world_to_screen(start_position.x, start_position.y);
 	health = 100;
+	health_bar_size = TILE_SIZE;
 	path_index = 0;
 	sprite_index = 0;
 	transform = SpriteTransform::NONE;
@@ -18,6 +19,12 @@ Enemy::Enemy(Vec2 start_position, std::vector<Vec2> &path) {
 
 void Enemy::draw() {
 	screen.sprite(SPRITE_IDS[sprite_index], position, transform);
+
+	//Draw health bar
+	screen.pen = Pen(255, 255, 255, 200);
+	screen.rectangle(Rect((int32_t)position.x, (int32_t)position.y, TILE_SIZE, 1));
+	screen.pen = Pen(0, 255, 0, 255);
+	screen.rectangle(Rect((int32_t)position.x, (int32_t)position.y, health_bar_size, 1));
 }
 
 void Enemy::animate(Timer &timer) {
@@ -30,6 +37,8 @@ uint8_t Enemy::take_damage(uint8_t damage) {
 	} else {
 		health = 0;
 	}
+
+	health_bar_size = std::floor((float)TILE_SIZE * (float)health * 0.01f);
 
 	return health;
 }

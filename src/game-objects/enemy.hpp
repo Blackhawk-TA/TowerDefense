@@ -22,6 +22,7 @@ private:
 
 	SpriteTransform transform;
 	int health;
+	uint8_t health_bar_size;
 	uint8_t sprite_index;
 	uint8_t path_index;
 	Vec2 position;
