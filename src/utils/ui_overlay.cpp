@@ -40,6 +40,20 @@ namespace ui_overlay {
 		);
 	}
 
+	void draw_game_info(std::string info_text, uint32_t time) {
+		screen.pen = Pen(255, 255, 255, 200);
+		time_sec = time / 1000;
+		std::string time_string(REQUIRED_SPACE, ' ');
+		std::strftime(&time_string[0], REQUIRED_SPACE, "%M:%S", std::localtime(&time_sec));
+
+		screen.text(info_text + time_string,
+			minimal_font,
+			Rect(screen.bounds.w / 2, 1, 10, 16),
+			true,
+			TextAlign::top_center
+		);
+	}
+
 	void draw_points(uint32_t points) {
 		screen.pen = Pen(255, 255, 255, 200);
 		screen.text(std::to_string(points),

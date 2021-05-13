@@ -16,6 +16,7 @@ bool game_running = true;
 bool win_game = false;
 uint32_t game_time = 0;
 uint32_t last_game_time = 0;
+uint32_t win_counter_start_time = 0;
 Builder *builder;
 Credits *credits;
 ChestHandler *chest_handler;
@@ -91,6 +92,9 @@ void render(uint32_t time) {
 
 	ui_overlay::draw_time(game_time);
 	ui_overlay::draw_points(credits->get_credits());
+	if (timer_win_condition->is_running()) {
+		ui_overlay::draw_game_info("Victory in ", TIME_TO_WIN + win_counter_start_time - game_time);
+	}
 
 	ms_end = now();
 	ui_overlay::draw_fps(ms_start, ms_end);
@@ -119,6 +123,7 @@ void update(uint32_t time) {
 		bool has_closed_chest = ChestHandler::getInstance()->get_has_closed_chest();
 		bool is_max_spawn_interval = EnemyHandler::get_is_max_spawn_interval();
 		if (has_closed_chest && is_max_spawn_interval && !timer_win_condition->is_running()) {
+			win_counter_start_time = game_time;
 			timer_win_condition->start();
 		}
 
