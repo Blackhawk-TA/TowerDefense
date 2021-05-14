@@ -7,18 +7,8 @@
 
 using namespace blit;
 
-Enemy::Enemy(Vec2 start_position, std::vector<Vec2> &path) {
-	Enemy::path = path;
-	position = world_to_screen(start_position.x, start_position.y);
-	health = 100;
-	health_bar_size = TILE_SIZE;
-	path_index = 0;
-	sprite_index = 0;
-	transform = SpriteTransform::NONE;
-}
-
 void Enemy::draw() {
-	screen.sprite(SPRITE_IDS[sprite_index], position, transform);
+	screen.sprite(sprite_ids[sprite_index], position, transform);
 
 	//Draw health bar
 	screen.pen = Pen(255, 255, 255, 200);
@@ -38,7 +28,7 @@ uint8_t Enemy::take_damage(uint8_t damage) {
 		health = 0;
 	}
 
-	health_bar_size = std::floor((float)TILE_SIZE * (float)health * 0.01f);
+	health_bar_size = std::ceil((float)TILE_SIZE * (float)health / max_health);
 
 	return health;
 }

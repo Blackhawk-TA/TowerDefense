@@ -11,6 +11,9 @@ set(PROJECT_SOURCE
     src/logic-objects/credits.cpp src/logic-objects/credits.hpp
     src/game-objects/chest.cpp src/game-objects/chest.hpp
     src/game-objects/enemy.cpp src/game-objects/enemy.hpp
+    src/game-objects/enemy_types/easy_enemy.cpp src/game-objects/enemy_types/easy_enemy.hpp
+    src/game-objects/enemy_types/medium_enemy.cpp src/game-objects/enemy_types/medium_enemy.hpp
+    src/game-objects/enemy_types/hard_enemy.cpp src/game-objects/enemy_types/hard_enemy.hpp
     src/game-objects/turret.cpp src/game-objects/turret.hpp
     src/utils/map.cpp src/utils/map.hpp
     src/utils/ui_overlay.cpp src/utils/ui_overlay.hpp
