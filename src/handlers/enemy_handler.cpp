@@ -11,6 +11,9 @@ EnemyHandler *EnemyHandler::instance = nullptr;
 Timer *EnemyHandler::timer_spawn_enemies = nullptr;
 uint16_t EnemyHandler::spawn_delay = DEFAULT_SPAWN_DELAY;
 uint8_t EnemyHandler::spawn_counter = 0;
+uint8_t EnemyHandler::easy_enemy_spawn_rate = 80;
+uint8_t EnemyHandler::medium_enemy_spawn_rate = 15;
+uint8_t EnemyHandler::hard_enemy_spawn_rate = 5;
 std::vector<Vec2> EnemyHandler::enemy_path = {};
 bool EnemyHandler::is_min_spawn_interval = false;
 
@@ -34,7 +37,7 @@ EnemyHandler::EnemyHandler() {
 	get_timer_spawn_enemies()->init(spawn, INITIAL_SPAWN_DELAY, 1);
 	get_timer_spawn_enemies()->start();
 
-	timer_animate_enemies.init(animate, 100, -1);
+	timer_animate_enemies.init(animate, ANIMATION_INTERVAL, -1);
 	timer_animate_enemies.start();
 }
 
@@ -53,9 +56,9 @@ void EnemyHandler::spawn(Timer &timer) {
 	std::uniform_int_distribution<int> dist(0,100);
 	int rand_enemy = dist(mt);
 
-	if (rand_enemy < 80) {
+	if (rand_enemy <= easy_enemy_spawn_rate) {
 		EnemyHandler::getInstance()->enemies.push_back(EasyEnemy(ENEMY_START_POSITION, enemy_path));
-	} else if (rand_enemy < 95){
+	} else if (rand_enemy > 100 - medium_enemy_spawn_rate && rand_enemy < 100 - hard_enemy_spawn_rate) {
 		EnemyHandler::getInstance()->enemies.push_back(MediumEnemy(ENEMY_START_POSITION, enemy_path));
 	} else {
 		EnemyHandler::getInstance()->enemies.push_back(HardEnemy(ENEMY_START_POSITION, enemy_path));
@@ -70,6 +73,9 @@ void EnemyHandler::spawn(Timer &timer) {
 	//Check if spawn interval is at minimum
 	if (!is_min_spawn_interval && spawn_delay < MIN_SPAWN_DELAY) {
 		is_min_spawn_interval = true;
+		easy_enemy_spawn_rate = 20;
+		medium_enemy_spawn_rate = 50;
+		hard_enemy_spawn_rate = 30;
 	}
 
 	//Randomly spawn additional enemy with a 15% chance

@@ -23,6 +23,7 @@ private:
 	static constexpr uint16_t DEFAULT_SPAWN_DELAY = 10000; //Default delay between two enemies
 	static const uint16_t INITIAL_SPAWN_DELAY = 5000; //Delay for the first enemy
 	static const uint16_t MIN_SPAWN_DELAY = 500; //Delay for the first enemy
+	static const uint8_t ANIMATION_INTERVAL = 100;
 	static constexpr Vec2 ENEMY_START_POSITION = Vec2(-1, 1);
 
 	static EnemyHandler *instance;
@@ -31,6 +32,11 @@ private:
 	static uint8_t spawn_counter;
 	static Timer *timer_spawn_enemies;
 	static bool is_min_spawn_interval;
+
+	//Enemy type spawn rates in percent
+	static uint8_t easy_enemy_spawn_rate;
+	static uint8_t medium_enemy_spawn_rate;
+	static uint8_t hard_enemy_spawn_rate;
 
 	Timer timer_animate_enemies;
 	std::list<Enemy> enemies;

@@ -21,10 +21,10 @@ TurretHandler *TurretHandler::getInstance() {
 }
 
 TurretHandler::TurretHandler() {
-	timer_attack.init(attack, 1000, -1);
+	timer_attack.init(attack, ATTACK_INTERVAL, -1);
 	timer_attack.start();
 
-	TurretHandler::get_timer_animation()->init(animate, 100, 3);
+	TurretHandler::get_timer_animation()->init(animate, ANIMATION_INTERVAL, 3);
 }
 
 Timer *TurretHandler::get_timer_animation() {

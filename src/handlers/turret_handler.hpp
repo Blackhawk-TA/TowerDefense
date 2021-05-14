@@ -20,6 +20,8 @@ public:
 
 private:
 	static TurretHandler *instance;
+	static const int ATTACK_INTERVAL = 1000;
+	static const int ANIMATION_INTERVAL = 100;
 	std::list<Turret> turrets;
 	Timer timer_attack;
 	static Timer *timer_animation;

@@ -93,7 +93,8 @@ void render(uint32_t time) {
 	ui_overlay::draw_time(game_time);
 	ui_overlay::draw_points(credits->get_credits());
 	if (timer_win_condition->is_running()) {
-		ui_overlay::draw_game_info("Victory in ", TIME_TO_WIN + win_counter_start_time - game_time);
+		//Add 1000ms so the counter starts at 45 seconds and ends at 0
+		ui_overlay::draw_game_info("Victory in ", TIME_TO_WIN + 1000 + win_counter_start_time - game_time);
 	}
 
 	ms_end = now();
