@@ -5,7 +5,8 @@
 #pragma once
 #include "../enemy.hpp"
 
-class HardEnemy: public Enemy{
+class HardEnemy: public Enemy {
 public:
 	explicit HardEnemy(Vec2 start_position, std::vector<Vec2> &path);
+	EnemyType get_type() override;
 };

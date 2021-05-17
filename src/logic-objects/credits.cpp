@@ -17,8 +17,18 @@ Credits::Credits() {
 	credits = START_CREDITS;
 }
 
-void Credits::add_kill_reward() {
-	credits += KILL_REWARD;
+void Credits::add_kill_reward(Enemy::EnemyType enemy_type) {
+	switch (enemy_type) {
+		case Enemy::EASY:
+			credits += EASY_KILL_REWARD;
+			break;
+		case Enemy::MEDIUM:
+			credits += MEDIUM_KILL_REWARD;
+			break;
+		case Enemy::HARD:
+			credits += HARD_KILL_REWARD;
+			break;
+	}
 }
 
 bool Credits::can_buy_turret() const {

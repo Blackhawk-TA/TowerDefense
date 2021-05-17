@@ -8,4 +8,5 @@
 class EasyEnemy: public Enemy {
 public:
 	explicit EasyEnemy(Vec2 start_position, std::vector<Vec2> &path);
+	EnemyType get_type() override;
 };

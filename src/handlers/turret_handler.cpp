@@ -98,7 +98,7 @@ void TurretHandler::attack(Timer &timer) {
 		facing_direction = turret.get_facing_direction();
 
 		while (!turret.is_animation_pending() && itr != enemies.end()) {
-			enemy_position = itr->get_position();
+			enemy_position = itr->get_position(); //TODO fix abstract class problem of enemy array
 
 			if (in_range(enemy_position, turret_position, turret_range, facing_direction)) {
 				health = itr->take_damage(turret.get_damage());
@@ -108,8 +108,8 @@ void TurretHandler::attack(Timer &timer) {
 
 			//Kill enemy
 			if (take_damage && health == 0) {
+				Credits::getInstance()->add_kill_reward(itr->get_type()); //TODO handover enemy type
 				enemies.erase(itr++);
-				Credits::getInstance()->add_kill_reward();
 				take_damage = false;
 			} else {
 				itr++;

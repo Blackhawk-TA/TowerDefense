@@ -16,3 +16,7 @@ EasyEnemy::EasyEnemy(Vec2 start_position, std::vector<Vec2> &path) {
 	sprite_index = 0;
 	transform = SpriteTransform::NONE;
 }
+
+Enemy::EnemyType EasyEnemy::get_type() {
+	return EnemyType::EASY;
+}

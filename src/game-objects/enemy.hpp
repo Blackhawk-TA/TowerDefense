@@ -9,11 +9,17 @@ using namespace blit;
 
 class Enemy {
 public:
+	enum EnemyType {
+		EASY,
+		MEDIUM,
+		HARD
+	};
 	void draw();
 	void animate(Timer &timer);
 	bool move();
 	uint8_t take_damage(uint8_t damage);
 	Point get_position();
+	virtual EnemyType get_type() = 0;
 
 protected:
 	const float VELOCITY = 0.25;

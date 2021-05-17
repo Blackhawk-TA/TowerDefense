@@ -16,3 +16,7 @@ MediumEnemy::MediumEnemy(Vec2 start_position, std::vector<Vec2> &path) {
 	sprite_index = 0;
 	transform = SpriteTransform::NONE;
 }
+
+Enemy::EnemyType MediumEnemy::get_type() {
+	return Enemy::MEDIUM;
+}
