@@ -17,7 +17,7 @@ public:
 	void draw();
 	void move();
 	void reset();
-	std::list<Enemy> &get_enemies();
+	std::list<Enemy*> &get_enemies();
 
 private:
 	static constexpr uint16_t DEFAULT_SPAWN_DELAY = 10000; //Default delay between two enemies
@@ -39,7 +39,7 @@ private:
 	static uint8_t hard_enemy_spawn_rate;
 
 	Timer timer_animate_enemies;
-	std::list<Enemy> enemies;
+	std::list<Enemy*> enemies;
 
 	explicit EnemyHandler();
 	static Timer *get_timer_spawn_enemies();

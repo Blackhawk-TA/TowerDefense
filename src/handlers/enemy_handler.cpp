@@ -45,7 +45,7 @@ bool EnemyHandler::get_is_max_spawn_interval() {
 	return is_min_spawn_interval;
 }
 
-std::list<Enemy> &EnemyHandler::get_enemies() {
+std::list<Enemy*> &EnemyHandler::get_enemies() {
 	return enemies;
 }
 
@@ -57,11 +57,11 @@ void EnemyHandler::spawn(Timer &timer) {
 	int rand_enemy = dist(mt);
 
 	if (rand_enemy <= easy_enemy_spawn_rate) {
-		EnemyHandler::getInstance()->enemies.push_back(EasyEnemy(ENEMY_START_POSITION, enemy_path));
+		EnemyHandler::getInstance()->enemies.emplace_back(new EasyEnemy(ENEMY_START_POSITION, enemy_path));
 	} else if (rand_enemy > 100 - medium_enemy_spawn_rate && rand_enemy < 100 - hard_enemy_spawn_rate) {
-		EnemyHandler::getInstance()->enemies.push_back(MediumEnemy(ENEMY_START_POSITION, enemy_path));
+		EnemyHandler::getInstance()->enemies.emplace_back(new MediumEnemy(ENEMY_START_POSITION, enemy_path));
 	} else {
-		EnemyHandler::getInstance()->enemies.push_back(HardEnemy(ENEMY_START_POSITION, enemy_path));
+		EnemyHandler::getInstance()->enemies.emplace_back(new HardEnemy(ENEMY_START_POSITION, enemy_path));
 	}
 
 	//Decrease spawn interval
@@ -90,14 +90,14 @@ void EnemyHandler::spawn(Timer &timer) {
 }
 
 void EnemyHandler::animate(Timer &timer) {
-	for (Enemy &enemy : EnemyHandler::getInstance()->enemies) {
-		enemy.animate(timer);
+	for (Enemy *enemy : EnemyHandler::getInstance()->enemies) {
+		enemy->animate(timer);
 	}
 }
 
 void EnemyHandler::draw() {
-	for (Enemy &enemy : enemies) {
-		enemy.draw();
+	for (Enemy *enemy : enemies) {
+		enemy->draw();
 	}
 }
 
@@ -105,8 +105,8 @@ void EnemyHandler::move() {
 	auto itr = enemies.begin();
 
 	while (itr != enemies.end()) {
-		if (!itr->move()) {
-			enemies.erase(itr++);
+		if (!(*itr)->move()) {
+			itr = enemies.erase(itr);
 		} else {
 			itr++;
 		}

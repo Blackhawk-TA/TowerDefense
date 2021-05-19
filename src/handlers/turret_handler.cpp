@@ -4,7 +4,6 @@
 
 #include "turret_handler.hpp"
 #include "../logic-objects/credits.hpp"
-#include "../game-objects/enemy.hpp"
 #include "enemy_handler.hpp"
 #include <vector>
 
@@ -62,7 +61,7 @@ bool TurretHandler::remove_turret(Point position, TurretFacingDirection facing_d
 
 	while (!removed && itr != turrets.end()) {
 		if (itr->get_rectangle() == Rect(position.x, position.y, size.x, size.y)) {
-			turrets.erase(itr++);
+			itr = turrets.erase(itr);
 			removed = true;
 		} else {
 			itr++;
@@ -83,7 +82,7 @@ void TurretHandler::reset() {
 
 void TurretHandler::attack(Timer &timer) {
 	std::list<Turret> &turrets = TurretHandler::getInstance()->turrets;
-	std::list<Enemy> &enemies = EnemyHandler::getInstance()->get_enemies();
+	std::list<Enemy*> &enemies = EnemyHandler::getInstance()->get_enemies();
 	bool take_damage = false;
 	uint8_t health = 0;
 	Point enemy_position;
@@ -98,18 +97,19 @@ void TurretHandler::attack(Timer &timer) {
 		facing_direction = turret.get_facing_direction();
 
 		while (!turret.is_animation_pending() && itr != enemies.end()) {
-			enemy_position = itr->get_position(); //TODO fix abstract class problem of enemy array
+			enemy_position = (*itr)->get_position();
 
 			if (in_range(enemy_position, turret_position, turret_range, facing_direction)) {
-				health = itr->take_damage(turret.get_damage());
+				health = (*itr)->take_damage(turret.get_damage());
 				take_damage = true;
 				turret.activate_animation_pending();
 			}
 
 			//Kill enemy
 			if (take_damage && health == 0) {
-				Credits::getInstance()->add_kill_reward(itr->get_type()); //TODO handover enemy type
-				enemies.erase(itr++);
+				Credits::getInstance()->add_kill_reward((*itr)->get_type());
+				delete *itr;
+				itr = enemies.erase(itr);
 				take_damage = false;
 			} else {
 				itr++;

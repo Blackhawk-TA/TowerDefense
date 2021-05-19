@@ -20,6 +20,7 @@ public:
 	uint8_t take_damage(uint8_t damage);
 	Point get_position();
 	virtual EnemyType get_type() = 0;
+	virtual ~Enemy() = default;
 
 protected:
 	const float VELOCITY = 0.25;
