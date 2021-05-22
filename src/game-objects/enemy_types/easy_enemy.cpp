@@ -7,7 +7,7 @@
 EasyEnemy::EasyEnemy(Vec2 start_position, std::vector<Vec2> &path) {
 	health = 100;
 	max_health = 100;
-	sprite_ids = {59, 60, 61};
+	sprite_ids = {60, 61, 62};
 
 	Enemy::path = path;
 	position = world_to_screen(start_position.x, start_position.y);
