@@ -3,7 +3,6 @@
 //
 
 #include "enemy_handler.hpp"
-#include <random>
 
 using namespace blit;
 
@@ -51,10 +50,7 @@ std::list<Enemy*> &EnemyHandler::get_enemies() {
 
 void EnemyHandler::spawn(Timer &timer) {
 	//Generate random number for enemy spawn type
-	std::random_device rd;
-	std::mt19937 mt(rd());
-	std::uniform_int_distribution<int> dist(0,100);
-	int rand_enemy = dist(mt);
+	uint8_t rand_enemy = blit::random() % 100;
 
 	if (rand_enemy <= easy_enemy_spawn_rate) {
 		EnemyHandler::getInstance()->enemies.emplace_back(new EasyEnemy(ENEMY_START_POSITION, enemy_path));
@@ -79,7 +75,7 @@ void EnemyHandler::spawn(Timer &timer) {
 	}
 
 	//Randomly spawn additional enemy with a 15% chance
-	if (dist(mt) < 15) {
+	if (blit::random() % 100 < 15) {
 		EnemyHandler::get_timer_spawn_enemies()->duration = MIN_SPAWN_DELAY;
 	} else {
 		EnemyHandler::get_timer_spawn_enemies()->duration = spawn_delay;
