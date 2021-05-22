@@ -3,9 +3,26 @@
 //
 
 #include "enemy.hpp"
-#include "../handlers/chest_handler.hpp"
+#include "../../handlers/chest_handler.hpp"
 
 using namespace blit;
+
+Enemy::Enemy(Vec2 start_position, std::vector<Vec2> &path) {
+	health = 100;
+	max_health = 100;
+	sprite_ids = {60, 61, 62};
+
+	Enemy::path = path;
+	position = world_to_screen(start_position.x, start_position.y);
+	health_bar_size = TILE_SIZE;
+	path_index = 0;
+	sprite_index = 0;
+	transform = SpriteTransform::NONE;
+}
+
+Enemy::EnemyType Enemy::get_type() {
+	return EnemyType::EASY;
+}
 
 void Enemy::draw() {
 	screen.sprite(sprite_ids[sprite_index], position, transform);

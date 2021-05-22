@@ -4,7 +4,7 @@
 
 #pragma once
 #include "32blit.hpp"
-#include "../game-objects/enemy.hpp"
+#include "../game-objects/enemies/enemy.hpp"
 
 using namespace blit;
 

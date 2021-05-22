@@ -3,11 +3,10 @@
 //
 
 #pragma once
-#include "../enemy.hpp"
+#include "enemy.hpp"
 
 class MediumEnemy: public Enemy {
 public:
 	explicit MediumEnemy(Vec2 start_position, std::vector<Vec2> &path);
-	~MediumEnemy() override = default;
 	EnemyType get_type() override;
 };
