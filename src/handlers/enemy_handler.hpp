@@ -13,6 +13,7 @@ class EnemyHandler {
 public:
 	static EnemyHandler *getInstance();
 	static bool get_is_max_spawn_interval();
+	static uint16_t get_initial_spawn_delay();
 	void draw();
 	void move();
 	void reset();
@@ -20,7 +21,7 @@ public:
 
 private:
 	static constexpr uint16_t DEFAULT_SPAWN_DELAY = 10000; //Default delay between two enemies
-	static const uint16_t INITIAL_SPAWN_DELAY = 5000; //Delay for the first enemy
+	static const uint16_t INITIAL_SPAWN_DELAY = 10000; //Delay for the first enemy
 	static const uint16_t MIN_SPAWN_DELAY = 500; //Delay for the first enemy
 	static const uint8_t ANIMATION_INTERVAL = 100;
 	static constexpr Vec2 ENEMY_START_POSITION = Vec2(-1, 1);

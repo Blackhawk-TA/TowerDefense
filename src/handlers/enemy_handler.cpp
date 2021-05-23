@@ -167,3 +167,7 @@ std::vector<Vec2> EnemyHandler::calculate_path(Vec2 start_position) {
 
 	return path;
 }
+
+uint16_t EnemyHandler::get_initial_spawn_delay() {
+	return INITIAL_SPAWN_DELAY;
+}
