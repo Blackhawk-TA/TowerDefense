@@ -187,7 +187,7 @@ void update(uint32_t time) {
 			win_game = false;
 			game_running = true;
 
-			last_game_time = time;
+			last_game_time = game_time;
 		}
 	}
 
