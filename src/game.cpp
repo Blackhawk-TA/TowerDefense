@@ -14,6 +14,7 @@ float ms_start, ms_end;
 bool build_mode = false;
 bool game_running = true;
 bool win_game = false;
+uint32_t start_time = 0;
 uint32_t game_time = 0;
 uint32_t last_game_time = 0;
 uint32_t win_counter_start_time = 0;
@@ -86,7 +87,7 @@ void render(uint32_t time) {
 	turret_handler->draw();
 
 	if (game_running) {
-		game_time = time - last_game_time;
+		game_time = time - start_time - last_game_time;
 	} else {
 		ui_overlay::draw_game_over(win_game);
 	}
@@ -113,6 +114,10 @@ void render(uint32_t time) {
 // amount if milliseconds elapsed since the start of your game
 //
 void update(uint32_t time) {
+	if (start_time == 0) {
+		start_time = time;
+	}
+
 	camera = Mat3::identity();
 
 	//Handle button inputs
