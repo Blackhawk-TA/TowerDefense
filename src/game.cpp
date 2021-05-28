@@ -86,20 +86,21 @@ void render(uint32_t time) {
 	enemy_handler->draw();
 	turret_handler->draw();
 
-	if (game_running) {
-		game_time = time - start_time - last_game_time;
-	} else {
-		ui_overlay::draw_game_over(win_game);
-	}
-
 	//Draw ui overlay elements
 	ui_overlay::draw_time(game_time);
 	ui_overlay::draw_points(credits->get_credits());
-	if (timer_win_condition->is_running()) {
-		//Add 1s so the counter starts at 45 seconds and ends at 0
-		ui_overlay::draw_game_info("Victory in ", TIME_TO_WIN + ONE_SECOND + win_counter_start_time - game_time);
-	} else if (EnemyHandler::get_initial_spawn_delay() - game_time <= EnemyHandler::get_initial_spawn_delay()) {
-		ui_overlay::draw_game_info("Starts in ", EnemyHandler::get_initial_spawn_delay() + ONE_SECOND - game_time);
+
+	if (game_running) {
+		game_time = time - start_time - last_game_time;
+
+		if (timer_win_condition->is_running()) {
+			//Add 1s so the counter starts at 45 seconds and ends at 0
+			ui_overlay::draw_game_info("Victory in ", TIME_TO_WIN + ONE_SECOND + win_counter_start_time - game_time);
+		} else if (EnemyHandler::get_initial_spawn_delay() - game_time <= EnemyHandler::get_initial_spawn_delay()) {
+			ui_overlay::draw_game_info("Starts in ", EnemyHandler::get_initial_spawn_delay() + ONE_SECOND - game_time);
+		}
+	} else {
+		ui_overlay::draw_game_over(win_game);
 	}
 
 	ms_end = now();
