@@ -4,7 +4,6 @@
 
 #pragma once
 #include <list>
-#include <random>
 #include "../game-objects/enemies/medium_enemy.hpp"
 #include "../game-objects/enemies/hard_enemy.hpp"
 #include "../utils/map.hpp"
