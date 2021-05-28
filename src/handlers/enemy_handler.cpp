@@ -10,9 +10,9 @@ EnemyHandler *EnemyHandler::instance = nullptr;
 Timer *EnemyHandler::timer_spawn_enemies = nullptr;
 uint16_t EnemyHandler::spawn_delay = DEFAULT_SPAWN_DELAY;
 uint8_t EnemyHandler::spawn_counter = 0;
-uint8_t EnemyHandler::easy_enemy_spawn_rate = 80;
-uint8_t EnemyHandler::medium_enemy_spawn_rate = 15;
-uint8_t EnemyHandler::hard_enemy_spawn_rate = 5;
+uint8_t EnemyHandler::easy_enemy_spawn_rate = DEFAULT_EASY_ENEMY_SPAWN_RATE;
+uint8_t EnemyHandler::medium_enemy_spawn_rate = DEFAULT_MEDIUM_ENEMY_SPAWN_RATE;
+uint8_t EnemyHandler::hard_enemy_spawn_rate = DEFAULT_HARD_ENEMY_SPAWN_RATE;
 std::vector<Vec2> EnemyHandler::enemy_path = {};
 bool EnemyHandler::is_min_spawn_interval = false;
 
@@ -119,6 +119,11 @@ void EnemyHandler::reset() {
 	get_timer_spawn_enemies()->stop();
 	get_timer_spawn_enemies()->duration = INITIAL_SPAWN_DELAY;
 	get_timer_spawn_enemies()->start();
+
+	//Reset spawn rates
+	easy_enemy_spawn_rate = DEFAULT_EASY_ENEMY_SPAWN_RATE;
+	medium_enemy_spawn_rate = DEFAULT_MEDIUM_ENEMY_SPAWN_RATE;
+	hard_enemy_spawn_rate = DEFAULT_HARD_ENEMY_SPAWN_RATE;
 }
 
 ///////////////////////////////////////////////////////////////////////////

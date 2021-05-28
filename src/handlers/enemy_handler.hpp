@@ -20,6 +20,9 @@ public:
 	std::list<Enemy> &get_enemies();
 
 private:
+	static constexpr uint8_t DEFAULT_EASY_ENEMY_SPAWN_RATE = 80;
+	static constexpr uint8_t DEFAULT_MEDIUM_ENEMY_SPAWN_RATE = 15;
+	static constexpr uint8_t DEFAULT_HARD_ENEMY_SPAWN_RATE = 5;
 	static constexpr uint16_t DEFAULT_SPAWN_DELAY = 10000; //Default delay between two enemies
 	static const uint16_t INITIAL_SPAWN_DELAY = 10000; //Delay for the first enemy
 	static const uint16_t MIN_SPAWN_DELAY = 500; //Delay for the first enemy
