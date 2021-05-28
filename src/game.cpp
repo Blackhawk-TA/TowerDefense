@@ -70,7 +70,7 @@ void init() {
 // render(time)
 //
 // This function is called to perform rendering of the game. time is the
-// amount if milliseconds elapsed since the start of your game
+// amount if milliseconds elapsed since the start of the 32blit console
 //
 void render(uint32_t time) {
 	ms_start = now();
@@ -111,9 +111,10 @@ void render(uint32_t time) {
 // update(time)
 //
 // This is called to update your game state. time is the
-// amount if milliseconds elapsed since the start of your game
+// amount if milliseconds elapsed since the start of the 32blit console
 //
 void update(uint32_t time) {
+	//Capture the time at which the game initially started
 	if (start_time == 0) {
 		start_time = time;
 	}
