@@ -16,6 +16,7 @@ public:
 	void draw();
 	void move();
 	void reset();
+	void stop_enemy_animation();
 	std::list<Enemy> &get_enemies();
 
 private:

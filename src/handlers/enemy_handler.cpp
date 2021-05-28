@@ -44,6 +44,10 @@ bool EnemyHandler::get_is_max_spawn_interval() {
 	return is_min_spawn_interval;
 }
 
+void EnemyHandler::stop_enemy_animation() {
+	timer_animate_enemies.stop();
+}
+
 std::list<Enemy> &EnemyHandler::get_enemies() {
 	return enemies;
 }
@@ -110,7 +114,10 @@ void EnemyHandler::move() {
 }
 
 void EnemyHandler::reset() {
+	//Delete existing enemies
 	enemies.clear();
+
+	//Reset spawn parameters
 	spawn_delay = DEFAULT_SPAWN_DELAY;
 	spawn_counter = 0;
 	is_min_spawn_interval = false;
@@ -124,6 +131,9 @@ void EnemyHandler::reset() {
 	easy_enemy_spawn_rate = DEFAULT_EASY_ENEMY_SPAWN_RATE;
 	medium_enemy_spawn_rate = DEFAULT_MEDIUM_ENEMY_SPAWN_RATE;
 	hard_enemy_spawn_rate = DEFAULT_HARD_ENEMY_SPAWN_RATE;
+
+	//Restart enemy animation
+	timer_animate_enemies.start();
 }
 
 ///////////////////////////////////////////////////////////////////////////

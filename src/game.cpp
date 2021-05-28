@@ -33,12 +33,17 @@ std::function<Mat3(uint8_t)> level_line_interrupt_callback = [](uint8_t y) -> Ma
 	return camera;
 };
 
-void trigger_win_condition(Timer &timer) {
-	win_game = true;
+void set_game_over() {
 	game_running = false;
 
 	turret_handler->stop_timer_attack();
 	timer_win_condition->stop();
+	enemy_handler->stop_enemy_animation();
+}
+
+void trigger_win_condition(Timer &timer) {
+	win_game = true;
+	set_game_over();
 }
 
 ///////////////////////////////////////////////////////////////////////////
@@ -93,8 +98,8 @@ void render(uint32_t time) {
 	if (game_running) {
 		game_time = time - start_time - last_game_time;
 
+		//Show timer info and add 1 sec so the counter starts at 45 seconds and ends at 0
 		if (timer_win_condition->is_running()) {
-			//Add 1s so the counter starts at 45 seconds and ends at 0
 			ui_overlay::draw_game_info("Victory in ", TIME_TO_WIN + ONE_SECOND + win_counter_start_time - game_time);
 		} else if (EnemyHandler::get_initial_spawn_delay() - game_time <= EnemyHandler::get_initial_spawn_delay()) {
 			ui_overlay::draw_game_info("Starts in ", EnemyHandler::get_initial_spawn_delay() + ONE_SECOND - game_time);
@@ -139,14 +144,9 @@ void update(uint32_t time) {
 			timer_win_condition->start();
 		}
 
-		//Check game over condition
+		//Check lose condition
 		if (!has_closed_chest) {
-			game_running = false;
-			turret_handler->stop_timer_attack();
-
-			if (timer_win_condition->is_running()) {
-				timer_win_condition->stop();
-			}
+			set_game_over();
 		}
 
 		//Handle button presses
