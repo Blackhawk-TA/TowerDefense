@@ -10,7 +10,7 @@
 
 using namespace blit;
 
-float ms_start, ms_end;
+uint32_t ms_start, ms_end;
 bool build_mode = false;
 bool game_running = true;
 bool win_game = false;
