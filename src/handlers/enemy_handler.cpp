@@ -33,7 +33,7 @@ Timer *EnemyHandler::get_timer_spawn_enemies() {
 EnemyHandler::EnemyHandler() {
 	enemy_path = calculate_path(ENEMY_START_POSITION);
 
-	get_timer_spawn_enemies()->init(spawn, INITIAL_SPAWN_DELAY, 1);
+	get_timer_spawn_enemies()->init(spawn, INITIAL_SPAWN_DELAY, -1);
 	get_timer_spawn_enemies()->start();
 
 	timer_animate_enemies.init(animate, ANIMATION_INTERVAL, -1);
@@ -85,7 +85,6 @@ void EnemyHandler::spawn(Timer &timer) {
 		EnemyHandler::get_timer_spawn_enemies()->duration = spawn_delay;
 	}
 
-	EnemyHandler::get_timer_spawn_enemies()->start();
 	spawn_counter++;
 }
 
@@ -122,8 +121,7 @@ void EnemyHandler::reset() {
 	spawn_counter = 0;
 	is_min_spawn_interval = false;
 
-	//Restart timer with initial spawn delay
-	get_timer_spawn_enemies()->stop();
+	//Restart timer after it was stopped on game over with initial spawn delay
 	get_timer_spawn_enemies()->duration = INITIAL_SPAWN_DELAY;
 	get_timer_spawn_enemies()->start();
 

@@ -39,6 +39,7 @@ void set_game_over() {
 	turret_handler->stop_timer_attack();
 	timer_win_condition->stop();
 	enemy_handler->stop_enemy_animation();
+	EnemyHandler::get_timer_spawn_enemies()->stop();
 }
 
 void trigger_win_condition(Timer &timer) {

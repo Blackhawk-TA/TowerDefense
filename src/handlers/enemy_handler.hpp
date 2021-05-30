@@ -13,6 +13,7 @@ public:
 	static EnemyHandler *getInstance();
 	static bool get_is_max_spawn_interval();
 	static uint16_t get_initial_spawn_delay();
+	static Timer *get_timer_spawn_enemies();
 	void draw();
 	void move();
 	void reset();
@@ -45,7 +46,6 @@ private:
 	std::list<Enemy> enemies;
 
 	explicit EnemyHandler();
-	static Timer *get_timer_spawn_enemies();
 	static Vec2 calculate_next_position(Vec2 previous_position, Vec2 current_position, map::TileFlags flag);
 	static std::vector<Vec2> calculate_path(Vec2 start_position);
 	static void spawn(Timer &timer);
