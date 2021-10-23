@@ -13,6 +13,7 @@ uint8_t EnemyHandler::spawn_counter = 0;
 uint8_t EnemyHandler::easy_enemy_spawn_rate = DEFAULT_EASY_ENEMY_SPAWN_RATE;
 uint8_t EnemyHandler::medium_enemy_spawn_rate = DEFAULT_MEDIUM_ENEMY_SPAWN_RATE;
 uint8_t EnemyHandler::hard_enemy_spawn_rate = DEFAULT_HARD_ENEMY_SPAWN_RATE;
+Vec2 EnemyHandler::enemy_start_position = Vec2(0, -1);
 std::vector<Vec2> EnemyHandler::enemy_path = {};
 bool EnemyHandler::is_min_spawn_interval = false;
 
@@ -31,7 +32,8 @@ Timer *EnemyHandler::get_timer_spawn_enemies() {
 }
 
 EnemyHandler::EnemyHandler() {
-	enemy_path = calculate_path(ENEMY_START_POSITION);
+	enemy_start_position = is_pico_console() ? Vec2(0, -1) : Vec2(2, -1);
+	enemy_path = calculate_path(enemy_start_position);
 
 	get_timer_spawn_enemies()->init(spawn, INITIAL_SPAWN_DELAY, -1);
 	get_timer_spawn_enemies()->start();
@@ -57,11 +59,11 @@ void EnemyHandler::spawn(Timer &timer) {
 	uint8_t rand_enemy = blit::random() % 100;
 
 	if (rand_enemy <= easy_enemy_spawn_rate) {
-		EnemyHandler::getInstance()->enemies.emplace_back(Enemy(ENEMY_START_POSITION, enemy_path));
+		EnemyHandler::getInstance()->enemies.emplace_back(Enemy(enemy_start_position, enemy_path));
 	} else if (rand_enemy > 100 - medium_enemy_spawn_rate && rand_enemy < 100 - hard_enemy_spawn_rate) {
-		EnemyHandler::getInstance()->enemies.emplace_back(MediumEnemy(ENEMY_START_POSITION, enemy_path));
+		EnemyHandler::getInstance()->enemies.emplace_back(MediumEnemy(enemy_start_position, enemy_path));
 	} else {
-		EnemyHandler::getInstance()->enemies.emplace_back(HardEnemy(ENEMY_START_POSITION, enemy_path));
+		EnemyHandler::getInstance()->enemies.emplace_back(HardEnemy(enemy_start_position, enemy_path));
 	}
 
 	//Decrease spawn interval

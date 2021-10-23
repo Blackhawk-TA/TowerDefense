@@ -25,12 +25,13 @@ private:
 	const uint8_t SPRITE_TILE_ALLOW_ID = 104;
 
 	static Builder *instance;
+	Point screen_tiles;
 	Point position;
 	Point turn_direction;
 	uint8_t turn_index;
 	uint8_t sprite_tile_id;
 	std::array<uint8_t, 4> sprite_arrow_ids{};
-	std::array<std::array<bool, SCREEN_TILES.y>, SCREEN_TILES.x> occupied_tiles{};
+	std::vector<std::vector<bool>> occupied_tiles{};
 
 	explicit Builder();
 	void move(Point movement);

@@ -27,12 +27,6 @@ Timer *timer_win_condition;
 const uint16_t TIME_TO_WIN = 45000;
 const uint16_t ONE_SECOND = 1000;
 
-//TODO improve
-Mat3 camera;
-std::function<Mat3(uint8_t)> level_line_interrupt_callback = [](uint8_t y) -> Mat3 {
-	return camera;
-};
-
 void set_game_over() {
 	game_running = false;
 
@@ -82,7 +76,7 @@ void render(uint32_t time) {
 	ms_start = now();
 	screen.clear();
 
-	map::draw(build_mode, &level_line_interrupt_callback);
+	map::draw(build_mode);
 
 	if (build_mode) {
 		builder->draw();
@@ -101,7 +95,7 @@ void render(uint32_t time) {
 
 		//Show timer info and add 1 sec so the counter starts at 45 seconds and ends at 0
 		if (timer_win_condition->is_running()) {
-			ui_overlay::draw_game_info("Victory in ", TIME_TO_WIN + ONE_SECOND + win_counter_start_time - game_time);
+			ui_overlay::draw_game_info("Win in: ", TIME_TO_WIN + ONE_SECOND + win_counter_start_time - game_time);
 		} else if (EnemyHandler::get_initial_spawn_delay() - game_time <= EnemyHandler::get_initial_spawn_delay()) {
 			ui_overlay::draw_game_info("Start: ", EnemyHandler::get_initial_spawn_delay() + ONE_SECOND - game_time);
 		}
@@ -125,8 +119,6 @@ void update(uint32_t time) {
 	if (start_time == 0) {
 		start_time = time;
 	}
-
-	camera = Mat3::identity();
 
 	//Handle button inputs
 	static uint32_t last_buttons = 0;

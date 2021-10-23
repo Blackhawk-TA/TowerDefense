@@ -17,9 +17,10 @@ ChestHandler *ChestHandler::getInstance() {
 
 ChestHandler::ChestHandler() {
 	has_closed_chest = true;
+	Point chest_base_position = Point(13, 12) - get_camera_offset();
 
 	for (int i = 0; i < 3; i++) {
-		chests.emplace_back(Point(CHEST_BASE_POSITION.x + i, CHEST_BASE_POSITION.y));
+		chests.emplace_back(Point(chest_base_position.x + i, chest_base_position.y));
 	}
 }
 

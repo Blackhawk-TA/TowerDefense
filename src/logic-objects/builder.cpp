@@ -18,16 +18,25 @@ Builder *Builder::getInstance() {
 }
 
 Builder::Builder() {
-	position = Point(0, 0);
-	turn_direction = Point(0, 1);
+	screen_tiles = get_screen_tiles();
 	turn_index = 0;
 	sprite_tile_id = SPRITE_TILE_DENY_ID;
+	turn_direction = Point(0, 1);
+	position = Point(2, 1) - get_camera_offset();
 
 	uint8_t sprite_arrow_up_id = 31;
 	uint8_t sprite_arrow_down_id = 15;
 	uint8_t sprite_arrow_left_id = 14;
 	uint8_t sprite_arrow_right_id = 30;
 	sprite_arrow_ids = {sprite_arrow_down_id, sprite_arrow_left_id, sprite_arrow_up_id, sprite_arrow_right_id};
+
+	//Init occupied tiles vector
+	for (auto x = 0; x < screen_tiles.x; x++) {
+		occupied_tiles.emplace_back();
+		for (auto y = 0; y < screen_tiles.y; y++) {
+			occupied_tiles.at(x).emplace_back(false);
+		}
+	}
 }
 
 void Builder::draw() {
@@ -58,12 +67,12 @@ void Builder::move(Point movement) {
 
 	if (next_position.x >= 0
 		&& next_position.y >= 0
-		&& next_position.x <= SCREEN_TILES.x
-		&& next_position.y <= SCREEN_TILES.y
+		&& next_position.x <= screen_tiles.x
+		&& next_position.y <= screen_tiles.y
 		&& outer_tile_next_position.x >= 0
 		&& outer_tile_next_position.y >= 0
-		&& outer_tile_next_position.x <= SCREEN_TILES.x
-		&& outer_tile_next_position.y <= SCREEN_TILES.y)
+		&& outer_tile_next_position.x <= screen_tiles.x
+		&& outer_tile_next_position.y <= screen_tiles.y)
 	{
 		position = next_position;
 		update_tile_sprite();
@@ -91,8 +100,8 @@ void Builder::turn() {
 
 	if (position.x + next_turn_direction.x >= 0
 		&& position.y + next_turn_direction.y >= 0
-		&& position.x + next_turn_direction.x <= SCREEN_TILES.x
-		&& position.y + next_turn_direction.y <= SCREEN_TILES.y)
+		&& position.x + next_turn_direction.x <= screen_tiles.x
+		&& position.y + next_turn_direction.y <= screen_tiles.y)
 	{
 		turn_direction = next_turn_direction;
 		update_tile_sprite();
@@ -179,8 +188,8 @@ bool Builder::destroy() {
 }
 
 void Builder::reset() {
-	for (auto x = 0u; x < SCREEN_TILES.x; x++) {
-		for (auto y = 0u; y < SCREEN_TILES.y; y++) {
+	for (auto x = 0; x < screen_tiles.x; x++) {
+		for (auto y = 0; y < screen_tiles.y; y++) {
 			occupied_tiles[x][y] = false;
 		}
 	}

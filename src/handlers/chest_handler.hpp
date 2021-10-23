@@ -17,8 +17,6 @@ public:
 	void reset();
 
 private:
-	const Point CHEST_BASE_POSITION = Point(13, 12);
-
 	static ChestHandler *instance;
 	bool has_closed_chest;
 	std::vector<Chest> chests;

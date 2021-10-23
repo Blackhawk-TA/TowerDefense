@@ -11,7 +11,6 @@ constexpr uint8_t TILE_SIZE = 8;
 constexpr uint8_t LEVEL_WIDTH = 32;
 constexpr uint8_t LEVEL_HEIGHT = 32;
 constexpr uint32_t LEVEL_SIZE = LEVEL_WIDTH * LEVEL_HEIGHT;
-constexpr Point SCREEN_TILES = Point(19, 14);
 
 enum TurretFacingDirection {
 	DOWN = 0,
@@ -24,3 +23,8 @@ Vec2 screen_to_world(const Vec2 &p);
 
 Point world_to_screen(const Point &p);
 Vec2 world_to_screen(const float &x, const float &y);
+
+Point get_screen_tiles();
+bool sprite_in_screen(Point position, Point &camera_position_world);
+bool is_pico_console();
+Point get_camera_offset();
