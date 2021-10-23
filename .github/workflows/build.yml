@@ -39,11 +39,11 @@ jobs:
             apt-packages: gcc-arm-none-eabi libnewlib-arm-none-eabi libstdc++-arm-none-eabi-newlib python3-setuptools
 
           - os: ubuntu-20.04
-            name: PicoSystem
-            release-suffix: PicoSystem
             pico-sdk: true
+            name: PicoSystem
             cache-key: picosystem
-            cmake-args: -D32BLIT_DIR=$GITHUB_WORKSPACE/32blit-sdk -DPICO_SDK_PATH=$GITHUB_WORKSPACE/pico-sdk -DPICO_BOARD=pimoroni_picosystem
+            release-suffix: PicoSystem
+            cmake-args: -DCMAKE_TOOLCHAIN_FILE=$GITHUB_WORKSPACE/32blit-sdk/pico.toolchain -DPICO_BOARD=pimoroni_picosystem
             apt-packages: gcc-arm-none-eabi libnewlib-arm-none-eabi libstdc++-arm-none-eabi-newlib python3-setuptools
 
           - os: ubuntu-20.04
@@ -159,7 +159,7 @@ jobs:
 
       # When it's a release, generate tar/zip files of the build
       - name: Package Release
-        if: matrix.release-suffix != ''
+        if: github.event_name == 'release' && matrix.release-suffix != ''
         shell: bash
         working-directory: ${{runner.workspace}}/main/build
         run: |
