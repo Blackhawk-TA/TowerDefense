@@ -103,7 +103,7 @@ void render(uint32_t time) {
 		if (timer_win_condition->is_running()) {
 			ui_overlay::draw_game_info("Victory in ", TIME_TO_WIN + ONE_SECOND + win_counter_start_time - game_time);
 		} else if (EnemyHandler::get_initial_spawn_delay() - game_time <= EnemyHandler::get_initial_spawn_delay()) {
-			ui_overlay::draw_game_info("Starts in ", EnemyHandler::get_initial_spawn_delay() + ONE_SECOND - game_time);
+			ui_overlay::draw_game_info("Start: ", EnemyHandler::get_initial_spawn_delay() + ONE_SECOND - game_time);
 		}
 	} else {
 		ui_overlay::draw_game_over(win_game);

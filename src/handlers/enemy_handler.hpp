@@ -28,7 +28,7 @@ private:
 	static const uint16_t INITIAL_SPAWN_DELAY = 10000; //Delay for the first enemy
 	static const uint16_t MIN_SPAWN_DELAY = 500; //Delay for the first enemy
 	static const uint8_t ANIMATION_INTERVAL = 100;
-	static constexpr Vec2 ENEMY_START_POSITION = Vec2(-1, 1);
+	static constexpr Vec2 ENEMY_START_POSITION = Vec2(2, -1);
 
 	static EnemyHandler *instance;
 	static std::vector<Vec2> enemy_path;

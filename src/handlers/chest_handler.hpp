@@ -17,7 +17,7 @@ public:
 	void reset();
 
 private:
-	const Point CHEST_BASE_POSITION = Point(16, 12);
+	const Point CHEST_BASE_POSITION = Point(13, 12);
 
 	static ChestHandler *instance;
 	bool has_closed_chest;

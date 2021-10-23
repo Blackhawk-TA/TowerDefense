@@ -99,12 +99,6 @@ jobs:
           repository: raspberrypi/pico-extras
           path: pico-extras
 
-      - name: Init pico-sdk
-        if: matrix.pico-sdk
-        run: |
-          cd pico-sdk
-          git submodule update --init
-
       # Linux dependencies
       - name: Install Linux deps
         if: runner.os == 'Linux'
