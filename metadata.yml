@@ -1,10 +1,10 @@
 title: Tower Defense
-description: A simple tower defense game for the 32Blit retro console
+description: A simple tower defense game for the 32Blit and Pico retro consoles
 author: Blackhawk
 splash:
   file: assets/no-image.png
 icon:
   file: assets/icon.png
-version: v0.2.0
+version: v1.0.0
 category: game
 url: https://github.com/Blackhawk-TA/TowerDefense
