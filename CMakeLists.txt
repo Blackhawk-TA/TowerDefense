@@ -1,6 +1,10 @@
 # Basic parameters; check that these match your project / environment
 cmake_minimum_required(VERSION 3.9)
 
+if(EXISTS ${32BLIT_DIR}/32blit-pico/sdk_import.cmake)
+    include(${32BLIT_DIR}/32blit-pico/sdk_import.cmake)
+endif()
+
 # Replace "game" with a name for your project (this is used the name of the output)
 project(TowerDefense)
 
@@ -37,6 +41,7 @@ find_package(32BLIT CONFIG REQUIRED PATHS ../32blit-sdk)
 blit_executable(${PROJECT_NAME} ${PROJECT_SOURCE})
 blit_assets_yaml(${PROJECT_NAME} assets.yml)
 blit_metadata(${PROJECT_NAME} metadata.yml)
+target_compile_definitions(${PROJECT_NAME} PRIVATE ALLOW_HIRES=0)
 add_custom_target(flash DEPENDS ${PROJECT_NAME}.flash)
 
 # setup release packages
