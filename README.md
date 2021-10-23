@@ -4,7 +4,7 @@
 ![Build](https://github.com/Blackhawk-TA/TowerDefense/workflows/Build/badge.svg)
 [![github](https://img.shields.io/github/release/Blackhawk-TA/TowerDefense.svg?color=brightgreen)](https://github.com/Blackhawk-TA/TowerDefense/releases)
 
-A simple tower defense game for the 32Blit retro console.
+A simple tower defense game for the 32Blit and PicoSystem retro consoles
 
 ## Build
 To be able to build this project the [32blit-sdk](https://github.com/32blit/32blit-sdk) has to be configured.
