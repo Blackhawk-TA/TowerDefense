@@ -104,7 +104,7 @@ void render(uint32_t time) {
 	}
 
 	ms_end = now();
-	ui_overlay::draw_fps(ms_start, ms_end);
+//	ui_overlay::draw_fps(ms_start, ms_end);
 }
 
 ///////////////////////////////////////////////////////////////////////////
